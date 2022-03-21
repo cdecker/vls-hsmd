@@ -1,0 +1,16 @@
+# Image automatically built by https://github.com/cdecker/dockerfiles/tree/master/lightning/ci
+image: cdecker/lightning-ci:latest
+
+build:
+  stage: build
+  script:
+    - git clone https://github.com/ElementsProject/lightning.git
+    - cd lightning
+    - make
+    - make -j 12 check
+
+  artifacts:
+    paths:
+      - daemon/lightningd
+      - daemon/lightning-cli
+
