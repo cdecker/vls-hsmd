@@ -1,15 +1,43 @@
-image: ubuntu
+cache:
+  paths:
+    - .cache
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  CARGO_HOME: "$CI_PROJECT_DIR/.cache/cargo"
+
+stages:
+  - vls
+  - test
+
+compile-vls:
+  stage: vls
+  image: rust:1.48.0
+  timeout: 30m
+  script:
+    - git submodule update --init
+    - (cd vls && cargo install --locked --path lightning-signer-server)
+    - ls -l $CARGO_HOME/bin
+    - mkdir -p bin
+    - cp $CARGO_HOME/bin/vlsd bin/vlsd
+  artifacts:
+    paths:
+      - bin/vlsd
 
 build:
-  stage: build
+  stage: test
+  image: ubuntu
   script:
+    - ls -l
+    - ls -l bin
     - apt-get update
     - DEBIAN_FRONTEND=noninteractive apt-get install -yy -qq git ca-certificates sudo tzdata python3 python3-pip python3-setuptools python3-dev python-is-python3
-    - apt-get install -yy -qq protobuf-compiler protobuf-compiler-grpc libgrpc++-dev
+    - DEBIAN_FRONTEND=noninteractive apt-get install -yy -qq protobuf-compiler protobuf-compiler-grpc libgrpc++-dev pkg-config
     - python3 --version
     - pip3 install --upgrade pip
     - git submodule update --init
     - bash -x scripts/setup-remote-hsmd
+    - export PATH="$PATH:`pwd`/bin"
     - cd lightning
-    - bash -ex .github/scripts/setup.sh
-    - bash -ex .github/scripts/build.sh
+    - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
+    - SUBDAEMON=hsmd:remote_hsmd bash -ex .github/scripts/build.sh  # missing `set -e` internally
