@@ -7,7 +7,8 @@ build:
     - DEBIAN_FRONTEND=noninteractive apt-get install -yy -qq git ca-certificates sudo tzdata python3 python3-pip python3-setuptools python3-dev python-is-python3
     - python3 --version
     - pip3 install --upgrade pip
-    - git clone --depth=1 https://github.com/ElementsProject/lightning.git
+    - git submodule update --init
+    - bash -x scripts/setup-remote-hsmd
     - cd lightning
     - bash -ex .github/scripts/setup.sh
     - bash -ex .github/scripts/build.sh

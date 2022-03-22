@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+ln -sf "$PWD/vls/lightning-signer-server/src/server/remotesigner.proto" remote_hsmd/
+ln -sf "$PWD/remote_hsmd" lightning/contrib/
