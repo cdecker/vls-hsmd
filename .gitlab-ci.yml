@@ -1,16 +1,53 @@
-# Image automatically built by https://github.com/cdecker/dockerfiles/tree/master/lightning/ci
-image: cdecker/lightning-ci:latest
+cache:
+  paths:
+    - .cache
 
-build:
-  stage: build
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  CARGO_HOME: "$CI_PROJECT_DIR/.cache/cargo"
+
+stages:
+  - vls
+  - test
+
+compile-vls:
+  stage: vls
+  image: rust:1.48.0
+  timeout: 30m
   script:
-    - git clone https://github.com/ElementsProject/lightning.git
-    - cd lightning
-    - make
-    - make -j 12 check
-
+    - git submodule update --init
+    - (cd vls && cargo install --locked --path lightning-signer-server)
+    - ls -l $CARGO_HOME/bin
+    - mkdir -p bin
+    - cp $CARGO_HOME/bin/vlsd bin/vlsd
   artifacts:
     paths:
-      - daemon/lightningd
-      - daemon/lightning-cli
+      - bin/vlsd
 
+test:
+  stage: test
+  image: ubuntu
+  script:
+    - ls -l
+    - ls -l bin
+    - bash -x scripts/install-additional
+    - python3 --version
+    - git submodule update --init
+    - bash -x scripts/setup-remote-hsmd
+    - source scripts/setup-env
+    - cd lightning
+    - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
+    - bash -ex .github/scripts/build.sh  # missing `set -e` internally
+
+test-experimental:
+  stage: test
+  image: ubuntu
+  script:
+    - bash -x scripts/install-additional
+    - git submodule update --init
+    - bash -x scripts/setup-remote-hsmd
+    - source scripts/setup-env
+    - cd lightning
+    - export EXPERIMENTAL_FEATURES=1
+    - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
+    - bash -ex .github/scripts/build.sh  # missing `set -e` internally

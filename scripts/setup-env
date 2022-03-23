@@ -1,0 +1,4 @@
+export PATH="$PATH:`pwd`/bin"
+export REMOTE_SIGNER_ALLOWLIST=$(pwd)/lightning/contrib/remote_hsmd/TESTING_ALLOWLIST
+export SUBDAEMON=hsmd:remote_hsmd
+export PYTEST_PAR=20
