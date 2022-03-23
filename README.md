@@ -5,3 +5,12 @@
 
 An hsmd replacement for C-Lightning, that does full validation.
 
+## Running
+
+Run the standard tests:
+
+    make
+
+Run both standard and experimental-features tests:
+
+    make -k test-all
