@@ -24,23 +24,30 @@ compile-vls:
     paths:
       - bin/vlsd
 
-build:
+test:
   stage: test
   image: ubuntu
   script:
     - ls -l
     - ls -l bin
-    - apt-get update
-    - DEBIAN_FRONTEND=noninteractive apt-get install -yy -qq git ca-certificates sudo tzdata python3 python3-pip python3-setuptools python3-dev python-is-python3
-    - DEBIAN_FRONTEND=noninteractive apt-get install -yy -qq protobuf-compiler protobuf-compiler-grpc libgrpc++-dev pkg-config
+    - bash -x scripts/install-additional
     - python3 --version
-    - pip3 install --upgrade pip
     - git submodule update --init
     - bash -x scripts/setup-remote-hsmd
-    - export PATH="$PATH:`pwd`/bin"
+    - source scripts/setup-env
     - cd lightning
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
-    - export REMOTE_SIGNER_ALLOWLIST=$(pwd)/contrib/remote_hsmd/TESTING_ALLOWLIST
-    - export SUBDAEMON=hsmd:remote_hsmd
-    - export PYTEST_PAR=20
+    - bash -ex .github/scripts/build.sh  # missing `set -e` internally
+
+test-experimental:
+  stage: test
+  image: ubuntu
+  script:
+    - bash -x scripts/install-additional
+    - git submodule update --init
+    - bash -x scripts/setup-remote-hsmd
+    - source scripts/setup-env
+    - cd lightning
+    - export EXPERIMENTAL_FEATURES=1
+    - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
