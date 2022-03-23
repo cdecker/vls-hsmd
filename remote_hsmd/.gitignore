@@ -3,3 +3,4 @@
 /remotesigner.pb.cc
 /remotesigner.pb.h
 /remotesigner.proto
+*.o

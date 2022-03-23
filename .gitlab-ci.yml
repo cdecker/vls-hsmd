@@ -40,4 +40,6 @@ build:
     - export PATH="$PATH:`pwd`/bin"
     - cd lightning
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
-    - SUBDAEMON=hsmd:remote_hsmd bash -ex .github/scripts/build.sh  # missing `set -e` internally
+    - export REMOTE_SIGNER_ALLOWLIST=$(pwd)/contrib/remote_hsmd/TESTING_ALLOWLIST
+    - export SUBDAEMON=hsmd:remote_hsmd
+    - bash -ex .github/scripts/build.sh  # missing `set -e` internally
