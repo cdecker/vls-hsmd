@@ -42,4 +42,5 @@ build:
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
     - export REMOTE_SIGNER_ALLOWLIST=$(pwd)/contrib/remote_hsmd/TESTING_ALLOWLIST
     - export SUBDAEMON=hsmd:remote_hsmd
+    - export PYTEST_PAR=20
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
