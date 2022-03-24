@@ -2,7 +2,7 @@
 JPAR:=$(shell nproc)
 TPAR:=$$(( $(JPAR) * 2 ))
 
-.PHONY : all test-all setup clean
+.PHONY : all test-all setup clean summary
 .PHONY : config-standard config-experimental
 .PHONY : build build-standard build-experimental
 .PHONY : test-standard test-experimental
@@ -10,7 +10,11 @@ TPAR:=$$(( $(JPAR) * 2 ))
 
 all: test-standard
 
-test-all: test-standard test-experimental
+test-all: test-standard test-experimental summary
+
+summary:
+	./scripts/summary standard.log
+	./scripts/summary experimental.log
 
 setup:	.setup-complete
 
