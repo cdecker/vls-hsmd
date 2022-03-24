@@ -7,10 +7,15 @@ An hsmd replacement for C-Lightning, that does full validation.
 
 ## Running
 
-Run the standard tests:
+Setup, configure, build and run the standard tests:
 
     make
 
-Run both standard and experimental-features tests:
+Both standard and experimental-features tests:
 
     make -k test-all
+
+Summarize results:
+
+    scripts/summary standard.log
+    scripts/summary experimental.log
