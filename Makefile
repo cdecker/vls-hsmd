@@ -48,6 +48,7 @@ test-experimental:	LOGFILE = experimental.log
 
 build build-standard build-experimental:
 	cd vls && cargo build
+	cd greenlight-signer && cargo build
 	cd lightning && make -j$(JPAR)
 
 test-standard test-experimental:
