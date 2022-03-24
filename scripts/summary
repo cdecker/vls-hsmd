@@ -1,0 +1,4 @@
+#!/usr/bin/awk -f
+/^=+ short test summary info =+/	{matched=1; print}
+/^FAILED .*/				{if (matched) print}
+/^=+ .* failed, .* passed, .*/		{matched=0; print}
