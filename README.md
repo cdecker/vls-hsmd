@@ -1,9 +1,6 @@
-# VLS - C-Lightning Plugin
+# A C-Lightning hsmd replacement that connects to VLS
 
-
-[![pipeline status](https://gitlab.com/lightning-signer/vls-c-lightning-plugin/badges/main/pipeline.svg)](https://gitlab.com/lightning-signer/vls-c-lightning-plugin/-/commits/main)
-
-An hsmd replacement for C-Lightning, that does full validation.
+[![pipeline status](https://gitlab.com/lightning-signer/vls-hsmd/badges/main/pipeline.svg)](https://gitlab.com/lightning-signer/vls-hsmd/-/commits/main)
 
 ## Running
 
