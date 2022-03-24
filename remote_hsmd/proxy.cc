@@ -321,14 +321,13 @@ void unmarshal_witnesses(RepeatedPtrField<Witness> const &wits, u8 ****o_wits)
 	if (nwits > 0) {
 		owits = tal_arrz(tmpctx, u8**, nwits);
 		for (size_t ii = 0; ii < nwits; ++ii) {
-			owits[ii] = tal_arrz(owits, u8*, 2);
 			Witness const &wit = wits.Get(ii);
-			const string &sig = wit.signature().data();
-			const string &pubkey = wit.pubkey().data();
-			owits[ii][0] = tal_arr(owits[ii], u8, sig.size());
-			memcpy(owits[ii][0], sig.data(), sig.size());
-			owits[ii][1] = tal_arr(owits[ii], u8, pubkey.size());
-			memcpy(owits[ii][1], pubkey.data(), pubkey.size());
+            owits[ii] = tal_arrz(owits, u8*, wit.stack_size());
+            for (size_t si = 0; si < wit.stack_size(); ++si) {
+                const string &item = wit.stack(si);
+                owits[ii][si] = tal_arr(owits[ii], u8, item.size());
+                memcpy(owits[ii][si], item.data(), item.size());
+            }
 		}
 	}
 	*o_wits = owits;
