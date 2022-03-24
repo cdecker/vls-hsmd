@@ -19,3 +19,8 @@ Summarize results:
 
     scripts/summary standard.log
     scripts/summary experimental.log
+
+Run a single test:
+
+    make config-experimental
+    make test-one test=tests/test_pay.py::test_pay
