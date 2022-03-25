@@ -71,10 +71,16 @@ clean:
 	cd lightning && make distclean
 
 test-one:	LOGFILE = one.log
-test-one:	check-test-one build
+test-one:	check-configured check-test-one build
 	. scripts/setup-env && cd lightning \
 		&& SUBDAEMON=$(SUBDAEMON) ../scripts/run-one-test $(test) \
-		|& tee ../$(LOGFILE)
+		| tee ../$(LOGFILE) 2>&1
 
 check-test-one:
 	@if test -z $(test); then echo "usage: make test-one test=<your-test-here>"; exit 1; fi
+
+check-configured:
+ifeq (,$(wildcard ./.config-*))
+	@echo "You must choose a configuration with \"make config-standard\" or \"make config-experimental\" first"
+	exit 1
+endif
