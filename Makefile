@@ -9,6 +9,8 @@ else
 	SUBDAEMON:="hsmd:remote_hsmd_vls"
 endif
 
+GITDESC:=$(shell git describe --tags --long --always --match='v*.*')
+
 .PHONY : all test-all setup clean summary
 .PHONY : config-standard config-experimental
 .PHONY : build build-standard build-experimental
@@ -24,6 +26,11 @@ summary:
 	./scripts/summary experimental.log
 
 setup:	.setup-complete
+ifneq ($(GITDESC),$(shell cat .setup-complete))
+	@echo "git hash changed, rerunning setup"
+	rm .setup-complete
+	make .setup-complete
+endif
 
 config-standard:	setup .config-standard
 config-standard:	CFGFLAGS=
@@ -46,7 +53,7 @@ test-experimental:	LOGFILE = experimental.log
 	mkdir -p $(PWD)/bin
 	(cd bin && ln -fs ../vls/target/debug/vlsd)
 	(cd bin && ln -fs ../greenlight-signer/target/debug/remote_hsmd_vls)
-	touch $@
+	echo "$(GITDESC)" > $@
 
 .config-standard .config-experimental:
 	rm -f .config-standard .config-experimental
