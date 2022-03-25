@@ -2,7 +2,12 @@
 JPAR:=$(shell nproc)
 TPAR:=$$(( $(JPAR) * 2 ))
 
-SUBDAEMON:=hsmd:remote_hsmd_vls
+
+ifeq ($(GREENLIGHT_VLS),)
+	SUBDAEMON:="hsmd:remote_hsmd"
+else
+	SUBDAEMON:="hsmd:remote_hsmd_vls"
+endif
 
 .PHONY : all test-all setup clean summary
 .PHONY : config-standard config-experimental
