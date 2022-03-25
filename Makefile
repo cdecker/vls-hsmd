@@ -2,6 +2,8 @@
 JPAR:=$(shell nproc)
 TPAR:=$$(( $(JPAR) * 2 ))
 
+SUBDAEMON:=hsmd:remote_hsmd
+
 .PHONY : all test-all setup clean summary
 .PHONY : config-standard config-experimental
 .PHONY : build build-standard build-experimental
@@ -53,7 +55,8 @@ build build-standard build-experimental:
 
 test-standard test-experimental:
 	-source scripts/setup-env && cd lightning \
-		&& make -j$(JPAR) PYTEST_PAR=$(TPAR) DEVELOPER=1 VALGRIND=0 pytest \
+		&& SUBDAEMON=$(SUBDAEMON) \
+		make -j$(JPAR) PYTEST_PAR=$(TPAR) DEVELOPER=1 VALGRIND=0 pytest \
 		|& tee ../$(LOGFILE)
 
 clean:
@@ -63,7 +66,7 @@ clean:
 
 test-one:	check-test-one build
 	source scripts/setup-env && cd lightning \
-		&& ../scripts/run-one-test $(test)
+		&& SUBDAEMON=$(SUBDAEMON) ../scripts/run-one-test $(test)
 
 check-test-one:
 	@if test -z $(test); then echo "usage: make test-one test=<your-test-here>"; exit 1; fi
