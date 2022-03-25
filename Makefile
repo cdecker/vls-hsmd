@@ -70,9 +70,11 @@ clean:
 	cd vls && cargo clean
 	cd lightning && make distclean
 
+test-one:	LOGFILE = one.log
 test-one:	check-test-one build
 	. scripts/setup-env && cd lightning \
-		&& SUBDAEMON=$(SUBDAEMON) ../scripts/run-one-test $(test)
+		&& SUBDAEMON=$(SUBDAEMON) ../scripts/run-one-test $(test) \
+		|& tee ../$(LOGFILE)
 
 check-test-one:
 	@if test -z $(test); then echo "usage: make test-one test=<your-test-here>"; exit 1; fi

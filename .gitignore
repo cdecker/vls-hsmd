@@ -2,5 +2,6 @@
 /.config-standard
 /.setup-complete
 /bin
-/standard.log
 /experimental.log
+/one.log
+/standard.log
