@@ -54,7 +54,7 @@ test-experimental:	LOGFILE = experimental.log
 		&& make distclean && ./configure --enable-developer $(CFGFLAGS)
 	touch $@
 
-build build-standard build-experimental:
+build build-standard build-experimental:	setup
 	cd vls && cargo build
 	cd greenlight-signer && cargo build
 	cd lightning && make -j$(JPAR)
