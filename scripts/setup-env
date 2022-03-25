@@ -1,4 +1,9 @@
 export PATH="$PATH:`pwd`/bin"
-export REMOTE_SIGNER_ALLOWLIST=$(pwd)/lightning/contrib/remote_hsmd/TESTING_ALLOWLIST
-export SUBDAEMON=hsmd:remote_hsmd
 export PYTEST_PAR=20
+
+# These are used by vlsd
+export REMOTE_SIGNER_ALLOWLIST="$(pwd)/lightning/contrib/remote_hsmd/TESTING_ALLOWLIST"
+
+# These are used by the remote_hsmd_vls
+export ALLOWLIST="$REMOTE_SIGNER_ALLOWLIST"
+export GREENLIGHT_VERSION=`cd lightning && git describe --always --dirty=-modded --abbrev=7`

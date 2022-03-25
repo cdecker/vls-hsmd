@@ -5,6 +5,8 @@ cache:
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
   CARGO_HOME: "$CI_PROJECT_DIR/.cache/cargo"
+  SUBDAEMON: "hsmd:remote_hsmd_vls"
+#  SUBDAEMON: "hsmd:remote_hsmd"
 
 stages:
   - vls
@@ -17,12 +19,14 @@ compile-vls:
   script:
     - git submodule update --init
     - (cd vls && cargo install --locked --path lightning-signer-server)
+    - (cd greenlight-signer && cargo install --locked --path greenlight-signer-hsmd)
     - ls -l $CARGO_HOME/bin
     - mkdir -p bin
-    - cp $CARGO_HOME/bin/vlsd bin/vlsd
+    - cp $CARGO_HOME/bin/{vlsd,remote_hsmd_vls} bin/
   artifacts:
     paths:
       - bin/vlsd
+      - bin/remote_hsmd_vls
 
 test:
   stage: test
@@ -42,12 +46,13 @@ test:
 test-experimental:
   stage: test
   image: ubuntu
+  variables:
+    EXPERIMENTAL_FEATURES: "1"
   script:
     - bash -x scripts/install-additional
     - git submodule update --init
     - bash -x scripts/setup-remote-hsmd
     - source scripts/setup-env
     - cd lightning
-    - export EXPERIMENTAL_FEATURES=1
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
