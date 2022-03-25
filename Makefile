@@ -2,7 +2,7 @@
 JPAR:=$(shell nproc)
 TPAR:=$$(( $(JPAR) * 2 ))
 
-SUBDAEMON:=hsmd:remote_hsmd
+SUBDAEMON:=hsmd:remote_hsmd_vls
 
 .PHONY : all test-all setup clean summary
 .PHONY : config-standard config-experimental
@@ -40,6 +40,7 @@ test-experimental:	LOGFILE = experimental.log
 	./scripts/setup-remote-hsmd
 	mkdir -p $(PWD)/bin
 	(cd bin && ln -fs ../vls/target/debug/vlsd)
+	(cd bin && ln -fs ../greenlight-signer/target/debug/remote_hsmd_vls)
 	touch $@
 
 .config-standard .config-experimental:
