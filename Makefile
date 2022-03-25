@@ -60,10 +60,10 @@ build build-standard build-experimental:
 	cd lightning && make -j$(JPAR)
 
 test-standard test-experimental:
-	-source scripts/setup-env && cd lightning \
+	-. scripts/setup-env && cd lightning \
 		&& SUBDAEMON=$(SUBDAEMON) \
 		make -j$(JPAR) PYTEST_PAR=$(TPAR) DEVELOPER=1 VALGRIND=0 pytest \
-		|& tee ../$(LOGFILE)
+		| tee ../$(LOGFILE) 2>&1
 
 clean:
 	rm -f .config-standard .config-experimental
@@ -71,7 +71,7 @@ clean:
 	cd lightning && make distclean
 
 test-one:	check-test-one build
-	source scripts/setup-env && cd lightning \
+	. scripts/setup-env && cd lightning \
 		&& SUBDAEMON=$(SUBDAEMON) ../scripts/run-one-test $(test)
 
 check-test-one:
