@@ -9,6 +9,8 @@ else
 	SUBDAEMON:="hsmd:remote_hsmd_vls"
 endif
 
+GITDESC:=$(shell git describe --tags --long --always --match='v*.*')
+
 .PHONY : all test-all setup clean summary
 .PHONY : config-standard config-experimental
 .PHONY : build build-standard build-experimental
@@ -24,6 +26,11 @@ summary:
 	./scripts/summary experimental.log
 
 setup:	.setup-complete
+ifneq ($(GITDESC),$(shell cat .setup-complete))
+	@echo "git hash changed, rerunning setup"
+	rm .setup-complete
+	make .setup-complete
+endif
 
 config-standard:	setup .config-standard
 config-standard:	CFGFLAGS=
@@ -46,7 +53,7 @@ test-experimental:	LOGFILE = experimental.log
 	mkdir -p $(PWD)/bin
 	(cd bin && ln -fs ../vls/target/debug/vlsd)
 	(cd bin && ln -fs ../greenlight-signer/target/debug/remote_hsmd_vls)
-	touch $@
+	echo "$(GITDESC)" > $@
 
 .config-standard .config-experimental:
 	rm -f .config-standard .config-experimental
@@ -54,7 +61,7 @@ test-experimental:	LOGFILE = experimental.log
 		&& make distclean && ./configure --enable-developer $(CFGFLAGS)
 	touch $@
 
-build build-standard build-experimental:
+build build-standard build-experimental:	setup
 	cd vls && cargo build
 	cd greenlight-signer && cargo build
 	cd lightning && make -j$(JPAR)
@@ -70,9 +77,17 @@ clean:
 	cd vls && cargo clean
 	cd lightning && make distclean
 
-test-one:	check-test-one build
+test-one:	LOGFILE = one.log
+test-one:	check-configured check-test-one build
 	. scripts/setup-env && cd lightning \
-		&& SUBDAEMON=$(SUBDAEMON) ../scripts/run-one-test $(test)
+		&& SUBDAEMON=$(SUBDAEMON) ../scripts/run-one-test $(test) \
+		| tee ../$(LOGFILE) 2>&1
 
 check-test-one:
 	@if test -z $(test); then echo "usage: make test-one test=<your-test-here>"; exit 1; fi
+
+check-configured:
+ifeq (,$(wildcard ./.config-*))
+	@echo "You must choose a configuration with \"make config-standard\" or \"make config-experimental\" first"
+	exit 1
+endif
