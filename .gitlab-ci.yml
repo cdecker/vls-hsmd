@@ -5,8 +5,9 @@ cache:
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
   CARGO_HOME: "$CI_PROJECT_DIR/.cache/cargo"
-  SUBDAEMON: "hsmd:remote_hsmd_vls"
-#  SUBDAEMON: "hsmd:remote_hsmd"
+  SUBDAEMON:
+    value: "hsmd:remote_hsmd_vls"
+    description: "use the single-binary hsmd replacement (default), or the gRPC version `hsmd:remote_hsmd`"
 
 stages:
   - vls
