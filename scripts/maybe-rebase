@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -e -x
+
+# seems like gitlab is caching the git checkout, so clear out any merge/rebase state in the submodules
+git submodule update --init --force
+
+if [ "$1" == "" ]; then
+  echo No rebase
+  exit
+fi
+
+echo "Rebasing lightning on $1"
+
+cd lightning
+
+git config --global user.email "you@example.com"
+git config --global user.name "Your name"
+git rebase --quit || true
+git branch -D local || true
+git checkout -b local
+git fetch https://github.com/ElementsProject/lightning.git +master:upstream
+git rebase upstream
+git submodule update --init
