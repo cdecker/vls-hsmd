@@ -1,0 +1,1 @@
+- tests/test_connection.py::test_feerate_stress - FAILED PRECONDITION: policy failure: validate_counterparty_commitment_tx: retry of sign_counterparty_commitment 8 with changed info
