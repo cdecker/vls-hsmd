@@ -473,8 +473,8 @@ static struct io_plan *init_hsm(struct io_conn *conn,
 		persist_node_id(&node_id);
 	}
 
-	// Fetch the bip32 ext_pub_key.
-	proxy_stat rv = proxy_get_ext_pub_key(&pubstuff.bip32);
+	// Fetch node-specific parameters
+	proxy_stat rv = proxy_get_node_param(&pubstuff.bip32, &bolt12, &onion_reply_secret);
 	if (PROXY_PERMANENT(rv)) {
 		status_failed(STATUS_FAIL_INTERNAL_ERROR,
 			      "proxy_%s failed: %s", __FUNCTION__,
