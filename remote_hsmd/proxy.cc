@@ -388,9 +388,7 @@ proxy_stat proxy_init_hsm(struct bip32_key_version *bip32_key_version,
 			  struct chainparams const *chainparams,
 			  bool coldstart,
 			  struct secret *hsm_secret,
-			  struct node_id *o_node_id,
-                          struct point32 *o_bolt12,
-                          struct secret *o_onion_reply_secret)
+			  struct node_id *o_node_id)
 {
 	STATUS_DEBUG(
 		"%s:%d %s { \"network\":%s, \"hsm_secret\":%s, \"coldstart\":%s }",
@@ -421,12 +419,9 @@ proxy_stat proxy_init_hsm(struct bip32_key_version *bip32_key_version,
 	if (status.ok()) {
 		unmarshal_node_id(rsp.node_id(), o_node_id);
 		unmarshal_node_id(rsp.node_id(), &self_id);
-                unmarshal_point32(rsp.bolt12_pubkey(), o_bolt12);
-                unmarshal_seckey(rsp.node_secret(), o_onion_reply_secret);
-		STATUS_DEBUG("%s:%d %s { \"node_id\":%s, \"bolt12_pubkey\":%s }",
+		STATUS_DEBUG("%s:%d %s { \"node_id\":%s }",
 			     __FILE__, __LINE__, __FUNCTION__,
-			     dump_node_id(o_node_id).c_str(),
-                             dump_point32(o_bolt12).c_str());
+			     dump_node_id(o_node_id).c_str());
 		last_message = "success";
 		return PROXY_OK;
 	} else {

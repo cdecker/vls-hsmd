@@ -54,9 +54,7 @@ proxy_stat proxy_init_hsm(
 	struct chainparams const *chainparams,
 	bool coldstart,
 	struct secret *hsm_secret,
-	struct node_id *o_node_id,
-        struct point32 *o_bolt12_pubkey,
-        struct secret *o_onion_reply_secret);
+	struct node_id *o_node_id);
 
 proxy_stat proxy_get_node_param(
         struct ext_key *o_ext_pubkey,

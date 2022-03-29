@@ -454,8 +454,7 @@ static struct io_plan *init_hsm(struct io_conn *conn,
 
 		coldstart = true; // this can go away in the API.
 		proxy_stat rv = proxy_init_hsm(&bip32_key_version, chainparams,
-					       coldstart, use_hsm_secret,
-					       &node_id, &bolt12, &onion_reply_secret);
+					       coldstart, use_hsm_secret, &node_id);
 		if (PROXY_PERMANENT(rv)) {
 			status_failed(STATUS_FAIL_INTERNAL_ERROR,
 				      "proxy_%s failed: %s", __FUNCTION__,
