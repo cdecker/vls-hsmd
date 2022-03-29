@@ -1,4 +1,6 @@
 
+VALGRIND ?= 0
+
 JPAR:=$(shell nproc)
 TPAR:=$$(( $(JPAR) * 2 ))
 
@@ -69,7 +71,7 @@ build build-standard build-experimental:	setup
 test-standard test-experimental:
 	-. scripts/setup-env && cd lightning \
 		&& SUBDAEMON=$(SUBDAEMON) \
-		make -j$(JPAR) PYTEST_PAR=$(TPAR) DEVELOPER=1 VALGRIND=0 pytest \
+		make -j$(JPAR) PYTEST_PAR=$(TPAR) DEVELOPER=1 VALGRIND=$(VALGRIND) pytest \
 		| tee ../$(LOGFILE) 2>&1
 
 clean:
@@ -80,7 +82,7 @@ clean:
 test-one:	LOGFILE = one.log
 test-one:	check-configured check-test-one build
 	. scripts/setup-env && cd lightning \
-		&& SUBDAEMON=$(SUBDAEMON) ../scripts/run-one-test $(test) \
+		&& SUBDAEMON=$(SUBDAEMON) VALGRIND=$(VALGRIND) ../scripts/run-one-test $(test) \
 		| tee ../$(LOGFILE) 2>&1
 
 check-test-one:
