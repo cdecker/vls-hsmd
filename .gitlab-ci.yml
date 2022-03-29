@@ -5,8 +5,12 @@ cache:
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
   CARGO_HOME: "$CI_PROJECT_DIR/.cache/cargo"
-  SUBDAEMON: "hsmd:remote_hsmd_vls"
-#  SUBDAEMON: "hsmd:remote_hsmd"
+  SUBDAEMON:
+    value: "hsmd:remote_hsmd_vls"
+    description: "use the single-binary hsmd replacement (default), or the gRPC version `hsmd:remote_hsmd`"
+  LIGHTNING_REF:
+    value: ""
+    description: "rebase onto the ref (e.g. master) from the upstream c-lightning repository"
 
 stages:
   - vls
@@ -17,7 +21,8 @@ compile-vls:
   image: rust:1.48.0
   timeout: 30m
   script:
-    - git submodule update --init
+    # we don't need to rebase lightning here, but fail fast if rebase fails
+    - ./scripts/maybe-rebase "$LIGHTNING_REF"
     - (cd vls && cargo install --locked --path lightning-signer-server)
     - (cd greenlight-signer && cargo install --locked --path greenlight-signer-hsmd)
     - ls -l $CARGO_HOME/bin
@@ -34,10 +39,10 @@ test:
   script:
     - ls -l
     - ls -l bin
-    - bash -x scripts/install-additional
+    - ./scripts/install-additional
     - python3 --version
-    - git submodule update --init
-    - bash -x scripts/setup-remote-hsmd
+    - ./scripts/maybe-rebase "$LIGHTNING_REF"
+    - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
     - cd lightning
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
@@ -49,9 +54,9 @@ test-experimental:
   variables:
     EXPERIMENTAL_FEATURES: "1"
   script:
-    - bash -x scripts/install-additional
-    - git submodule update --init
-    - bash -x scripts/setup-remote-hsmd
+    - ./scripts/install-additional
+    - ./scripts/maybe-rebase "$LIGHTNING_REF"
+    - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
     - cd lightning
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
