@@ -350,65 +350,6 @@ static bool read_test_seed(struct secret *hsm_secret)
 	return true;
 }
 
-// TODO - Add support for bolt12 to remote signer and remove this
-// entire routine.  This does not actually setup a usable BOLT12
-// context; it always uses an empty hsm_secret.
-static void bogus_bolt12_placeholder(struct point32 *bolt12out)
-{
-	struct secret bad_hsm_secret;
-	u8 bip32_seed[BIP32_ENTROPY_LEN_256];
-	u32 salt = 0;
-	struct ext_key master_extkey, child_extkey;
-	secp256k1_keypair bolt12;
-
-	// This needs to be computed on the remote server!
-	memset(&bad_hsm_secret, 0, sizeof(bad_hsm_secret));
-
-	/* Fill in the BIP32 tree for bitcoin addresses. */
-	/* In libwally-core, the version BIP32_VER_TEST_PRIVATE is for testnet/regtest,
-	 * and BIP32_VER_MAIN_PRIVATE is for mainnet. For litecoin, we also set it like
-	 * bitcoin else.*/
-	do {
-		hkdf_sha256(bip32_seed, sizeof(bip32_seed),
-			    &salt, sizeof(salt),
-			    &bad_hsm_secret,
-			    sizeof(bad_hsm_secret),
-			    "bip32 seed", strlen("bip32 seed"));
-		salt++;
-	} while (bip32_key_from_seed(bip32_seed, sizeof(bip32_seed),
-				     bip32_key_version.bip32_privkey_version,
-				     0, &master_extkey) != WALLY_OK);
-
-	if (bip32_key_from_parent(&master_extkey,
-				  BIP32_INITIAL_HARDENED_CHILD|9735,
-				  BIP32_FLAG_KEY_PRIVATE,
-				  &child_extkey) != WALLY_OK)
-		status_failed(STATUS_FAIL_INTERNAL_ERROR,
-			      "Can't derive bolt12 bip32 key");
-
-	/* libwally says: The private key with prefix byte 0; remove it
-	 * for libsecp256k1. */
-	if (secp256k1_keypair_create(secp256k1_ctx, &bolt12,
-				     child_extkey.priv_key+1) != 1)
-		status_failed(STATUS_FAIL_INTERNAL_ERROR,
-			      "Can't derive bolt12 keypair");
-
-	/* We also give it the base key for bolt12 payerids */
-	if (secp256k1_keypair_xonly_pub(secp256k1_ctx, &bolt12out->pubkey, NULL,
-					&bolt12) != 1)
-		status_failed(STATUS_FAIL_INTERNAL_ERROR,
-		              "Could derive bolt12 public key.");
-}
-
-// TODO - Add support for onion_reply_secret to remote signer and remove this
-// entire routine.  This does not actually setup a usable onion_reply_secret
-// context; it always uses an empty hsm_secret.
-static void bogus_onion_reply_secret_placeholder(struct secret *onion_reply_secret)
-{
-	// This needs to be computed on the remote server!
-	memset(&onion_reply_secret, 0, sizeof(onion_reply_secret));
-}
-
 static void persist_node_id(const struct node_id *node_id)
 {
 	char *node_id_str = tal_fmt(tmpctx, "%s\n",
@@ -514,7 +455,7 @@ static struct io_plan *init_hsm(struct io_conn *conn,
 		coldstart = true; // this can go away in the API.
 		proxy_stat rv = proxy_init_hsm(&bip32_key_version, chainparams,
 					       coldstart, use_hsm_secret,
-					       &node_id);
+					       &node_id, &bolt12, &onion_reply_secret);
 		if (PROXY_PERMANENT(rv)) {
 			status_failed(STATUS_FAIL_INTERNAL_ERROR,
 				      "proxy_%s failed: %s", __FUNCTION__,
@@ -546,12 +487,6 @@ static struct io_plan *init_hsm(struct io_conn *conn,
 				   "proxy_%s error: %s", __FUNCTION__,
 				   proxy_last_message());
 	}
-
-	// TODO - add support for bolt12
-	bogus_bolt12_placeholder(&bolt12);
-
-	// TODO - add support for onion_reply_secret
-	bogus_onion_reply_secret_placeholder(&onion_reply_secret);
 
 	/* Now we can consider ourselves initialized, and we won't get
 	 * upset if we get a non-init message. */
@@ -1620,16 +1555,26 @@ static struct io_plan *handle_sign_bolt12(struct io_conn *conn,
 	char *messagename, *fieldname;
 	struct sha256 merkle;
 	u8 *publictweak;
+	struct bip340sig sig;
 
 	if (!fromwire_hsmd_sign_bolt12(tmpctx, msg_in,
 				       &messagename, &fieldname, &merkle,
 				       &publictweak))
 		return bad_req(conn, c, msg_in);
 
-	status_failed(STATUS_FAIL_INTERNAL_ERROR,
-		      "handle_sign_bolt12 unimplemented");
-	return bad_req_fmt(conn, c, msg_in,
-			   "handle_sign_bolt12 unimplemented");
+	proxy_stat rv = proxy_handle_sign_bolt12(messagename, fieldname, &merkle,
+                                                 publictweak, &sig);
+	if (PROXY_PERMANENT(rv))
+		status_failed(STATUS_FAIL_INTERNAL_ERROR,
+		              "proxy_%s failed: %s", __FUNCTION__,
+			      proxy_last_message());
+	else if (!PROXY_SUCCESS(rv))
+		return bad_req_fmt(conn, c, msg_in,
+				   "proxy_%s error: %s", __FUNCTION__,
+				   proxy_last_message());
+
+	return req_reply(conn, c,
+			 take(towire_hsmd_sign_bolt12_reply(NULL, &sig)));
 }
 
 #if DEVELOPER
