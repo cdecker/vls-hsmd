@@ -438,36 +438,6 @@ proxy_stat proxy_init_hsm(struct bip32_key_version *bip32_key_version,
 	}
 }
 
-proxy_stat proxy_get_ext_pub_key(struct ext_key *o_ext_pubkey)
-{
-	// TODO
-	STATUS_DEBUG("%s:%d %s", __FILE__, __LINE__, __FUNCTION__);
-
-	last_message = "";
-	GetExtPubKeyRequest req;
-
-	marshal_node_id(&self_id, req.mutable_node_id());
-
-	ClientContext context;
-	GetExtPubKeyReply rsp;
-	Status status = stub->GetExtPubKey(&context, req, &rsp);
-	if (status.ok()) {
-		unmarshal_ext_pubkey(rsp.xpub(), o_ext_pubkey);
-		STATUS_DEBUG("%s:%d %s "
-			     "{ \"ext_pubkey\":%s }",
-			     __FILE__, __LINE__, __FUNCTION__,
-			     dump_ext_pubkey(o_ext_pubkey).c_str());
-		last_message = "success";
-		return PROXY_OK;
-	} else {
-		status_unusual("%s:%d %s: %s",
-			       __FILE__, __LINE__, __FUNCTION__,
-			       status.error_message().c_str());
-		last_message = status.error_message();
-		return map_status(status);
-	}
-}
-
 proxy_stat proxy_get_node_param(struct ext_key *o_ext_pubkey,
                                 struct point32 *o_bolt12,
                                 struct secret *o_onion_reply_secret)
