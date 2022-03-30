@@ -9,7 +9,6 @@ $PWD/contrib/pyln-proto \
 TEST_KEEPDIR=1 \
 TEST_DEBUG=1 \
 DEVELOPER=1 \
-VALGRIND=0 \
 SLOW_MACHINE=0 \
 pytest \
 $THETEST \

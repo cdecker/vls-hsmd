@@ -56,7 +56,10 @@ proxy_stat proxy_init_hsm(
 	struct secret *hsm_secret,
 	struct node_id *o_node_id);
 
-proxy_stat proxy_get_ext_pub_key(struct ext_key *o_ext_pub_key);
+proxy_stat proxy_get_node_param(
+        struct ext_key *o_ext_pubkey,
+        struct point32 *o_bolt12,
+        struct secret *o_onion_reply_secret);
 
 proxy_stat proxy_handle_ecdh(
 	const struct pubkey *point,
@@ -116,6 +119,13 @@ proxy_stat proxy_handle_sign_invoice(
 	u5 *u5bytes,
 	u8 *hrpu8,
 	secp256k1_ecdsa_recoverable_signature *o_sig);
+
+proxy_stat proxy_handle_sign_bolt12(
+        const char *messagename,
+        const char *fieldname,
+        const struct sha256 *merkle,
+        u8 *publictweak,
+	struct bip340sig *o_sig);
 
 proxy_stat proxy_handle_sign_message(
 	u8 *msg,

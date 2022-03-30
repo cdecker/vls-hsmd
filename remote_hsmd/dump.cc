@@ -75,6 +75,15 @@ string dump_bitcoin_signature(const struct bitcoin_signature *sp)
 	return ostrm.str();
 }
 
+string dump_schnorr_signature(const struct bip340sig *sp)
+{
+	ostringstream ostrm;
+	ostrm << "{ "
+              << "\"u8\":" << dump_hex(sp->u8, sizeof(sp->u8))
+	      << " }";
+	return ostrm.str();
+}
+
 string dump_htlc_signatures(const struct bitcoin_signature *sps)
 {
 	ostringstream ostrm;
@@ -112,6 +121,11 @@ string dump_node_id(const struct node_id *pp)
 string dump_pubkey(const struct pubkey *kp)
 {
 	return dump_hex(kp->pubkey.data, sizeof(kp->pubkey.data));
+}
+
+string dump_point32(const struct point32 *pp)
+{
+	return dump_hex(pp->pubkey.data, sizeof(pp->pubkey.data));
 }
 
 string dump_ext_pubkey(const struct ext_key *xp)

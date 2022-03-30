@@ -274,6 +274,26 @@ void unmarshal_pubkey(PubKey const &pk, struct pubkey *o_pp)
 	assert(ok);
 }
 
+void unmarshal_seckey(SecKey const &sk, struct secret *o_sp)
+{
+	assert(sk.data().size() == sizeof(o_sp->data));
+	memcpy(o_sp->data, sk.data().data(), sizeof(o_sp->data));
+}
+
+void unmarshal_schnorr_signature(SchnorrSignature const &ss, struct bip340sig *o_pp)
+{
+        assert(ss.data().size() == sizeof(o_pp->u8));
+	memcpy(o_pp->u8, ss.data().data(), sizeof(o_pp->u8));
+}
+
+void unmarshal_point32(XOnlyPubKey const &pk, struct point32 *o_pp)
+{
+  	assert(pk.data().size() == 32);
+	int ok = secp256k1_xonly_pubkey_parse(secp256k1_ctx, &o_pp->pubkey,
+                                              (const unsigned char*) pk.data().data());
+	assert(ok);
+}
+
 void unmarshal_ext_pubkey(ExtPubKey const &xpk, struct ext_key *o_xp)
 {
 	int rv = bip32_key_from_base58(xpk.encoded().data(), o_xp);
@@ -413,25 +433,30 @@ proxy_stat proxy_init_hsm(struct bip32_key_version *bip32_key_version,
 	}
 }
 
-proxy_stat proxy_get_ext_pub_key(struct ext_key *o_ext_pubkey)
+proxy_stat proxy_get_node_param(struct ext_key *o_ext_pubkey,
+                                struct point32 *o_bolt12,
+                                struct secret *o_onion_reply_secret)
 {
 	// TODO
 	STATUS_DEBUG("%s:%d %s", __FILE__, __LINE__, __FUNCTION__);
 
 	last_message = "";
-	GetExtPubKeyRequest req;
+	GetNodeParamRequest req;
 
 	marshal_node_id(&self_id, req.mutable_node_id());
 
 	ClientContext context;
-	GetExtPubKeyReply rsp;
-	Status status = stub->GetExtPubKey(&context, req, &rsp);
+	GetNodeParamReply rsp;
+	Status status = stub->GetNodeParam(&context, req, &rsp);
 	if (status.ok()) {
 		unmarshal_ext_pubkey(rsp.xpub(), o_ext_pubkey);
+                unmarshal_point32(rsp.bolt12_pubkey(), o_bolt12);
+                unmarshal_seckey(rsp.node_secret(), o_onion_reply_secret);
 		STATUS_DEBUG("%s:%d %s "
-			     "{ \"ext_pubkey\":%s }",
+			     "{ \"ext_pubkey\":%s, \"bolt12_pubkey\":%s }",
 			     __FILE__, __LINE__, __FUNCTION__,
-			     dump_ext_pubkey(o_ext_pubkey).c_str());
+			     dump_ext_pubkey(o_ext_pubkey).c_str(),
+                             dump_point32(o_bolt12).c_str());
 		last_message = "success";
 		return PROXY_OK;
 	} else {
@@ -917,6 +942,57 @@ proxy_stat proxy_handle_sign_invoice(
 			     dump_node_id(&self_id).c_str(),
 			     dump_secp256k1_ecdsa_recoverable_signature(
 				     o_sig).c_str());
+		last_message = "success";
+		return PROXY_OK;
+	} else {
+		status_unusual("%s:%d %s: self_id=%s %s",
+			       __FILE__, __LINE__, __FUNCTION__,
+			       dump_node_id(&self_id).c_str(),
+			       status.error_message().c_str());
+		last_message = status.error_message();
+		return map_status(status);
+	}
+}
+
+proxy_stat proxy_handle_sign_bolt12(
+        const char *messagename,
+        const char *fieldname,
+        const struct sha256 *merkleroot,
+        u8 *publictweak,
+	struct bip340sig *o_sig)
+{
+	STATUS_DEBUG("%s:%d %s { "
+		     "\"self_id\":%s, "
+                     "\"messagename\":%s, "
+                     "\"fieldname\":%s, "
+                     "\"merkeleroot\":%s, "
+                     "\"publictweak\":%s }",
+		     __FILE__, __LINE__, __FUNCTION__,
+		     dump_node_id(&self_id).c_str(),
+                     messagename, fieldname,
+                     dump_hex(merkleroot, sizeof(merkleroot)).c_str(),
+                     publictweak ? dump_hex(publictweak, tal_count(publictweak)).c_str() : "<none>"
+                     );
+
+	last_message = "";
+	SignBolt12Request req;
+	marshal_node_id(&self_id, req.mutable_node_id());
+        req.set_messagename(messagename);
+        req.set_fieldname(fieldname);
+        req.set_merkleroot(merkleroot, sizeof(*merkleroot));
+        if (publictweak) {
+          req.set_publictweak(publictweak, tal_count(publictweak));
+        }
+
+	ClientContext context;
+        SchnorrSignatureReply rsp;
+	Status status = stub->SignBolt12(&context, req, &rsp);
+	if (status.ok()) {
+                unmarshal_schnorr_signature(rsp.signature(), o_sig);
+		STATUS_DEBUG("%s:%d %s { \"self_id\":%s, \"sig\":%s }",
+			     __FILE__, __LINE__, __FUNCTION__,
+			     dump_node_id(&self_id).c_str(),
+			     dump_schnorr_signature(o_sig).c_str());
 		last_message = "success";
 		return PROXY_OK;
 	} else {
