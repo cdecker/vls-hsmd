@@ -16,6 +16,10 @@ Both standard and experimental-features tests using greenlight VLS:
 
     make -k test-all GREENLIGHT_VLS=1
 
+Both standard and experimental-features tests using greenlight VLS with alternate gRPC protocol:
+
+    make -k test-all GREENLIGHT_VLS=grpc2
+
 Summarize results:
 
     scripts/summary standard.log
@@ -26,3 +30,4 @@ Run a single test:
     make config-experimental
     make test-one test=tests/test_pay.py::test_pay
     make test-one test=tests/test_pay.py::test_pay GREENLIGHT_VLS=1
+    make test-one test=tests/test_pay.py::test_pay GREENLIGHT_VLS=grpc2
