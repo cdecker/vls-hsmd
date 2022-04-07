@@ -18,6 +18,7 @@ GITDESC:=$(shell git describe --tags --long --always --match='v*.*')
 .PHONY : build build-standard build-experimental
 .PHONY : test-standard test-experimental
 .PHONY : test-one check-test-one
+.PHONY : check-git-version
 
 all: test-standard
 
@@ -27,11 +28,14 @@ summary:
 	./scripts/summary standard.log
 	./scripts/summary experimental.log
 
-setup:	.setup-complete
-ifneq ($(GITDESC),$(shell cat .setup-complete))
+setup:	check-git-version .setup-complete
+
+check-git-version:
+ifneq ("$(wildcard .setup-complete)", "")
+  ifneq ($(GITDESC),$(shell cat .setup-complete))
 	@echo "git hash changed, rerunning setup"
 	rm .setup-complete
-	make .setup-complete
+  endif
 endif
 
 config-standard:	setup .config-standard
