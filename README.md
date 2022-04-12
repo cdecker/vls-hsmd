@@ -10,15 +10,15 @@ Setup, configure, build and run the standard tests:
 
 Both standard and experimental-features tests:
 
-    make -k test-all
+    make -k test-all VLS_MODE=cln:standalone
 
-Both standard and experimental-features tests using greenlight VLS:
+Using in-place VLS:
 
-    make -k test-all GREENLIGHT_VLS=1
+    make -k test-all VLS_MODE=cln:inplace
 
-Both standard and experimental-features tests using greenlight VLS with alternate gRPC protocol:
+Using socket connection to VLS:
 
-    make -k test-all GREENLIGHT_VLS=grpc2
+    make -k test-all VLS_MODE=cln:socket
 
 Summarize results:
 
@@ -29,5 +29,5 @@ Run a single test:
 
     make config-experimental
     make test-one test=tests/test_pay.py::test_pay
-    make test-one test=tests/test_pay.py::test_pay GREENLIGHT_VLS=1
-    make test-one test=tests/test_pay.py::test_pay GREENLIGHT_VLS=grpc2
+    make test-one test=tests/test_pay.py::test_pay VLS_MODE=cln:inplace
+    make test-one test=tests/test_pay.py::test_pay VLS_MODE=cln:socket
