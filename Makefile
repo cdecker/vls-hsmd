@@ -7,8 +7,10 @@ TPAR:=$$(( $(JPAR) * 2 ))
 
 ifeq ($(GREENLIGHT_VLS),)
 	SUBDAEMON:="hsmd:remote_hsmd"
-else
+else ifeq ($(GREENLIGHT_VLS),1)
 	SUBDAEMON:="hsmd:remote_hsmd_vls"
+else ifeq ($(GREENLIGHT_VLS),grpc2)
+	SUBDAEMON:="hsmd:remote_hsmd_vls_grpc2"
 endif
 
 GITDESC:=$(shell git describe --tags --long --always --match='v*.*')
@@ -53,12 +55,13 @@ test-standard:	LOGFILE = standard.log
 test-experimental:	build-experimental
 test-experimental:	LOGFILE = experimental.log
 
-.setup-complete:
+.setup-complete: ./scripts/setup-remote-hsmd
 	git submodule update --init
 	./scripts/setup-remote-hsmd
 	mkdir -p $(PWD)/bin
 	(cd bin && ln -fs ../vls/target/debug/vlsd)
-	(cd bin && ln -fs ../greenlight-signer/target/debug/remote_hsmd_vls)
+	(cd bin && ln -fs ../vls-protocol/target/debug/remote_hsmd_vls)
+	(cd bin && ln -fs ../vls-protocol/target/debug/remote_hsmd_vls_grpc2)
 	echo "$(GITDESC)" > $@
 
 .config-standard .config-experimental:
@@ -69,7 +72,7 @@ test-experimental:	LOGFILE = experimental.log
 
 build build-standard build-experimental:	setup
 	cd vls && cargo build
-	cd greenlight-signer && cargo build
+	cd vls-protocol && cargo build
 	cd lightning && make -j$(JPAR)
 
 test-standard test-experimental:

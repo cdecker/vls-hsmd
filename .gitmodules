@@ -5,6 +5,6 @@
 	path = lightning
 	url = https://github.com/lightning-signer/c-lightning.git
 	branch = remote-hsmd
-[submodule "greenlight-signer"]
-	path = greenlight-signer
-	url = https://gitlab.com/lightning-signer/greenlight-signer.git
+[submodule "vls-protocol"]
+	path = vls-protocol
+	url = https://gitlab.com/lightning-signer/vls-protocol.git

@@ -7,7 +7,7 @@ variables:
   CARGO_HOME: "$CI_PROJECT_DIR/.cache/cargo"
   SUBDAEMON:
     value: "hsmd:remote_hsmd_vls"
-    description: "use the single-binary hsmd replacement (default), or the gRPC version `hsmd:remote_hsmd`"
+    description: "use the single-binary hsmd replacement (default), or the gRPC version `hsmd:remote_hsmd` or the 2nd gRPC version: `hsmd:remote_hsmd_grpc2`"
   LIGHTNING_REF:
     value: ""
     description: "rebase onto the ref (e.g. master) from the upstream c-lightning repository"
@@ -18,20 +18,24 @@ stages:
 
 compile-vls:
   stage: vls
-  image: rust:1.48.0
+  image: rust:1.58.1
   timeout: 30m
   script:
     # we don't need to rebase lightning here, but fail fast if rebase fails
     - ./scripts/maybe-rebase "$LIGHTNING_REF"
-    - (cd vls && cargo install --locked --path lightning-signer-server)
-    - (cd greenlight-signer && cargo install --locked --path greenlight-signer-hsmd)
-    - ls -l $CARGO_HOME/bin
+    # latest rust images seem to require rustfmt for cargo build
+    - rustup component add rustfmt
+    - (cd vls && cargo build --locked --bins)
+    - (cd vls-protocol && cargo build --locked --bins)
     - mkdir -p bin
-    - cp $CARGO_HOME/bin/{vlsd,remote_hsmd_vls} bin/
+    - cp vls/target/debug/vlsd bin/
+    - cp vls-protocol/target/debug/remote_hsmd_{vls,vls_grpc2} bin/
+    - ls -l bin
   artifacts:
     paths:
       - bin/vlsd
       - bin/remote_hsmd_vls
+      - bin/remote_hsmd_vls_grpc2
 
 test:
   stage: test
@@ -61,3 +65,22 @@ test-experimental:
     - cd lightning
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
+
+test-grpc2:
+  variables:
+    SUBDAEMON: hsmd:remote_hsmd_vls_grpc2
+  stage: test
+  image: ubuntu
+  script:
+    - ls -l
+    - ls -l bin
+    - ./scripts/install-additional
+    - python3 --version
+    - ./scripts/maybe-rebase "$LIGHTNING_REF"
+    - ./scripts/setup-remote-hsmd
+    - source scripts/setup-env
+    - cd lightning
+    - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
+    - export PYTEST_ADDOPTS="-ktest_pay"
+    - bash -ex .github/scripts/build.sh  # missing `set -e` internally
+

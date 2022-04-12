@@ -5,3 +5,4 @@ set -e
 ln -sf "$PWD/vls/lightning-signer-server/src/server/remotesigner.proto" remote_hsmd/
 ln -sf "$PWD/remote_hsmd" lightning/contrib/
 ln -sf "$PWD/bin/remote_hsmd_vls" lightning/lightningd/
+ln -sf "$PWD/bin/remote_hsmd_vls_grpc2" lightning/lightningd/
