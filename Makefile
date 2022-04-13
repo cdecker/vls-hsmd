@@ -4,12 +4,13 @@ VALGRIND ?= 0
 JPAR:=$(shell nproc)
 TPAR:=$$(( $(JPAR) * 2 ))
 
+VLS_MODE ?= cln:standalone
 
-ifeq ($(GREENLIGHT_VLS),)
+ifeq ("$(VLS_MODE)","cln:standalone")
 	SUBDAEMON:="hsmd:remote_hsmd"
-else ifeq ($(GREENLIGHT_VLS),1)
+else ifeq ("$(VLS_MODE)","cln:inplace")
 	SUBDAEMON:="hsmd:remote_hsmd_vls"
-else ifeq ($(GREENLIGHT_VLS),grpc2)
+else ifeq ("$(VLS_MODE)","cln:socket")
 	SUBDAEMON:="hsmd:remote_hsmd_vls_grpc2"
 endif
 
@@ -75,7 +76,7 @@ build build-standard build-experimental:	setup
 	cd vls-protocol && cargo build
 	cd lightning && make -j$(JPAR)
 
-test-standard test-experimental:
+test-standard test-experimental:	check-subdaemon
 	-. scripts/setup-env && cd lightning \
 		&& SUBDAEMON=$(SUBDAEMON) \
 		make -j$(JPAR) PYTEST_PAR=$(TPAR) DEVELOPER=1 VALGRIND=$(VALGRIND) pytest \
@@ -87,10 +88,13 @@ clean:
 	cd lightning && make distclean
 
 test-one:	LOGFILE = one.log
-test-one:	check-configured check-test-one build
+test-one:	check-configured check-subdaemon check-test-one build
 	. scripts/setup-env && cd lightning \
 		&& SUBDAEMON=$(SUBDAEMON) VALGRIND=$(VALGRIND) ../scripts/run-one-test $(test) \
 		| tee ../$(LOGFILE) 2>&1
+
+check-subdaemon:
+	@if test -z $(SUBDAEMON); then echo "unknown VLS_MODE $(VLS_MODE)"; exit 1; fi
 
 check-test-one:
 	@if test -z $(test); then echo "usage: make test-one test=<your-test-here>"; exit 1; fi
