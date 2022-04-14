@@ -16,13 +16,6 @@ endif
 
 GITDESC:=$(shell git describe --tags --long --always --match='v*.*')
 
-.PHONY : all test-all setup clean summary
-.PHONY : config-standard config-experimental
-.PHONY : build build-standard build-experimental
-.PHONY : test-standard test-experimental
-.PHONY : test-one check-test-one
-.PHONY : check-git-version
-
 all: test-standard
 
 test-all: test-standard test-experimental summary
@@ -101,7 +94,13 @@ check-test-one:
 	@if test -z $(test); then echo "usage: make test-one test=<your-test-here>"; exit 1; fi
 
 check-configured:
-ifeq (,$(wildcard ./.config-*))
-	@echo "You must choose a configuration with \"make config-standard\" or \"make config-experimental\" first"
-	exit 1
-endif
+	@if test ! -e .config-standard && test ! -e .config-experimental; then \
+		echo "Need \"make config-standard\" or \"make config-experimental\" first"; exit 1; fi
+
+.PHONY : all test-all setup clean summary
+.PHONY : config-standard config-experimental
+.PHONY : build build-standard build-experimental
+.PHONY : test-standard test-experimental
+.PHONY : test-one check-test-one
+.PHONY : check-git-version check-configured check-subdaemon
+
