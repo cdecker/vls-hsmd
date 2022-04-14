@@ -85,6 +85,7 @@ test-standard test-experimental:	check-subdaemon
 clean:
 	rm -f .config-standard .config-experimental
 	cd vls && cargo clean
+	cd vls-protocol && cargo clean
 	cd lightning && make distclean
 
 test-one:	LOGFILE = one.log
