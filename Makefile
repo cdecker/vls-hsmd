@@ -51,6 +51,7 @@ test-experimental:	LOGFILE = experimental.log
 
 .setup-complete: ./scripts/setup-remote-hsmd
 	git submodule update --init
+	./scripts/enable-githooks
 	./scripts/setup-remote-hsmd
 	mkdir -p $(PWD)/bin
 	(cd bin && ln -fs ../vls/target/debug/vlsd)
