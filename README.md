@@ -31,3 +31,7 @@ Run a single test:
     make test-one test=tests/test_pay.py::test_pay
     make test-one test=tests/test_pay.py::test_pay VLS_MODE=cln:inplace
     make test-one test=tests/test_pay.py::test_pay VLS_MODE=cln:socket
+
+Run a single test with native hsmd:
+
+    make test-one test=tests/test_pay.py::test_pay VLS_MODE=cln:native

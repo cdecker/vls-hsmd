@@ -12,6 +12,8 @@ else ifeq ("$(VLS_MODE)","cln:inplace")
 	SUBDAEMON:="hsmd:remote_hsmd_vls"
 else ifeq ("$(VLS_MODE)","cln:socket")
 	SUBDAEMON:="hsmd:remote_hsmd_vls_grpc2"
+else ifeq ("$(VLS_MODE)","cln:native")
+	SUBDAEMON:="hsmd:lightning_hsmd"
 endif
 
 GITDESC:=$(shell git describe --tags --long --always --match='v*.*')
