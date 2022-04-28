@@ -55,7 +55,7 @@ test-experimental:	build-experimental
 test-experimental:	LOGFILE = experimental.log
 
 .setup-complete: ./scripts/setup-remote-hsmd
-	git submodule update --init
+	git submodule update --init --recursive
 	./scripts/enable-githooks
 	./scripts/setup-remote-hsmd
 	mkdir -p $(PWD)/bin
@@ -68,7 +68,9 @@ test-experimental:	LOGFILE = experimental.log
 .config-standard .config-experimental:
 	rm -f .config-standard .config-experimental
 	cd lightning \
-		&& make distclean && ./configure --enable-developer $(CFGFLAGS)
+		&& make distclean \
+		&& poetry install \
+		&& ./configure --enable-developer $(CFGFLAGS)
 	touch $@
 
 build build-standard build-experimental:	setup
@@ -78,7 +80,7 @@ build build-standard build-experimental:	setup
 test-standard test-experimental:	check-subdaemon
 	-. scripts/setup-env && cd lightning \
 		&& SUBDAEMON=$(SUBDAEMON) \
-		make -j$(JPAR) PYTEST_PAR=$(TPAR) DEVELOPER=1 VALGRIND=$(VALGRIND) pytest \
+		poetry run make -j$(JPAR) PYTEST_PAR=$(TPAR) DEVELOPER=1 VALGRIND=$(VALGRIND) pytest \
 		| tee ../$(LOGFILE) 2>&1
 
 clean:
@@ -89,7 +91,7 @@ clean:
 test-one:	LOGFILE = one.log
 test-one:	check-configured check-subdaemon check-test-one build
 	. scripts/setup-env && cd lightning \
-		&& SUBDAEMON=$(SUBDAEMON) VALGRIND=$(VALGRIND) ../scripts/run-one-test $(test) \
+		&& SUBDAEMON=$(SUBDAEMON) VALGRIND=$(VALGRIND) poetry run ../scripts/run-one-test $(test) \
 		| tee ../$(LOGFILE) 2>&1
 
 check-subdaemon:
