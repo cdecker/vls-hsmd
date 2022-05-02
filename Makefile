@@ -14,6 +14,9 @@ else ifeq ("$(VLS_MODE)","cln:socket")
 	SUBDAEMON:="hsmd:remote_hsmd_vls_grpc2"
 else ifeq ("$(VLS_MODE)","cln:native")
 	SUBDAEMON:="hsmd:lightning_hsmd"
+else ifeq ("$(VLS_MODE)","cln:embedded")
+    # embedded for node 1, native for the rest
+	SUBDAEMON:="hsmd:remote_hsmd_vls_embedded,hsmd:lightning_hsmd"
 endif
 
 GITDESC:=$(shell git describe --tags --long --always --match='v*.*')
@@ -57,8 +60,9 @@ test-experimental:	LOGFILE = experimental.log
 	./scripts/setup-remote-hsmd
 	mkdir -p $(PWD)/bin
 	(cd bin && ln -fs ../vls/target/debug/vlsd)
-	(cd bin && ln -fs ../vls-protocol/target/debug/remote_hsmd_vls)
-	(cd bin && ln -fs ../vls-protocol/target/debug/remote_hsmd_vls_grpc2)
+	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_vls)
+	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_vls_grpc2)
+	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_vls_embedded)
 	echo "$(GITDESC)" > $@
 
 .config-standard .config-experimental:
@@ -69,7 +73,6 @@ test-experimental:	LOGFILE = experimental.log
 
 build build-standard build-experimental:	setup
 	cd vls && cargo build
-	cd vls-protocol && cargo build
 	cd lightning && make -j$(JPAR)
 
 test-standard test-experimental:	check-subdaemon
@@ -81,7 +84,6 @@ test-standard test-experimental:	check-subdaemon
 clean:
 	rm -f .config-standard .config-experimental
 	cd vls && cargo clean
-	cd vls-protocol && cargo clean
 	cd lightning && make distclean
 
 test-one:	LOGFILE = one.log

@@ -1,4 +1,3 @@
 #!/bin/sh
 
 (cd vls && ./scripts/enable-githooks)
-(cd vls-protocol && ./scripts/enable-githooks)
