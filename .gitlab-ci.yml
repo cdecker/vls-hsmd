@@ -26,16 +26,16 @@ compile-vls:
     # latest rust images seem to require rustfmt for cargo build
     - rustup component add rustfmt
     - (cd vls && cargo build --locked --bins)
-    - (cd vls-protocol && cargo build --locked --bins)
     - mkdir -p bin
     - cp vls/target/debug/vlsd bin/
-    - cp vls-protocol/target/debug/remote_hsmd_{vls,vls_grpc2} bin/
+    - cp vls/target/debug/remote_hsmd_{vls,vls_grpc2} bin/
     - ls -l bin
   artifacts:
     paths:
       - bin/vlsd
       - bin/remote_hsmd_vls
       - bin/remote_hsmd_vls_grpc2
+      - bin/remote_hsmd_vls_embedded
 
 test:
   stage: test
