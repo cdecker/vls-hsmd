@@ -2,6 +2,10 @@
 
 [![pipeline status](https://gitlab.com/lightning-signer/vls-hsmd/badges/main/pipeline.svg)](https://gitlab.com/lightning-signer/vls-hsmd/-/commits/main)
 
+## First Time Setup
+
+Follow the [First Time Setup Instructions](./SETUP.md).
+
 ## Running
 
 Setup, configure, build and run the standard tests:
