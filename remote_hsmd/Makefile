@@ -1,30 +1,20 @@
 #! /usr/bin/make
 
-default: rmthsmd-all
-
-LIGHTNINGD_RMTHSM_SRC := contrib/remote_hsmd/hsmd.c	\
+RMTHSMD_SRC := contrib/remote_hsmd/hsmd.c	\
 	contrib/remote_hsmd/remotesigner.pb.cc \
 	contrib/remote_hsmd/remotesigner.grpc.pb.cc \
 	contrib/remote_hsmd/dump.cc \
 	contrib/remote_hsmd/proxy.cc
-LIGHTNINGD_RMTHSM_HEADERS := contrib/remote_hsmd/remotesigner.pb.h \
-	contrib/remote_hsmd/remotesigner.grpc.pb.h
-LIGHTNINGD_RMTHSM_CCOBJS := $(LIGHTNINGD_RMTHSM_SRC:.cc=.o)
-LIGHTNINGD_RMTHSM_OBJS := $(LIGHTNINGD_RMTHSM_CCOBJS:.c=.o)
 
-HOST_SYSTEM = $(shell uname | cut -f 1 -d_)
-SYSTEM ?= $(HOST_SYSTEM)
-CXX = g++
-CXXFLAGS += -std=c++11 \
-	-I. \
-	-Iccan \
-	-Iexternal/libwally-core/include \
-	-Iexternal/libwally-core/src/secp256k1/include \
-	-g
-PROTOC = protoc
-GRPC_CPP_PLUGIN = grpc_cpp_plugin
-GRPC_CPP_PLUGIN_PATH ?= `which $(GRPC_CPP_PLUGIN)`
-PROTOS_PATH = contrib/remote_hsmd
+RMTHSMD_HEADERS := contrib/remote_hsmd/remotesigner.pb.h \
+	contrib/remote_hsmd/remotesigner.grpc.pb.h
+RMTHSMD_CCOBJS := $(RMTHSMD_SRC:.cc=.o)
+RMTHSMD_OBJS := $(RMTHSMD_CCOBJS:.c=.o)
+
+$(RMTHSMD_OBJS): $(RMTHSMD_HEADERS)
+
+# Make sure these depend on everything.
+ALL_PROGRAMS += lightningd/remote_hsmd
 
 # Common source we use.
 RMTHSMD_COMMON_OBJS :=				\
@@ -63,24 +53,32 @@ RMTHSMD_COMMON_OBJS :=				\
 	common/version.o			\
 	common/wireaddr.o
 
-# For checking
-LIGHTNINGD_RMTHSM_ALLSRC_NOGEN := $(filter-out contrib/remote_hsmd/remotesigner.%, $(LIGHTNINGD_RMTHSM_SRC) $(LIGHTNINGD_RMTHSM_SRC))
-LIGHTNINGD_RMTHSM_ALLHEADERS_NOGEN := $(filter-out contrib/remote_hsmd/remotesigner.%, $(LIGHTNINGD_RMTHSM_HEADERS))
+CXX = g++
+CXXFLAGS += -std=c++11 \
+	-I. \
+	-Iccan \
+	-Iexternal/libwally-core/include \
+	-Iexternal/libwally-core/src/secp256k1/include \
+	-g
+PROTOC = protoc
+GRPC_CPP_PLUGIN = grpc_cpp_plugin
+GRPC_CPP_PLUGIN_PATH ?= `which $(GRPC_CPP_PLUGIN)`
+PROTOS_PATH = contrib/remote_hsmd
 
-$(LIGHTNINGD_RMTHSM_OBJS): $(LIGHTNINGD_HEADERS)
+lightningd/remote_hsmd: $(RMTHSMD_OBJS) $(LIGHTNINGD_LIB_OBJS) $(RMTHSMD_COMMON_OBJS) $(BITCOIN_OBJS) $(WIRE_OBJS)
 
-# Make sure these depend on everything.
-ALL_OBJS += $(LIGHTNINGD_RMTHSM_OBJS)
-ALL_PROGRAMS += lightningd/remote_hsmd
-ALL_GEN_HEADERS += contrib/remote_hsmd/remotesigner.pb.h contrib/remote_hsmd/remotesigner.grpc.pb.h
+clean: rmthsmd-clean
 
-rmthsmd-all: lightningd/remote_hsmd
+rmthsmd-clean:
+	$(RM) $(RMTHSMD_OBJS)
+	$(RM) contrib/remote_hsmd/*.pb.cc contrib/remote_hsmd/*.pb.h
 
-lightningd/remote_hsmd: $(LIGHTNINGD_RMTHSM_OBJS) $(LIGHTNINGD_LIB_OBJS) $(RMTHSMD_COMMON_OBJS) $(BITCOIN_OBJS) $(WIRE_OBJS)
+GEN_HEADERS += contrib/remote_hsmd/remotesigner.pb.h \
+	contrib/remote_hsmd/remotesigner.grpc.pb.h
 
-contrib/remote_hsmd/remotesigner.pb.o: $(ALL_GEN_HEADERS)
+contrib/remote_hsmd/remotesigner.pb.o: $(GEN_HEADERS)
 
-contrib/remote_hsmd/dump.o contrib/remote_hsmd/proxy.o: $(ALL_GEN_HEADERS)
+contrib/remote_hsmd/dump.o contrib/remote_hsmd/proxy.o: $(GEN_HEADERS)
 
 contrib/remote_hsmd/remotesigner.grpc.pb.o contrib/remote_hsmd/remotesigner.pb.o contrib/remote_hsmd/proxy.o contrib/remote_hsmd/dump.o : CPPFLAGS +=  $(CMNFLAGS) `pkg-config --cflags protobuf grpc`
 lightningd/remote_hsmd: LDLIBS += -L/usr/local/lib \
@@ -89,17 +87,6 @@ lightningd/remote_hsmd: LDLIBS += -L/usr/local/lib \
 	-Wl,--no-as-needed -lgrpc++_reflection -Wl,--as-needed\
 	-ldl
 lightningd/remote_hsmd: LDLIBS += -lstdc++
-
-check-source: $(LIGHTNINGD_RMTHSM_ALLSRC_NOGEN:%=check-src-include-order/%) $(LIGHTNINGD_RMTHSM_ALLHEADERS_NOGEN:%=check-hdr-include-order/%)
-check-source-bolt: $(LIGHTNINGD_RMTHSM_SRC:%=bolt-check/%)
-
-check-whitespace: $(LIGHTNINGD_RMTHSM_ALLSRC_NOGEN:%=check-whitespace/%) $(LIGHTNINGD_RMTHSM_ALLHEADERS_NOGEN:%=check-whitespace/%)
-
-clean: lightningd/rmthsm-clean
-
-lightningd/rmthsm-clean:
-	$(RM) $(LIGHTNINGD_RMTHSM_OBJS)
-	$(RM) contrib/remote_hsmd/*.pb.cc contrib/remote_hsmd/*.pb.h
 
 .PRECIOUS: %.grpc.pb.cc
 %.grpc.pb.cc: %.proto
