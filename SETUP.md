@@ -116,6 +116,6 @@ Build everything
 
 Run a test
 
-    make test-one test=tests/test_pay.py::test_pay
+    make test-one TEST=tests/test_pay.py::test_pay
 
 See the [README](./README.md) for more examples ...
