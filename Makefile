@@ -74,8 +74,8 @@ test-experimental:	LOGFILE = experimental.log
 	touch $@
 
 build build-standard build-experimental:	setup
-	cd vls && cargo build
 	cd lightning && make -j$(JPAR)
+	cd vls && cargo build
 
 test-standard test-experimental:	check-subdaemon
 	-. scripts/setup-env && cd lightning \

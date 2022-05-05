@@ -103,12 +103,16 @@ Recursively checkout submodules:
 
     git submodule update --init --recursive
 
+Enable githooks
+
+    ./scripts/enable-githooks
+
 
 #### Build and Run
 
-Build first time serially
+Build everything
 
-    make build-experimental JPAR=1
+    make build-experimental
 
 Run a test
 

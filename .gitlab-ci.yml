@@ -37,7 +37,7 @@ compile-vls:
       - bin/remote_hsmd_vls_grpc2
       - bin/remote_hsmd_vls_embedded
 
-test:
+test-inplace:
   stage: test
   image: ubuntu
   script:
@@ -66,7 +66,22 @@ test-experimental:
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
 
-test-grpc2:
+test-standalone:
+  stage: test
+  image: ubuntu
+  variables:
+    EXPERIMENTAL_FEATURES: "1"
+    SUBDAEMON: hsmd:remote_hsmd
+  script:
+    - ./scripts/install-additional
+    - ./scripts/maybe-rebase "$LIGHTNING_REF"
+    - ./scripts/setup-remote-hsmd
+    - source scripts/setup-env
+    - cd lightning
+    - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
+    - bash -ex .github/scripts/build.sh  # missing `set -e` internally
+
+test-socket:
   variables:
     SUBDAEMON: hsmd:remote_hsmd_vls_grpc2
   stage: test
