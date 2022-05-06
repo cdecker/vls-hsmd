@@ -97,14 +97,14 @@ clean:
 test-one:	LOGFILE = one.log
 test-one:	check-configured check-subdaemon check-test-one build
 	. scripts/setup-env && cd lightning \
-		&& SUBDAEMON=$(SUBDAEMON) VALGRIND=$(VALGRIND) poetry run ../scripts/run-one-test $(test) \
+		&& SUBDAEMON=$(SUBDAEMON) VALGRIND=$(VALGRIND) poetry run ../scripts/run-one-test $(TEST) \
 		| tee ../$(LOGFILE) 2>&1
 
 check-subdaemon:
 	@if test -z $(SUBDAEMON); then echo "unknown VLS_MODE $(VLS_MODE)"; exit 1; fi
 
 check-test-one:
-	@if test -z $(test); then echo "usage: make test-one test=<your-test-here>"; exit 1; fi
+	@if test -z $(TEST); then echo "usage: make test-one TEST=<your-test-here>"; exit 1; fi
 
 check-configured:
 	@if test ! -e .config-standard && test ! -e .config-experimental; then \

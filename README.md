@@ -32,10 +32,10 @@ Summarize results:
 Run a single test:
 
     make config-experimental
-    make test-one test=tests/test_pay.py::test_pay
-    make test-one test=tests/test_pay.py::test_pay VLS_MODE=cln:inplace
-    make test-one test=tests/test_pay.py::test_pay VLS_MODE=cln:socket
+    make test-one TEST=tests/test_pay.py::test_pay
+    make test-one TEST=tests/test_pay.py::test_pay VLS_MODE=cln:inplace
+    make test-one TEST=tests/test_pay.py::test_pay VLS_MODE=cln:socket
 
 Run a single test with native hsmd:
 
-    make test-one test=tests/test_pay.py::test_pay VLS_MODE=cln:native
+    make test-one TEST=tests/test_pay.py::test_pay VLS_MODE=cln:native
