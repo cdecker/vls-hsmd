@@ -1,10 +1,11 @@
 
+VLS_MODE ?= cln:standalone
+TIMEOUT ?= 120
 VALGRIND ?= 0
 
 JPAR:=$(shell nproc)
-TPAR:=$$(( $(JPAR) * 2 ))
-
-VLS_MODE ?= cln:standalone
+# TPAR:=$$(( $(JPAR) * 2 ))
+TPAR=$(JPAR)
 
 ifeq ("$(VLS_MODE)","cln:standalone")
 	SUBDAEMON:="hsmd:remote_hsmd"
@@ -80,7 +81,12 @@ build build-standard build-experimental:	setup
 test-standard test-experimental:	check-subdaemon
 	-. scripts/setup-env && cd lightning \
 		&& SUBDAEMON=$(SUBDAEMON) \
-		poetry run make -j$(JPAR) PYTEST_PAR=$(TPAR) DEVELOPER=1 VALGRIND=$(VALGRIND) pytest \
+		poetry run make -j$(JPAR) \
+			PYTEST_PAR=$(TPAR) \
+			DEVELOPER=1 \
+			VALGRIND=$(VALGRIND) \
+			TIMEOUT=$(TIMEOUT) \
+		pytest \
 		| tee ../$(LOGFILE) 2>&1
 
 clean:
