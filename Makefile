@@ -12,12 +12,12 @@ ifeq ("$(VLS_MODE)","cln:standalone")
 else ifeq ("$(VLS_MODE)","cln:inplace")
 	SUBDAEMON:="hsmd:remote_hsmd_vls"
 else ifeq ("$(VLS_MODE)","cln:socket")
-	SUBDAEMON:="hsmd:remote_hsmd_vls_grpc2"
+	SUBDAEMON:="hsmd:remote_hsmd_socket_test"
 else ifeq ("$(VLS_MODE)","cln:native")
 	SUBDAEMON:="hsmd:lightning_hsmd"
-else ifeq ("$(VLS_MODE)","cln:embedded")
+else ifeq ("$(VLS_MODE)","cln:serial")
     # embedded for node 1, native for the rest
-	SUBDAEMON:="hsmd:remote_hsmd_vls_embedded,hsmd:lightning_hsmd"
+	SUBDAEMON:="hsmd:remote_hsmd_serial,hsmd:lightning_hsmd"
 endif
 
 GITDESC:=$(shell git describe --tags --long --always --match='v*.*')
@@ -62,8 +62,8 @@ test-experimental:	LOGFILE = experimental.log
 	mkdir -p $(PWD)/bin
 	(cd bin && ln -fs ../vls/target/debug/vlsd)
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_vls)
-	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_vls_grpc2)
-	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_vls_embedded)
+	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_socket_test)
+	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_serial)
 	echo "$(GITDESC)" > $@
 
 .config-standard .config-experimental:

@@ -7,7 +7,7 @@ variables:
   CARGO_HOME: "$CI_PROJECT_DIR/.cache/cargo"
   SUBDAEMON:
     value: "hsmd:remote_hsmd_vls"
-    description: "use the single-binary hsmd replacement (default), or the gRPC version `hsmd:remote_hsmd` or the 2nd gRPC version: `hsmd:remote_hsmd_grpc2`"
+    description: "use the inplace hsmd replacement (default), or the standalone version `hsmd:remote_hsmd` or the socket version: `hsmd:remote_hsmd_socket`"
   LIGHTNING_REF:
     value: ""
     description: "rebase onto the ref (e.g. master) from the upstream c-lightning repository"
@@ -28,23 +28,21 @@ compile-vls:
     - (cd vls && cargo build --locked --bins)
     - mkdir -p bin
     - cp vls/target/debug/vlsd bin/
-    - cp vls/target/debug/remote_hsmd_{vls,vls_grpc2} bin/
+    - cp vls/target/debug/remote_hsmd_{vls,socket,socket_test,serial} bin/
     - ls -l bin
   artifacts:
     paths:
       - bin/vlsd
       - bin/remote_hsmd_vls
-      - bin/remote_hsmd_vls_grpc2
-      - bin/remote_hsmd_vls_embedded
+      - bin/remote_hsmd_socket
+      - bin/remote_hsmd_socket_test
+      - bin/remote_hsmd_serial
 
-test-inplace:
+test-inplace-standard:
   stage: test
   image: ubuntu
   script:
-    - ls -l
-    - ls -l bin
     - ./scripts/install-additional
-    - python3 --version
     - ./scripts/maybe-rebase "$LIGHTNING_REF"
     - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
@@ -52,7 +50,7 @@ test-inplace:
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
 
-test-experimental:
+test-inplace:
   stage: test
   image: ubuntu
   variables:
@@ -82,15 +80,13 @@ test-standalone:
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
 
 test-socket:
-  variables:
-    SUBDAEMON: hsmd:remote_hsmd_vls_grpc2
   stage: test
   image: ubuntu
+  variables:
+    EXPERIMENTAL_FEATURES: "1"
+    SUBDAEMON: hsmd:remote_hsmd_socket_test
   script:
-    - ls -l
-    - ls -l bin
     - ./scripts/install-additional
-    - python3 --version
     - ./scripts/maybe-rebase "$LIGHTNING_REF"
     - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
