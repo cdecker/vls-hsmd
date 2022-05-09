@@ -1,5 +1,5 @@
 export PATH="$PATH:`pwd`/bin"
-export PYTEST_PAR=20
+export PYTEST_PAR=10
 
 # These are used by vlsd
 export REMOTE_SIGNER_ALLOWLIST="$(pwd)/lightning/contrib/remote_hsmd/TESTING_ALLOWLIST"
