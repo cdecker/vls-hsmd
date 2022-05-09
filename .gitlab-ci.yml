@@ -92,6 +92,6 @@ test-socket:
     - source scripts/setup-env
     - cd lightning
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
-    - export PYTEST_ADDOPTS="-ktest_pay"
+    # - export PYTEST_ADDOPTS="-ktest_pay"
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
 
