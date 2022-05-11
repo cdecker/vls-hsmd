@@ -26,6 +26,10 @@ all: test-standard
 
 test-all: test-standard test-experimental summary
 
+list-versions:
+	@echo "vls-hsmd ($(shell git describe --tags --long --always --match='v*.*' --dirty))"
+	@git submodule status
+
 summary:
 	./scripts/summary standard.log
 	./scripts/summary experimental.log
@@ -110,7 +114,7 @@ check-configured:
 	@if test ! -e .config-standard && test ! -e .config-experimental; then \
 		echo "Need \"make config-standard\" or \"make config-experimental\" first"; exit 1; fi
 
-.PHONY : all test-all setup clean summary
+.PHONY : all test-all setup clean summary list-versions
 .PHONY : config-standard config-experimental
 .PHONY : build build-standard build-experimental
 .PHONY : test-standard test-experimental
