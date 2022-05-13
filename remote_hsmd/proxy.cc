@@ -451,7 +451,7 @@ proxy_stat proxy_get_node_param(struct ext_key *o_ext_pubkey,
 	if (status.ok()) {
 		unmarshal_ext_pubkey(rsp.xpub(), o_ext_pubkey);
                 unmarshal_point32(rsp.bolt12_pubkey(), o_bolt12);
-                unmarshal_seckey(rsp.node_secret(), o_onion_reply_secret);
+                unmarshal_seckey(rsp.onion_reply_secret(), o_onion_reply_secret);
 		STATUS_DEBUG("%s:%d %s "
 			     "{ \"ext_pubkey\":%s, \"bolt12_pubkey\":%s }",
 			     __FILE__, __LINE__, __FUNCTION__,
