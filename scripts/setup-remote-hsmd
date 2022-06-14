@@ -8,6 +8,8 @@ make_link()
     ln -sf $have $2
 }
 
+[ -d "./bin" ] || mkdir ./bin
+
 make_link vls/lightning-signer-server/src/server/remotesigner.proto remote_hsmd/
 make_link remote_hsmd lightning/contrib/
 make_link bin/remote_hsmd_vls lightning/lightningd/
