@@ -65,6 +65,9 @@ GRPC_CPP_PLUGIN = grpc_cpp_plugin
 GRPC_CPP_PLUGIN_PATH ?= `which $(GRPC_CPP_PLUGIN)`
 PROTOS_PATH = contrib/remote_hsmd
 
+# We need the external stuff before we can build
+$(RMTHSMD_OBJS): $(EXTERNAL_LIBS) $(CCAN_OBJS)
+
 lightningd/remote_hsmd: $(RMTHSMD_OBJS) $(LIGHTNINGD_LIB_OBJS) $(RMTHSMD_COMMON_OBJS) $(BITCOIN_OBJS) $(WIRE_OBJS)
 
 clean: rmthsmd-clean

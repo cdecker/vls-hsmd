@@ -606,6 +606,8 @@ proxy_stat proxy_handle_ready_channel(
 {
 	bool option_static_remotekey = channel_type_has(channel_type, OPT_STATIC_REMOTEKEY);
 	bool option_anchor_outputs = channel_type_has(channel_type, OPT_ANCHOR_OUTPUTS);
+	bool option_anchors_zero_fee_htlc =
+          channel_type_has(channel_type, OPT_ANCHORS_ZERO_FEE_HTLC_TX);
 
 	STATUS_DEBUG(
 		"%s:%d %s { "
@@ -621,7 +623,8 @@ proxy_stat proxy_handle_ready_channel(
 		"\"counterparty_to_self_delay\":%d, "
 		"\"counterparty_shutdown_script\":%s, "
 		"\"option_static_remotekey\":%s, "
-		"\"option_anchor_outputs\":%s }",
+		"\"option_anchor_outputs\":%s, "
+		"\"option_anchors_zero_fee_htlc\":%s }",
 		__FILE__, __LINE__, __FUNCTION__,
 		dump_node_id(&self_id).c_str(),
 		dump_node_id(peer_id).c_str(),
@@ -641,7 +644,8 @@ proxy_stat proxy_handle_ready_channel(
 		dump_hex(counterparty_shutdown_script,
 			 tal_count(counterparty_shutdown_script)).c_str(),
 		(option_static_remotekey ? "true" : "false"),
-		(option_anchor_outputs ? "true" : "false")
+		(option_anchor_outputs ? "true" : "false"),
+		(option_anchors_zero_fee_htlc ? "true" : "false")
 		);
 
 	last_message = "";
@@ -663,7 +667,9 @@ proxy_stat proxy_handle_ready_channel(
 	req.set_counterparty_selected_contest_delay(counterparty_to_self_delay);
 	marshal_script(counterparty_shutdown_script,
 		       req.mutable_counterparty_shutdown_script());
-	if (option_anchor_outputs)
+	if (option_anchors_zero_fee_htlc)
+		req.set_commitment_type(ReadyChannelRequest_CommitmentType_ANCHORS_ZERO_FEE_HTLC);
+	else if (option_anchor_outputs)
 		req.set_commitment_type(ReadyChannelRequest_CommitmentType_ANCHORS);
 	else if (option_static_remotekey)
 		req.set_commitment_type(ReadyChannelRequest_CommitmentType_STATIC_REMOTEKEY);

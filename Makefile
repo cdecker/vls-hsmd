@@ -80,7 +80,7 @@ test-experimental:	LOGFILE = experimental.log
 
 build build-standard build-experimental:	setup
 	cd lightning && make -j$(JPAR)
-	cd vls && cargo build --bins --features=bins $(VLS_BUILDARGS)
+	cd vls && cargo build --bins $(VLS_BUILDARGS)
 
 test-standard test-experimental:	check-subdaemon
 	-. scripts/setup-env && cd lightning \
