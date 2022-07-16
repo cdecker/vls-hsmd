@@ -24,6 +24,10 @@ Using socket connection to VLS:
 
     make -k test-all VLS_MODE=cln:socket
 
+Run tests w/ VLS in permissive mode:
+
+    make -k test-all VLS_MODE=cln:socket VLS_PERMISSIVE=1
+
 Summarize results:
 
     scripts/summary standard.log
