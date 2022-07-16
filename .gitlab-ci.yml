@@ -95,3 +95,19 @@ test-socket:
     # - export PYTEST_ADDOPTS="-ktest_pay"
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
 
+test-permissive:
+  stage: test
+  image: ubuntu
+  variables:
+    EXPERIMENTAL_FEATURES: "1"
+    VLS_PERMISSIVE: "1"
+    SUBDAEMON: hsmd:remote_hsmd_socket_test
+  script:
+    - ./scripts/install-additional
+    - ./scripts/maybe-rebase "$LIGHTNING_REF"
+    - ./scripts/setup-remote-hsmd
+    - source scripts/setup-env
+    - cd lightning
+    - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
+    # - export PYTEST_ADDOPTS="-ktest_pay"
+    - bash -ex .github/scripts/build.sh  # missing `set -e` internally
