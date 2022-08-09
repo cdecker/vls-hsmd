@@ -11,5 +11,6 @@ TEST_DEBUG=1 \
 DEVELOPER=1 \
 SLOW_MACHINE=0 \
 pytest \
+-o log_cli=true --log-cli-level=DEBUG \
 $THETEST \
 -v --timeout=300 --timeout_method=thread -x -s
