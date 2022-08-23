@@ -1748,6 +1748,41 @@ proxy_stat proxy_handle_sign_node_announcement(
 	}
 }
 
+proxy_stat proxy_handle_derive_secret(const u8 *info, struct secret *o_ss)
+{
+	STATUS_DEBUG(
+		"%s:%d %s { \"self_id\":%s, \"info\":%s }",
+		__FILE__, __LINE__, __FUNCTION__,
+		dump_node_id(&self_id).c_str(),
+		dump_hex(info, tal_bytelen(info)).c_str()
+		);
+
+	last_message = "";
+	DeriveSecretRequest req;
+	marshal_node_id(&self_id, req.mutable_node_id());
+	req.set_info(info, tal_bytelen(info));
+
+	ClientContext context;
+	DeriveSecretReply rsp;
+	Status status = stub->DeriveSecret(&context, req, &rsp);
+	if (status.ok()) {
+		unmarshal_secret(rsp.secret(), o_ss);
+		STATUS_DEBUG("%s:%d %s { \"self_id\":%s, \"secret\":%s }",
+			     __FILE__, __LINE__, __FUNCTION__,
+			     dump_node_id(&self_id).c_str(),
+			     dump_secret(o_ss).c_str());
+		last_message = "success";
+		return PROXY_OK;
+	} else {
+		status_unusual("%s:%d %s: self_id=%s %s",
+			       __FILE__, __LINE__, __FUNCTION__,
+			       dump_node_id(&self_id).c_str(),
+			       status.error_message().c_str());
+		last_message = status.error_message();
+		return map_status(status);
+	}
+}
+
 // FIXME - These routines allows us to pretty print to stderr from C
 // code.  Probably should remove it in production ...
 
