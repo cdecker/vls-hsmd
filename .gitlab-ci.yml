@@ -18,7 +18,7 @@ stages:
 
 compile-vls:
   stage: vls
-  image: rust:1.58.1
+  image: rust:1.60.0
   timeout: 30m
   script:
     # we don't need to rebase lightning here, but fail fast if rebase fails
