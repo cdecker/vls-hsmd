@@ -12,6 +12,10 @@ Setup, configure, build and run the standard tests:
 
     make
 
+Might need to increase open file limit if running all tests:
+
+    ulimit -n 10000
+
 Both standard and experimental-features tests:
 
     make -k test-all VLS_MODE=cln:standalone
