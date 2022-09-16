@@ -1576,6 +1576,30 @@ static struct io_plan *handle_sign_bolt12(struct io_conn *conn,
 			 take(towire_hsmd_sign_bolt12_reply(NULL, &sig)));
 }
 
+/*~ lightningd asks us to preapprove an invoice for payment. */
+static struct io_plan *handle_preapprove_invoice(struct io_conn *conn,
+						 struct client *c,
+						 const u8 *msg_in)
+{
+	char *invstring;
+
+	if (!fromwire_hsmd_preapprove_invoice(tmpctx, msg_in, &invstring))
+		return bad_req(conn, c, msg_in);
+
+	proxy_stat rv = proxy_handle_preapprove_invoice(invstring);
+	if (PROXY_PERMANENT(rv))
+		status_failed(STATUS_FAIL_INTERNAL_ERROR,
+		              "proxy_%s failed: %s", __FUNCTION__,
+			      proxy_last_message());
+	else if (!PROXY_SUCCESS(rv))
+		return bad_req_fmt(conn, c, msg_in,
+				   "proxy_%s error: %s", __FUNCTION__,
+				   proxy_last_message());
+
+	return req_reply(conn, c,
+			 take(towire_hsmd_preapprove_invoice_reply(NULL)));
+}
+
 /*~ This will derive pseudorandom secret Key from a derived key */
 static struct io_plan *handle_derive_secret(struct io_conn *conn,
                                             struct client *c,
@@ -1688,6 +1712,7 @@ static bool check_client_capabilities(struct client *client,
 	case WIRE_HSMD_SIGN_MESSAGE:
 	case WIRE_HSMD_GET_OUTPUT_SCRIPTPUBKEY:
 	case WIRE_HSMD_SIGN_BOLT12:
+	case WIRE_HSMD_PREAPPROVE_INVOICE:
 	case WIRE_HSMD_DERIVE_SECRET:
 		return (client->capabilities & HSM_CAP_MASTER) != 0;
 
@@ -1717,6 +1742,7 @@ static bool check_client_capabilities(struct client *client,
 	case WIRE_HSMD_SIGN_MESSAGE_REPLY:
 	case WIRE_HSMD_GET_OUTPUT_SCRIPTPUBKEY_REPLY:
 	case WIRE_HSMD_SIGN_BOLT12_REPLY:
+	case WIRE_HSMD_PREAPPROVE_INVOICE_REPLY:
 	case WIRE_HSMD_DERIVE_SECRET_REPLY:
 		break;
 	}
@@ -1831,6 +1857,9 @@ static struct io_plan *handle_client(struct io_conn *conn, struct client *c)
 	case WIRE_HSMD_SIGN_BOLT12:
 		return handle_sign_bolt12(conn, c, c->msg_in);
 
+	case WIRE_HSMD_PREAPPROVE_INVOICE:
+		return handle_preapprove_invoice(conn, c, c->msg_in);
+
         case WIRE_HSMD_DERIVE_SECRET:
           return handle_derive_secret(conn, c, c->msg_in);
 
@@ -1864,6 +1893,7 @@ static struct io_plan *handle_client(struct io_conn *conn, struct client *c)
 	case WIRE_HSMD_SIGN_MESSAGE_REPLY:
 	case WIRE_HSMD_GET_OUTPUT_SCRIPTPUBKEY_REPLY:
 	case WIRE_HSMD_SIGN_BOLT12_REPLY:
+	case WIRE_HSMD_PREAPPROVE_INVOICE_REPLY:
 		break;
 	}
 
