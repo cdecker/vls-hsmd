@@ -127,6 +127,9 @@ proxy_stat proxy_handle_sign_bolt12(
         u8 *publictweak,
 	struct bip340sig *o_sig);
 
+proxy_stat proxy_handle_preapprove_invoice(
+	const char *invstring);
+
 proxy_stat proxy_handle_sign_message(
 	u8 *msg,
 	secp256k1_ecdsa_recoverable_signature *o_sig);

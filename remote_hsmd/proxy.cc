@@ -1011,6 +1011,41 @@ proxy_stat proxy_handle_sign_bolt12(
 	}
 }
 
+proxy_stat proxy_handle_preapprove_invoice(
+        const char *invstring)
+{
+	STATUS_DEBUG("%s:%d %s { "
+		     "\"self_id\":%s, "
+                     "\"invstring\":%s }",
+		     __FILE__, __LINE__, __FUNCTION__,
+		     dump_node_id(&self_id).c_str(),
+                     invstring
+                     );
+
+	last_message = "";
+	PreapproveInvoiceRequest req;
+	marshal_node_id(&self_id, req.mutable_node_id());
+        req.set_invstring(invstring);
+
+	ClientContext context;
+        PreapproveInvoiceReply rsp;
+	Status status = stub->PreapproveInvoice(&context, req, &rsp);
+	if (status.ok()) {
+		STATUS_DEBUG("%s:%d %s { \"self_id\":%s }",
+			     __FILE__, __LINE__, __FUNCTION__,
+			     dump_node_id(&self_id).c_str());
+		last_message = "success";
+		return PROXY_OK;
+	} else {
+		status_unusual("%s:%d %s: self_id=%s %s",
+			       __FILE__, __LINE__, __FUNCTION__,
+			       dump_node_id(&self_id).c_str(),
+			       status.error_message().c_str());
+		last_message = status.error_message();
+		return map_status(status);
+	}
+}
+
 proxy_stat proxy_handle_sign_message(
 	u8 *msg,
 	secp256k1_ecdsa_recoverable_signature *o_sig)
