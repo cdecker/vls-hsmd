@@ -72,6 +72,7 @@ test-experimental:	LOGFILE = experimental.log
 
 .config-standard .config-experimental:
 	rm -f .config-standard .config-experimental
+	(cd lightning/external/lowdown && ./configure) # WORKAROUND
 	cd lightning \
 		&& make distclean \
 		&& poetry install \
