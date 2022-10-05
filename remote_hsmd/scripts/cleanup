@@ -8,3 +8,4 @@ rm -rf /tmp/vgdb-pipe-*
 rm -rf /tmp/git-difftool.*
 killall bitcoind
 killall vlsd
+killall lssd

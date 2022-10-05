@@ -28,11 +28,13 @@ compile-vls:
     - (cd vls && cargo build --locked --bins)
     - mkdir -p bin
     - cp vls/target/debug/vlsd bin/
+    - cp vls/target/debug/lssd bin/
     - cp vls/target/debug/remote_hsmd_{vls,socket,socket_test,serial} bin/
     - ls -l bin
   artifacts:
     paths:
       - bin/vlsd
+      - bin/lssd
       - bin/remote_hsmd_vls
       - bin/remote_hsmd_socket
       - bin/remote_hsmd_socket_test
