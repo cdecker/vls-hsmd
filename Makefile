@@ -68,6 +68,7 @@ test-experimental:	LOGFILE = experimental.log
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_vls)
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_socket_test)
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_serial)
+	(cd bin && ln -fs ../vls/target/debug/lssd)
 	echo "$(GITDESC)" > $@
 
 .config-standard .config-experimental:
