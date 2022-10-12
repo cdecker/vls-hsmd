@@ -68,7 +68,7 @@ test-experimental:	LOGFILE = experimental.log
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_vls)
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_socket_test)
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_serial)
-	(cd bin && ln -fs ../vls/target/debug/lssd)
+	(cd bin && ln -fs ../vls/lightning-storage-server/target/debug/lssd)
 	echo "$(GITDESC)" > $@
 
 .config-standard .config-experimental:
@@ -83,6 +83,7 @@ test-experimental:	LOGFILE = experimental.log
 build build-standard build-experimental:	setup
 	cd lightning && make -j$(JPAR)
 	cd vls && cargo build --bins $(VLS_BUILDARGS)
+	cd vls/lightning-storage-server && cargo build --bins $(VLS_BUILDARGS)
 
 test-standard test-experimental:	check-subdaemon
 	-. scripts/setup-env && cd lightning \
