@@ -128,7 +128,8 @@ proxy_stat proxy_handle_sign_bolt12(
 	struct bip340sig *o_sig);
 
 proxy_stat proxy_handle_preapprove_invoice(
-	const char *invstring);
+	const char *invstring,
+	bool *o_approved);
 
 proxy_stat proxy_handle_sign_message(
 	u8 *msg,

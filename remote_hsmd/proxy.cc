@@ -1012,7 +1012,8 @@ proxy_stat proxy_handle_sign_bolt12(
 }
 
 proxy_stat proxy_handle_preapprove_invoice(
-        const char *invstring)
+        const char *invstring,
+	bool *o_approved)
 {
 	STATUS_DEBUG("%s:%d %s { "
 		     "\"self_id\":%s, "
@@ -1031,9 +1032,10 @@ proxy_stat proxy_handle_preapprove_invoice(
         PreapproveInvoiceReply rsp;
 	Status status = stub->PreapproveInvoice(&context, req, &rsp);
 	if (status.ok()) {
-		STATUS_DEBUG("%s:%d %s { \"self_id\":%s }",
+		*o_approved = rsp.approved();
+		STATUS_DEBUG("%s:%d %s { \"self_id\":%s \"approved\":%d }",
 			     __FILE__, __LINE__, __FUNCTION__,
-			     dump_node_id(&self_id).c_str());
+			     dump_node_id(&self_id).c_str(), int(*o_approved));
 		last_message = "success";
 		return PROXY_OK;
 	} else {
