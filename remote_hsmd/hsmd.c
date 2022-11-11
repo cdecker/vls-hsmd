@@ -1586,7 +1586,8 @@ static struct io_plan *handle_preapprove_invoice(struct io_conn *conn,
 	if (!fromwire_hsmd_preapprove_invoice(tmpctx, msg_in, &invstring))
 		return bad_req(conn, c, msg_in);
 
-	proxy_stat rv = proxy_handle_preapprove_invoice(invstring);
+	bool approved;
+	proxy_stat rv = proxy_handle_preapprove_invoice(invstring, &approved);
 	if (PROXY_PERMANENT(rv))
 		status_failed(STATUS_FAIL_INTERNAL_ERROR,
 		              "proxy_%s failed: %s", __FUNCTION__,
@@ -1597,7 +1598,7 @@ static struct io_plan *handle_preapprove_invoice(struct io_conn *conn,
 				   proxy_last_message());
 
 	return req_reply(conn, c,
-			 take(towire_hsmd_preapprove_invoice_reply(NULL)));
+			 take(towire_hsmd_preapprove_invoice_reply(NULL, approved)));
 }
 
 /*~ This will derive pseudorandom secret Key from a derived key */
