@@ -58,7 +58,7 @@ proxy_stat proxy_init_hsm(
 
 proxy_stat proxy_get_node_param(
         struct ext_key *o_ext_pubkey,
-        struct point32 *o_bolt12,
+        struct pubkey *o_bolt12,
         struct secret *o_onion_reply_secret);
 
 proxy_stat proxy_handle_ecdh(
