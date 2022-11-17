@@ -286,14 +286,6 @@ void unmarshal_schnorr_signature(SchnorrSignature const &ss, struct bip340sig *o
 	memcpy(o_pp->u8, ss.data().data(), sizeof(o_pp->u8));
 }
 
-void unmarshal_point32(XOnlyPubKey const &pk, struct point32 *o_pp)
-{
-  	assert(pk.data().size() == 32);
-	int ok = secp256k1_xonly_pubkey_parse(secp256k1_ctx, &o_pp->pubkey,
-                                              (const unsigned char*) pk.data().data());
-	assert(ok);
-}
-
 void unmarshal_ext_pubkey(ExtPubKey const &xpk, struct ext_key *o_xp)
 {
 	int rv = bip32_key_from_base58(xpk.encoded().data(), o_xp);
@@ -434,7 +426,7 @@ proxy_stat proxy_init_hsm(struct bip32_key_version *bip32_key_version,
 }
 
 proxy_stat proxy_get_node_param(struct ext_key *o_ext_pubkey,
-                                struct point32 *o_bolt12,
+                                struct pubkey *o_bolt12,
                                 struct secret *o_onion_reply_secret)
 {
 	// TODO
@@ -450,13 +442,13 @@ proxy_stat proxy_get_node_param(struct ext_key *o_ext_pubkey,
 	Status status = stub->GetNodeParam(&context, req, &rsp);
 	if (status.ok()) {
 		unmarshal_ext_pubkey(rsp.xpub(), o_ext_pubkey);
-                unmarshal_point32(rsp.bolt12_pubkey(), o_bolt12);
+                unmarshal_pubkey(rsp.bolt12_pubkey(), o_bolt12);
                 unmarshal_seckey(rsp.onion_reply_secret(), o_onion_reply_secret);
 		STATUS_DEBUG("%s:%d %s "
 			     "{ \"ext_pubkey\":%s, \"bolt12_pubkey\":%s }",
 			     __FILE__, __LINE__, __FUNCTION__,
 			     dump_ext_pubkey(o_ext_pubkey).c_str(),
-                             dump_point32(o_bolt12).c_str());
+                             dump_pubkey(o_bolt12).c_str());
 		last_message = "success";
 		return PROXY_OK;
 	} else {

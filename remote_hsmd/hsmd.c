@@ -383,7 +383,7 @@ static struct io_plan *init_hsm(struct io_conn *conn,
 				const u8 *msg_in)
 {
 	struct node_id node_id;
-	struct point32 bolt12;
+	struct pubkey bolt12;
 	struct secret onion_reply_secret;
 	struct privkey *force_privkey;
 	struct secret *force_bip32_seed;
@@ -393,6 +393,8 @@ static struct io_plan *init_hsm(struct io_conn *conn,
 	struct secret hsm_secret;
 	struct secret *use_hsm_secret;
 	bool coldstart;
+	u32 minversion, maxversion;
+	const u32 our_minversion = 2, our_maxversion = 2;
 
 	/* This must be lightningd. */
 	assert(is_lightningd(c));
@@ -404,8 +406,18 @@ static struct io_plan *init_hsm(struct io_conn *conn,
 	if (!fromwire_hsmd_init(NULL, msg_in, &bip32_key_version, &chainparams,
 	                       &hsm_encryption_key, &force_privkey,
 			       &force_bip32_seed, &force_channel_secrets,
-			       &force_channel_secrets_shaseed))
+			       &force_channel_secrets_shaseed,
+			       &minversion, &maxversion))
 		return bad_req(conn, c, msg_in);
+
+	/*~ Usually we don't worry about API breakage between internal daemons,
+	 * but there are other implementations of the HSM daemon now, so we
+	 * do at least the simplest, clearest thing. */
+	if (our_minversion > maxversion || our_maxversion < minversion)
+		return bad_req_fmt(conn, c, msg_in,
+				   "Version %u-%u not valid: we need %u-%u",
+				   minversion, maxversion,
+				   our_minversion, our_maxversion);
 
 #if DEVELOPER
 	dev_force_privkey = force_privkey;
@@ -492,9 +504,9 @@ static struct io_plan *init_hsm(struct io_conn *conn,
 	initialized = true;
 
 	return req_reply(conn, c,
-			 take(towire_hsmd_init_reply(NULL, &node_id,
-						     &pubstuff.bip32,
-						     &bolt12, &onion_reply_secret)));
+			 take(towire_hsmd_init_reply_v2(NULL, &node_id,
+							&pubstuff.bip32,
+							&bolt12)));
 }
 
 /*~ The client has asked us to extract the shared secret from an EC Diffie
@@ -621,7 +633,7 @@ static struct io_plan *handle_channel_update_sig(struct io_conn *conn,
 	if (!fromwire_hsmd_cupdate_sig_req(tmpctx, msg_in, &cu))
 		return bad_req(conn, c, msg_in);
 
-	if (!fromwire_channel_update_option_channel_htlc_max(cu, &sig,
+	if (!fromwire_channel_update(cu, &sig,
 			&chain_hash, &scid, &timestamp, &message_flags,
 			&channel_flags, &cltv_expiry_delta,
 			&htlc_minimum, &fee_base_msat,
@@ -642,7 +654,7 @@ static struct io_plan *handle_channel_update_sig(struct io_conn *conn,
 				   "proxy_%s error: %s", __FUNCTION__,
 				   proxy_last_message());
 
-	cu = towire_channel_update_option_channel_htlc_max(tmpctx, &sig, &chain_hash,
+	cu = towire_channel_update(tmpctx, &sig, &chain_hash,
 				   &scid, timestamp, message_flags, channel_flags,
 				   cltv_expiry_delta, htlc_minimum,
 				   fee_base_msat, fee_proportional_mill,
@@ -1728,7 +1740,8 @@ static bool check_client_capabilities(struct client *client,
 	case WIRE_HSMD_NODE_ANNOUNCEMENT_SIG_REPLY:
 	case WIRE_HSMD_SIGN_WITHDRAWAL_REPLY:
 	case WIRE_HSMD_SIGN_INVOICE_REPLY:
-	case WIRE_HSMD_INIT_REPLY:
+	case WIRE_HSMD_INIT_REPLY_V1:
+	case WIRE_HSMD_INIT_REPLY_V2:
 	case WIRE_HSMSTATUS_CLIENT_BAD_REQUEST:
 	case WIRE_HSMD_SIGN_COMMITMENT_TX_REPLY:
 	case WIRE_HSMD_VALIDATE_COMMITMENT_TX_REPLY:
@@ -1879,7 +1892,8 @@ static struct io_plan *handle_client(struct io_conn *conn, struct client *c)
 	case WIRE_HSMD_NODE_ANNOUNCEMENT_SIG_REPLY:
 	case WIRE_HSMD_SIGN_WITHDRAWAL_REPLY:
 	case WIRE_HSMD_SIGN_INVOICE_REPLY:
-	case WIRE_HSMD_INIT_REPLY:
+	case WIRE_HSMD_INIT_REPLY_V1:
+	case WIRE_HSMD_INIT_REPLY_V2:
 	case WIRE_HSMSTATUS_CLIENT_BAD_REQUEST:
 	case WIRE_HSMD_SIGN_COMMITMENT_TX_REPLY:
 	case WIRE_HSMD_VALIDATE_COMMITMENT_TX_REPLY:

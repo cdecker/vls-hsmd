@@ -123,11 +123,6 @@ string dump_pubkey(const struct pubkey *kp)
 	return dump_hex(kp->pubkey.data, sizeof(kp->pubkey.data));
 }
 
-string dump_point32(const struct point32 *pp)
-{
-	return dump_hex(pp->pubkey.data, sizeof(pp->pubkey.data));
-}
-
 string dump_ext_pubkey(const struct ext_key *xp)
 {
 	char *out;
