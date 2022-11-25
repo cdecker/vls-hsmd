@@ -29,7 +29,7 @@ C-Lightning:
     git fetch upstream --tags
 
     (cd contrib/remote_hsmd && \
-    ln -s ../../../validating-lightning-signer/lightning-signer-server/src/server/remotesigner.proto)
+    ln -s ../../../validating-lightning-signer/vls-server/src/server/remotesigner.proto)
     # Then make sure the link is valid
     if [ -f contrib/remote_hsmd/remotesigner.proto ]; then echo "Symbolic link successful"; else echo "Symbolic link failed"; fi
 
