@@ -968,7 +968,7 @@ proxy_stat proxy_handle_sign_bolt12(
 		     __FILE__, __LINE__, __FUNCTION__,
 		     dump_node_id(&self_id).c_str(),
                      messagename, fieldname,
-                     dump_hex(merkleroot, sizeof(merkleroot)).c_str(),
+                     dump_hex(merkleroot, sizeof(*merkleroot)).c_str(),
                      publictweak ? dump_hex(publictweak, tal_count(publictweak)).c_str() : "<none>"
                      );
 
