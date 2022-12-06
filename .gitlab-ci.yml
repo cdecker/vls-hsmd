@@ -27,12 +27,12 @@ compile-vls:
     - apt-get update
     - apt-get install -y protobuf-compiler
     - rustup component add rustfmt
+    - make setup
+    - make list-versions
     - (cd vls && cargo build --locked --bins)
     - (cd vls/lightning-storage-server && cargo build --locked --bins)
-    - mkdir -p bin
-    - cp vls/target/debug/vlsd bin/
-    - cp vls/lightning-storage-server/target/debug/lssd bin/
-    - cp vls/target/debug/remote_hsmd_{vls,socket,socket_test,serial} bin/
+    # replace the symbolic links w/ actual files
+    - mkdir -p newbin && cp -L bin/* newbin/ && rm -rf bin && mv newbin bin
     - ls -l bin
   artifacts:
     paths:
@@ -49,8 +49,11 @@ test-inplace-standard:
   script:
     - ./scripts/install-additional
     # - ./scripts/maybe-rebase "$LIGHTNING_REF"
+    - git submodule update --init --recursive
+    - make list-versions
     - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
+    - remote_hsmd_vls --git-desc
     - cd lightning
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
@@ -63,8 +66,11 @@ test-inplace:
   script:
     - ./scripts/install-additional
     # - ./scripts/maybe-rebase "$LIGHTNING_REF"
+    - git submodule update --init --recursive
+    - make list-versions
     - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
+    - remote_hsmd_vls --git-desc
     - cd lightning
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
@@ -78,6 +84,8 @@ test-standalone:
   script:
     - ./scripts/install-additional
     # - ./scripts/maybe-rebase "$LIGHTNING_REF"
+    - git submodule update --init --recursive
+    - make list-versions
     - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
     - cd lightning
@@ -93,8 +101,11 @@ test-socket:
   script:
     - ./scripts/install-additional
     # - ./scripts/maybe-rebase "$LIGHTNING_REF"
+    - git submodule update --init --recursive
+    - make list-versions
     - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
+    - remote_hsmd_socket_test --git-desc
     - cd lightning
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
     # - export PYTEST_ADDOPTS="-ktest_pay"
@@ -110,8 +121,11 @@ test-permissive:
   script:
     - ./scripts/install-additional
     # - ./scripts/maybe-rebase "$LIGHTNING_REF"
+    - git submodule update --init --recursive
+    - make list-versions
     - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
+    - remote_hsmd_socket_test --git-desc
     - cd lightning
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
     # - export PYTEST_ADDOPTS="-ktest_pay"
