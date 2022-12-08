@@ -57,6 +57,7 @@ test-inplace-standard:
     - ls -l bin
     - sha256sum bin/*
     - ls -lH `which remote_hsmd_vls`
+    - ls -l vls/target/debug/vlsd vls/lightning-storage-server/target/debug/lssd vls/target/debug/remote_hsmd_{vls,socket,socket_test,serial} 
     - cd lightning
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
@@ -76,6 +77,7 @@ test-inplace:
     - ls -l bin
     - sha256sum bin/*
     - ls -lH `which remote_hsmd_vls`
+    - ls -l vls/target/debug/vlsd vls/lightning-storage-server/target/debug/lssd vls/target/debug/remote_hsmd_{vls,socket,socket_test,serial} 
     - cd lightning
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
@@ -96,6 +98,7 @@ test-standalone:
     - ls -l bin
     - sha256sum bin/*
     - ls -lH `which vlsd`
+    - ls -l vls/target/debug/vlsd vls/lightning-storage-server/target/debug/lssd vls/target/debug/remote_hsmd_{vls,socket,socket_test,serial} 
     - cd lightning
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
@@ -116,6 +119,7 @@ test-socket:
     - ls -l bin
     - sha256sum bin/*
     - ls -lH `which remote_hsmd_socket_test`
+    - ls -l vls/target/debug/vlsd vls/lightning-storage-server/target/debug/lssd vls/target/debug/remote_hsmd_{vls,socket,socket_test,serial} 
     - cd lightning
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
     # - export PYTEST_ADDOPTS="-ktest_pay"
@@ -138,6 +142,7 @@ test-permissive:
     - ls -l bin
     - sha256sum bin/*
     - ls -lH `which remote_hsmd_socket_test`
+    - ls -l vls/target/debug/vlsd vls/lightning-storage-server/target/debug/lssd vls/target/debug/remote_hsmd_{vls,socket,socket_test,serial} 
     - cd lightning
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
     # - export PYTEST_ADDOPTS="-ktest_pay"
