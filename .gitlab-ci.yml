@@ -29,11 +29,17 @@ compile-vls:
     - rustup component add rustfmt
     - make setup
     - make list-versions
+    - (cd vls && git status)
+    - (cd vls && git clean -f && cargo clean)
+    - (cd vls/lightning-storage-server && git clean -f && cargo clean)
+    - (cd vls && git status)
     - (cd vls && cargo build --locked --bins)
     - (cd vls/lightning-storage-server && cargo build --locked --bins)
     # replace the symbolic links w/ actual files
     - mkdir -p newbin && cp -L bin/* newbin/ && rm -rf bin && mv newbin bin
     - ls -l bin
+    - bin/remote_hsmd_vls --git-desc
+    - bin/remote_hsmd_socket_test --git-desc
   artifacts:
     paths:
       - bin/vlsd
