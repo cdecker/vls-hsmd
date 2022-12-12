@@ -131,6 +131,12 @@ proxy_stat proxy_handle_preapprove_invoice(
 	const char *invstring,
 	bool *o_approved);
 
+proxy_stat proxy_handle_preapprove_keysend(
+	const struct node_id *destination,
+        const struct sha256 *payment_hash,
+	const struct amount_msat *amount,
+	bool *o_approved);
+
 proxy_stat proxy_handle_sign_message(
 	u8 *msg,
 	secp256k1_ecdsa_recoverable_signature *o_sig);

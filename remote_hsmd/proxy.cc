@@ -968,7 +968,7 @@ proxy_stat proxy_handle_sign_bolt12(
 		     __FILE__, __LINE__, __FUNCTION__,
 		     dump_node_id(&self_id).c_str(),
                      messagename, fieldname,
-                     dump_hex(merkleroot, sizeof(merkleroot)).c_str(),
+                     dump_hex(merkleroot, sizeof(*merkleroot)).c_str(),
                      publictweak ? dump_hex(publictweak, tal_count(publictweak)).c_str() : "<none>"
                      );
 
@@ -1023,6 +1023,52 @@ proxy_stat proxy_handle_preapprove_invoice(
 	ClientContext context;
         PreapproveInvoiceReply rsp;
 	Status status = stub->PreapproveInvoice(&context, req, &rsp);
+	if (status.ok()) {
+		*o_approved = rsp.approved();
+		STATUS_DEBUG("%s:%d %s { \"self_id\":%s \"approved\":%d }",
+			     __FILE__, __LINE__, __FUNCTION__,
+			     dump_node_id(&self_id).c_str(), int(*o_approved));
+		last_message = "success";
+		return PROXY_OK;
+	} else {
+		status_unusual("%s:%d %s: self_id=%s %s",
+			       __FILE__, __LINE__, __FUNCTION__,
+			       dump_node_id(&self_id).c_str(),
+			       status.error_message().c_str());
+		last_message = status.error_message();
+		return map_status(status);
+	}
+}
+
+proxy_stat proxy_handle_preapprove_keysend(
+	const struct node_id *destination,
+        const struct sha256 *payment_hash,
+	const struct amount_msat *amount,
+	bool *o_approved)
+{
+	STATUS_DEBUG(
+		"%s:%d %s { "
+		"\"self_id\":%s, "
+		"\"destination\":%s, "
+		"\"payment_hash\":%s, "
+		"\"amount\":%" PRIu64 " }",
+		__FILE__, __LINE__, __FUNCTION__,
+		dump_node_id(&self_id).c_str(),
+		dump_node_id(destination).c_str(),
+		dump_hex(payment_hash, sizeof(*payment_hash)).c_str(),
+		amount->millisatoshis
+		);
+
+	last_message = "";
+	PreapproveKeysendRequest req;
+	marshal_node_id(&self_id, req.mutable_node_id());
+	marshal_node_id(destination, req.mutable_destination());
+	req.set_payment_hash(payment_hash, sizeof(*payment_hash));
+	req.set_amount_msat(amount->millisatoshis);
+
+	ClientContext context;
+        PreapproveKeysendReply rsp;
+	Status status = stub->PreapproveKeysend(&context, req, &rsp);
 	if (status.ok()) {
 		*o_approved = rsp.approved();
 		STATUS_DEBUG("%s:%d %s { \"self_id\":%s \"approved\":%d }",
