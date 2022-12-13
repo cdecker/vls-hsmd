@@ -30,8 +30,8 @@ compile-vls:
     - make setup
     - make list-versions
     - (cd vls && git status)
-    - (cd vls && git clean -f && cargo clean)
-    - (cd vls/lightning-storage-server && git clean -f && cargo clean)
+    - (cd vls && git clean -df && cargo clean)
+    - (cd vls/lightning-storage-server && git clean -df && cargo clean)
     - (cd vls && git status)
     - (cd vls && cargo build --locked --bins)
     - (cd vls/lightning-storage-server && cargo build --locked --bins)
