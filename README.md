@@ -47,3 +47,10 @@ Run a single test:
 Run a single test with native hsmd:
 
     make test-one TEST=tests/test_pay.py::test_pay VLS_MODE=cln:native
+
+Environment Variables
+
+- `VLS_MODE=cln:socket`
+- `VLS_PERMISSIVE=1`
+- `VLS_CHAINFOLLOWER_ENABLE=1`
+- `VLS_DISABLE_UPDATE_VERSION=1`
