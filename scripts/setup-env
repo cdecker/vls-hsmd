@@ -7,3 +7,6 @@ export REMOTE_SIGNER_ALLOWLIST="$(pwd)/lightning/contrib/remote_hsmd/TESTING_ALL
 # These are used by the remote_hsmd_vls
 export ALLOWLIST="$REMOTE_SIGNER_ALLOWLIST"
 export GREENLIGHT_VERSION=`cd lightning && git describe --always --dirty=-modded --abbrev=7`
+
+# CLN integration tests need payment autoapproval (otherwise still enforcing)
+export VLS_AUTOAPPROVE=1
