@@ -52,8 +52,7 @@ Run a single test with native hsmd:
 
 #### `VLS_MODE` - Choose VLS integration mode
 
-See [VLS Integration Modes]
-(https://gitlab.com/lightning-signer/docs/-/blob/master/overview/README.md#vls-integration-modes)
+See [VLS Integration Modes](https://gitlab.com/lightning-signer/docs/-/blob/master/overview/README.md#vls-integration-modes)
 for more information.
 
 Possible values:
