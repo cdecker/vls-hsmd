@@ -127,7 +127,7 @@ void marshal_channel_nonce(struct node_id const *peer_id, u64 dbid,
 
 void marshal_secret(struct secret const *ss, Secret *o_sp)
 {
-	o_sp->set_data(ss->data, sizeof(ss->data));
+	o_sp->set_secret_data(ss->data, sizeof(ss->data));
 }
 
 void marshal_bip32seed(struct secret const *ss, BIP32Seed *o_sp)
@@ -256,8 +256,8 @@ void marshal_htlc(const struct simple_htlc *htlc, HTLCInfo *o_htlc)
 
 void unmarshal_secret(Secret const &ss, struct secret *o_sp)
 {
-	assert(ss.data().size() == sizeof(o_sp->data));
-	memcpy(o_sp->data, ss.data().data(), sizeof(o_sp->data));
+	assert(ss.secret_data().size() == sizeof(o_sp->data));
+	memcpy(o_sp->data, ss.secret_data().data(), sizeof(o_sp->data));
 
 }
 void unmarshal_node_id(NodeId const &nn, struct node_id *o_np)
@@ -884,7 +884,7 @@ proxy_stat proxy_handle_get_per_commitment_point(
 	if (status.ok()) {
 		unmarshal_pubkey(rsp.per_commitment_point(),
 			      o_per_commitment_point);
-		if (rsp.old_secret().data().empty()) {
+		if (rsp.old_secret().secret_data().empty()) {
 			*o_old_secret = NULL;
 		} else {
 			*o_old_secret = tal_arr(tmpctx, struct secret, 1);
@@ -1359,7 +1359,7 @@ proxy_stat proxy_handle_validate_commitment_tx(
 	Status status = stub->ValidateHolderCommitmentTx(&context, req, &rsp);
 	if (status.ok()) {
 		unmarshal_pubkey(rsp.next_per_commitment_point(), o_next_per_commitment_point);
-		if (rsp.old_secret().data().empty()) {
+		if (rsp.old_secret().secret_data().empty()) {
 			*o_old_secret = NULL;
 		} else {
 			*o_old_secret = tal_arr(tmpctx, struct secret, 1);
