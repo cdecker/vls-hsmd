@@ -1,5 +1,5 @@
 
-VLS_MODE ?= cln:standalone
+VLS_MODE ?= cln:socket
 TIMEOUT ?= 120
 VALGRIND ?= 0
 
