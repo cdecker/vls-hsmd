@@ -16,21 +16,21 @@ Might need to increase open file limit if running all tests:
 
     ulimit -n 10000
 
-Both standard and experimental-features tests:
+Run both standard and experimental-features tests:
 
-    make -k test-all VLS_MODE=cln:standalone
+    make -k test-all VLS_MODE=cln:socket
 
 Using in-place VLS:
 
     make -k test-all VLS_MODE=cln:inplace
 
-Using socket connection to VLS:
-
-    make -k test-all VLS_MODE=cln:socket
-
 Run tests w/ VLS in permissive mode:
 
     make -k test-all VLS_MODE=cln:socket VLS_PERMISSIVE=1
+
+Standalone mode (deprecated):
+
+    make -k test-all VLS_MODE=cln:standalone
 
 Summarize results:
 
