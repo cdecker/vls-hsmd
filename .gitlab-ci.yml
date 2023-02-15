@@ -61,6 +61,7 @@ test-inplace-standard:
     - source scripts/setup-env
     - remote_hsmd_vls --git-desc
     - cd lightning
+    - touch doc/index.rst
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
 
@@ -78,6 +79,7 @@ test-inplace:
     - source scripts/setup-env
     - remote_hsmd_vls --git-desc
     - cd lightning
+    - touch doc/index.rst
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
 
@@ -95,6 +97,7 @@ test-standalone:
     - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
     - cd lightning
+    - touch doc/index.rst
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
 
@@ -113,6 +116,7 @@ test-socket:
     - source scripts/setup-env
     - remote_hsmd_socket_test --git-desc
     - cd lightning
+    - touch doc/index.rst
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
     # - export PYTEST_ADDOPTS="-ktest_pay"
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
@@ -133,6 +137,7 @@ test-permissive:
     - source scripts/setup-env
     - remote_hsmd_socket_test --git-desc
     - cd lightning
+    - touch doc/index.rst
     - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
     # - export PYTEST_ADDOPTS="-ktest_pay"
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
