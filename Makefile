@@ -95,7 +95,7 @@ test-standard test-experimental:	check-subdaemon
 			VALGRIND=$(VALGRIND) \
 			TIMEOUT=$(TIMEOUT) \
 		pytest \
-		|& tee ../$(LOGFILE)
+		| tee ../$(LOGFILE) 2>&1
 
 clean:
 	rm -f .config-standard .config-experimental
@@ -106,7 +106,7 @@ test-one:	LOGFILE = one.log
 test-one:	check-configured check-subdaemon check-test-one build
 	. scripts/setup-env && cd lightning \
 		&& SUBDAEMON=$(SUBDAEMON) VALGRIND=$(VALGRIND) poetry run ../scripts/run-one-test $(TEST) \
-		|& tee ../$(LOGFILE)
+		| tee ../$(LOGFILE) 2>&1
 
 check-subdaemon:
 	@if test -z $(SUBDAEMON); then echo "unknown VLS_MODE $(VLS_MODE)"; exit 1; fi
