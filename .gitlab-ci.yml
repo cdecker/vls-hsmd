@@ -7,7 +7,7 @@ variables:
   CARGO_HOME: "$CI_PROJECT_DIR/.cache/cargo"
   SUBDAEMON:
     value: "hsmd:remote_hsmd_vls"
-    description: "use the inplace hsmd replacement (default), or the standalone version `hsmd:remote_hsmd` or the socket version: `hsmd:remote_hsmd_socket`"
+    description: "use the inplace hsmd replacement (default), or the socket version: `hsmd:remote_hsmd_socket`"
   LIGHTNING_REF:
     value: ""
     description: "rebase onto the ref (e.g. master) from the upstream c-lightning repository"
@@ -59,7 +59,6 @@ compile-vls:
     - bin/remote_hsmd_socket_test --git-desc
   artifacts:
     paths:
-      - bin/vlsd
       - bin/lssd
       - bin/remote_hsmd_vls
       - bin/remote_hsmd_socket

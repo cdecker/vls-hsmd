@@ -7,9 +7,7 @@ JPAR:=$(shell nproc)
 # TPAR:=$$(( $(JPAR) * 2 ))
 TPAR=$(JPAR)
 
-ifeq ("$(VLS_MODE)","cln:standalone")
-	SUBDAEMON:="hsmd:remote_hsmd"
-else ifeq ("$(VLS_MODE)","cln:inplace")
+ifeq ("$(VLS_MODE)","cln:inplace")
 	SUBDAEMON:="hsmd:remote_hsmd_vls"
 else ifeq ("$(VLS_MODE)","cln:socket")
 	SUBDAEMON:="hsmd:remote_hsmd_socket_test"
@@ -64,7 +62,6 @@ test-experimental:	LOGFILE = experimental.log
 	./scripts/enable-githooks
 	./scripts/setup-remote-hsmd
 	mkdir -p $(PWD)/bin
-	(cd bin && ln -fs ../vls/target/debug/vlsd)
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_vls)
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_socket)
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_socket_test)
