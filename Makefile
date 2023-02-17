@@ -62,6 +62,7 @@ test-experimental:	LOGFILE = experimental.log
 	./scripts/enable-githooks
 	./scripts/setup-remote-hsmd
 	mkdir -p $(PWD)/bin
+	(cd bin && ln -fs ../vls/target/debug/vlsd2)
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_vls)
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_socket)
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_socket_test)

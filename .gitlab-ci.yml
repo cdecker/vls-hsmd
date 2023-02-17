@@ -59,6 +59,7 @@ compile-vls:
     - bin/remote_hsmd_socket_test --git-desc
   artifacts:
     paths:
+      - bin/vlsd2
       - bin/lssd
       - bin/remote_hsmd_vls
       - bin/remote_hsmd_socket
@@ -152,6 +153,7 @@ test-socket:
     - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
     - remote_hsmd_socket_test --git-desc
+    - vlsd2 --git-desc
     - cd lightning
     - unzip -o ../bin-experimental.zip
     - bash -x ../scripts/ci-test.sh
