@@ -17,6 +17,7 @@ stages:
   - test
 
 compile-vls:
+  tags: [ saas-linux-large-amd64 ]
   stage: vls
   image: rust:1.60.0
   timeout: 30m
@@ -50,6 +51,7 @@ compile-vls:
       - bin/remote_hsmd_serial
 
 test-inplace-standard:
+  tags: [ saas-linux-large-amd64 ]
   stage: test
   image: ubuntu
   script:
@@ -66,6 +68,7 @@ test-inplace-standard:
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
 
 test-inplace:
+  tags: [ saas-linux-large-amd64 ]
   stage: test
   image: ubuntu
   variables:
@@ -102,6 +105,7 @@ test-standalone:
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
 
 test-socket:
+  tags: [ saas-linux-large-amd64 ]
   stage: test
   image: ubuntu
   variables:
@@ -122,6 +126,7 @@ test-socket:
     - bash -ex .github/scripts/build.sh  # missing `set -e` internally
 
 test-permissive:
+  tags: [ saas-linux-large-amd64 ]
   stage: test
   image: ubuntu
   variables:
