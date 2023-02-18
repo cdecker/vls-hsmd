@@ -12,13 +12,29 @@ variables:
     value: ""
     description: "rebase onto the ref (e.g. master) from the upstream c-lightning repository"
 
-stages:
-  - vls
-  - test
+
+get-bitcoin:
+  image: python:3.8
+  cache:
+    key: vls-bitcoin
+    paths:
+      - bin
+  script:
+    - BITCOIN_VERSION=24.0.1
+    - mkdir -p bin
+    - ls -l bin
+    - if [ ! -e bin/bitcoind ]; then
+        wget https://bitcoincore.org/bin/bitcoin-core-${BITCOIN_VERSION}/bitcoin-${BITCOIN_VERSION}-x86_64-linux-gnu.tar.gz &&
+        tar -xf bitcoin-$BITCOIN_VERSION-x86_64-linux-gnu.tar.gz &&
+        mv bitcoin-$BITCOIN_VERSION/bin/* bin ;
+      fi
+  artifacts:
+    paths:
+      - bin/bitcoind
+      - bin/bitcoin-cli
 
 compile-vls:
   tags: [ saas-linux-large-amd64 ]
-  stage: vls
   image: rust:1.60.0
   timeout: 30m
   script:
@@ -50,26 +66,8 @@ compile-vls:
       - bin/remote_hsmd_socket_test
       - bin/remote_hsmd_serial
 
-test-inplace-standard:
+compile-experimental:
   tags: [ saas-linux-large-amd64 ]
-  stage: test
-  image: ubuntu
-  script:
-    - ./scripts/install-additional
-    # - ./scripts/maybe-rebase "$LIGHTNING_REF"
-    - git submodule update --init --recursive
-    - make list-versions
-    - ./scripts/setup-remote-hsmd
-    - source scripts/setup-env
-    - remote_hsmd_vls --git-desc
-    - cd lightning
-    - bash -x .github/scripts/setup.sh
-    - bash -x ../build.sh
-    - bash -x ../test.sh
-
-test-inplace:
-  tags: [ saas-linux-large-amd64 ]
-  stage: test
   image: ubuntu
   variables:
     EXPERIMENTAL_FEATURES: "1"
@@ -78,51 +76,105 @@ test-inplace:
     # - ./scripts/maybe-rebase "$LIGHTNING_REF"
     - git submodule update --init --recursive
     - make list-versions
+    - cd lightning
+    - bash -x .github/scripts/setup.sh
+    - bash -x ../build.sh
+    - zip ../bin-experimental.zip $(find lightningd plugins -executable -type f) config.vars
+  artifacts:
+    paths:
+      - bin-experimental.zip
+
+compile-standard:
+  tags: [ saas-linux-large-amd64 ]
+  image: ubuntu
+  script:
+    - ./scripts/install-additional
+    # - ./scripts/maybe-rebase "$LIGHTNING_REF"
+    - git submodule update --init --recursive
+    - make list-versions
+    - cd lightning
+    - bash -x .github/scripts/setup.sh
+    - bash -x ../build.sh
+    - zip ../bin-standard.zip $(find lightningd plugins -executable -type f) config.vars
+  artifacts:
+    paths:
+      - bin-standard.zip
+
+test-inplace-standard:
+  tags: [ saas-linux-large-amd64 ]
+  image: ubuntu
+  needs:
+    - compile-standard
+    - compile-vls
+    - get-bitcoin
+  script:
+    - ./scripts/install-additional
+    - git submodule update --init --recursive
+    - make list-versions
     - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
     - remote_hsmd_vls --git-desc
     - cd lightning
-    - bash -x .github/scripts/setup.sh
-    - bash -x ../build.sh
+    - unzip ../bin-standard.zip
+    - bash -x ../test.sh
+
+test-inplace:
+  tags: [ saas-linux-large-amd64 ]
+  image: ubuntu
+  needs:
+    - compile-experimental
+    - compile-vls
+    - get-bitcoin
+  variables:
+    EXPERIMENTAL_FEATURES: "1"
+  script:
+    - ./scripts/install-additional
+    - git submodule update --init --recursive
+    - make list-versions
+    - ./scripts/setup-remote-hsmd
+    - source scripts/setup-env
+    - remote_hsmd_vls --git-desc
+    - cd lightning
+    - unzip ../bin-experimental.zip
     - bash -x ../test.sh
 
 test-socket:
   tags: [ saas-linux-large-amd64 ]
-  stage: test
   image: ubuntu
+  needs:
+    - compile-experimental
+    - compile-vls
   variables:
     EXPERIMENTAL_FEATURES: "1"
     SUBDAEMON: hsmd:remote_hsmd_socket_test
   script:
     - ./scripts/install-additional
-    # - ./scripts/maybe-rebase "$LIGHTNING_REF"
     - git submodule update --init --recursive
     - make list-versions
     - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
-    - remote_hsmd_socket_test --git-desc
+    - remote_hsmd_vls --git-desc
     - cd lightning
-    - bash -x .github/scripts/setup.sh
-    - bash -x ../build.sh
+    - unzip ../bin-experimental.zip
     - bash -x ../test.sh
 
 test-permissive:
   tags: [ saas-linux-large-amd64 ]
-  stage: test
   image: ubuntu
+  needs:
+    - compile-experimental
+    - compile-vls
   variables:
     EXPERIMENTAL_FEATURES: "1"
     VLS_PERMISSIVE: "1"
     SUBDAEMON: hsmd:remote_hsmd_socket_test
   script:
     - ./scripts/install-additional
-    # - ./scripts/maybe-rebase "$LIGHTNING_REF"
     - git submodule update --init --recursive
     - make list-versions
     - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
-    - remote_hsmd_socket_test --git-desc
+    - remote_hsmd_vls --git-desc
     - cd lightning
-    - bash -x .github/scripts/setup.sh
-    - bash -x ../build.sh
+    - unzip ../bin-experimental.zip
     - bash -x ../test.sh
