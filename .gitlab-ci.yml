@@ -63,9 +63,9 @@ test-inplace-standard:
     - source scripts/setup-env
     - remote_hsmd_vls --git-desc
     - cd lightning
-    - touch doc/index.rst
-    - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
-    - bash -ex .github/scripts/build.sh  # missing `set -e` internally
+    - bash -x .github/scripts/setup.sh
+    - bash -x ../build.sh
+    - bash -x ../test.sh
 
 test-inplace:
   tags: [ saas-linux-large-amd64 ]
@@ -82,27 +82,9 @@ test-inplace:
     - source scripts/setup-env
     - remote_hsmd_vls --git-desc
     - cd lightning
-    - touch doc/index.rst
-    - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
-    - bash -ex .github/scripts/build.sh  # missing `set -e` internally
-
-test-standalone:
-  stage: test
-  image: ubuntu
-  variables:
-    EXPERIMENTAL_FEATURES: "1"
-    SUBDAEMON: hsmd:remote_hsmd
-  script:
-    - ./scripts/install-additional
-    # - ./scripts/maybe-rebase "$LIGHTNING_REF"
-    - git submodule update --init --recursive
-    - make list-versions
-    - ./scripts/setup-remote-hsmd
-    - source scripts/setup-env
-    - cd lightning
-    - touch doc/index.rst
-    - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
-    - bash -ex .github/scripts/build.sh  # missing `set -e` internally
+    - bash -x .github/scripts/setup.sh
+    - bash -x ../build.sh
+    - bash -x ../test.sh
 
 test-socket:
   tags: [ saas-linux-large-amd64 ]
@@ -120,10 +102,9 @@ test-socket:
     - source scripts/setup-env
     - remote_hsmd_socket_test --git-desc
     - cd lightning
-    - touch doc/index.rst
-    - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
-    # - export PYTEST_ADDOPTS="-ktest_pay"
-    - bash -ex .github/scripts/build.sh  # missing `set -e` internally
+    - bash -x .github/scripts/setup.sh
+    - bash -x ../build.sh
+    - bash -x ../test.sh
 
 test-permissive:
   tags: [ saas-linux-large-amd64 ]
@@ -142,7 +123,6 @@ test-permissive:
     - source scripts/setup-env
     - remote_hsmd_socket_test --git-desc
     - cd lightning
-    - touch doc/index.rst
-    - bash -ex .github/scripts/setup.sh  # missing `set -e` internally
-    # - export PYTEST_ADDOPTS="-ktest_pay"
-    - bash -ex .github/scripts/build.sh  # missing `set -e` internally
+    - bash -x .github/scripts/setup.sh
+    - bash -x ../build.sh
+    - bash -x ../test.sh
