@@ -2,7 +2,7 @@
 set -e
 echo "Running in $(pwd)"
 
-basedir=$(pwd)/..
+basedir="$(pwd)/.."
 ls -l "$basedir/bin"
 
 export TIMEOUT=900
