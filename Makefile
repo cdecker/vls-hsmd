@@ -10,7 +10,7 @@ TPAR=$(JPAR)
 ifeq ("$(VLS_MODE)","cln:inplace")
 	SUBDAEMON:="hsmd:remote_hsmd_vls"
 else ifeq ("$(VLS_MODE)","cln:socket")
-	SUBDAEMON:="hsmd:remote_hsmd_socket_test"
+	SUBDAEMON:="hsmd:remote_hsmd_socket"
 else ifeq ("$(VLS_MODE)","cln:native")
 	SUBDAEMON:="hsmd:lightning_hsmd"
 else ifeq ("$(VLS_MODE)","cln:serial")
