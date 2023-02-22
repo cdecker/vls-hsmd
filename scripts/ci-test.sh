@@ -2,17 +2,25 @@
 set -e
 echo "Running in $(pwd)"
 
+basedir="$(pwd)/.."
+ls -l "$basedir/bin"
+
 export TIMEOUT=900
-export SLOW_MACHINE=1
 export DEVELOPER=${DEVELOPER:-1}
+export PATH="$PATH:~/.local/bin:$basedir/bin"
+export SLOW_MACHINE=1
+export LIGHTNINGD_POSTGRES_NO_VACUUM=1
 export EXPERIMENTAL_FEATURES=${EXPERIMENTAL_FEATURES:-0}
 export TEST_CHECK_DBSTMTS=${TEST_CHECK_DBSTMTS:-0}
+export COMPAT=${COMPAT:-1}
 export TEST_DB_PROVIDER=${TEST_DB_PROVIDER:-"sqlite3"}
 export TEST_NETWORK=${NETWORK:-"regtest"}
 export PYTEST_SENTRY_ALWAYS_REPORT=1
-export COMPAT=${COMPAT:-1}
 export VALGRIND=0
 export FUZZING=0
+
+poetry config virtualenvs.create false --local
+poetry install
 
 cat << EOF > pytest.ini
 [pytest]
