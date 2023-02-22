@@ -56,14 +56,13 @@ compile-vls:
     - mkdir -p newbin && cp -L bin/* newbin/ && rm -rf bin && mv newbin bin
     - ls -l bin
     - bin/remote_hsmd_vls --git-desc
-    - bin/remote_hsmd_socket_test --git-desc
+    - bin/remote_hsmd_socket --git-desc
   artifacts:
     paths:
       - bin/vlsd2
       - bin/lssd
       - bin/remote_hsmd_vls
       - bin/remote_hsmd_socket
-      - bin/remote_hsmd_socket_test
       - bin/remote_hsmd_serial
 
 compile-experimental:
@@ -145,14 +144,14 @@ test-socket:
     - get-bitcoin
   variables:
     EXPERIMENTAL_FEATURES: "1"
-    SUBDAEMON: hsmd:remote_hsmd_socket_test
+    SUBDAEMON: hsmd:remote_hsmd_socket
   script:
     - ./scripts/install-additional
     - git submodule update --init --recursive
     - make list-versions
     - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
-    - remote_hsmd_socket_test --git-desc
+    - remote_hsmd_socket --git-desc
     - vlsd2 --git-desc
     - cd lightning
     - unzip -o ../bin-experimental.zip
@@ -168,14 +167,14 @@ test-permissive:
   variables:
     EXPERIMENTAL_FEATURES: "1"
     VLS_PERMISSIVE: "1"
-    SUBDAEMON: hsmd:remote_hsmd_socket_test
+    SUBDAEMON: hsmd:remote_hsmd_socket
   script:
     - ./scripts/install-additional
     - git submodule update --init --recursive
     - make list-versions
     - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
-    - remote_hsmd_socket_test --git-desc
+    - remote_hsmd_socket --git-desc
     - cd lightning
     - unzip -o ../bin-experimental.zip
     - bash -x ../scripts/ci-test.sh
