@@ -8,7 +8,7 @@ JPAR:=$(shell nproc)
 TPAR=$(JPAR)
 
 ifeq ("$(VLS_MODE)","cln:inplace")
-	SUBDAEMON:="hsmd:remote_hsmd_vls"
+	SUBDAEMON:="hsmd:remote_hsmd_inplace"
 else ifeq ("$(VLS_MODE)","cln:socket")
 	SUBDAEMON:="hsmd:remote_hsmd_socket"
 else ifeq ("$(VLS_MODE)","cln:native")
@@ -63,7 +63,7 @@ test-experimental:	LOGFILE = experimental.log
 	./scripts/setup-remote-hsmd
 	mkdir -p $(PWD)/bin
 	(cd bin && ln -fs ../vls/target/debug/vlsd2)
-	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_vls)
+	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_inplace)
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_socket)
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_serial)
 	(cd bin && ln -fs ../vls/lightning-storage-server/target/debug/lssd)

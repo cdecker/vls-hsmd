@@ -11,8 +11,8 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- \
 
 RUN mkdir /src
 WORKDIR /src
-COPY remote_hsmd_vls remote_hsmd_vls
+COPY remote_hsmd_inplace remote_hsmd_inplace
 COPY scripts scripts
 COPY .gitmodules .gitmodules
 COPY .git .git
-ENV SUBDAEMON hsmd:remote_hsmd_vls
+ENV SUBDAEMON hsmd:remote_hsmd_inplace

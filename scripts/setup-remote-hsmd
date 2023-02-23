@@ -10,6 +10,6 @@ make_link()
 
 [ -d "./bin" ] || mkdir ./bin
 
-make_link bin/remote_hsmd_vls lightning/lightningd/
+make_link bin/remote_hsmd_inplace lightning/lightningd/
 make_link bin/remote_hsmd_socket lightning/lightningd/
 make_link bin/remote_hsmd_serial lightning/lightningd/
