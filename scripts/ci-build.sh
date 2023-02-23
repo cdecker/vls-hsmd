@@ -11,12 +11,6 @@ export EXPERIMENTAL_FEATURES=${EXPERIMENTAL_FEATURES:-0}
 export PATH="$CWD/dependencies/bin:$HOME/.local/bin:$PATH"
 export LIGHTNINGD_POSTGRES_NO_VACUUM=1
 
-# problem in gitlab CI runners with symlinks?!
-# assume we are running inside the CLN directory
-REMOTE_SIGNER_ALLOWLIST="$(pwd)/../remote_hsmd/TESTING_ALLOWLIST"
-export REMOTE_SIGNER_ALLOWLIST
-
-
 pip3 install --user poetry
 poetry config virtualenvs.create false --local
 poetry install
