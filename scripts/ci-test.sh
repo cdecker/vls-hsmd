@@ -18,6 +18,7 @@ export TEST_NETWORK=${NETWORK:-"regtest"}
 export PYTEST_SENTRY_ALWAYS_REPORT=1
 export VALGRIND=0
 export FUZZING=0
+export RUST_BACKTRACE=1
 
 poetry config virtualenvs.create false --local
 poetry install
