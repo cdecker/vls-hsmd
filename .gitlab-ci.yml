@@ -6,8 +6,8 @@ variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
   CARGO_HOME: "$CI_PROJECT_DIR/.cache/cargo"
   SUBDAEMON:
-    value: "hsmd:remote_hsmd_vls"
-    description: "use the inplace hsmd replacement (default), or the standalone version `hsmd:remote_hsmd` or the socket version: `hsmd:remote_hsmd_socket`"
+    value: "hsmd:remote_hsmd_inplace"
+    description: "use the inplace hsmd replacement (default), or the socket version: `hsmd:remote_hsmd_socket`"
   LIGHTNING_REF:
     value: ""
     description: "rebase onto the ref (e.g. master) from the upstream c-lightning repository"
@@ -55,15 +55,14 @@ compile-vls:
     # replace the symbolic links w/ actual files
     - mkdir -p newbin && cp -L bin/* newbin/ && rm -rf bin && mv newbin bin
     - ls -l bin
-    - bin/remote_hsmd_vls --git-desc
-    - bin/remote_hsmd_socket_test --git-desc
+    - bin/remote_hsmd_inplace --git-desc
+    - bin/remote_hsmd_socket --git-desc
   artifacts:
     paths:
-      - bin/vlsd
+      - bin/vlsd2
       - bin/lssd
-      - bin/remote_hsmd_vls
+      - bin/remote_hsmd_inplace
       - bin/remote_hsmd_socket
-      - bin/remote_hsmd_socket_test
       - bin/remote_hsmd_serial
 
 compile-experimental:
@@ -111,7 +110,7 @@ test-inplace-standard:
     - make list-versions
     - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
-    - remote_hsmd_vls --git-desc
+    - remote_hsmd_inplace --git-desc
     - cd lightning
     - unzip -o ../bin-standard.zip
     - bash -x ../scripts/ci-test.sh
@@ -131,7 +130,7 @@ test-inplace:
     - make list-versions
     - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
-    - remote_hsmd_vls --git-desc
+    - remote_hsmd_inplace --git-desc
     - cd lightning
     - unzip -o ../bin-experimental.zip
     - bash -x ../scripts/ci-test.sh
@@ -145,14 +144,15 @@ test-socket:
     - get-bitcoin
   variables:
     EXPERIMENTAL_FEATURES: "1"
-    SUBDAEMON: hsmd:remote_hsmd_socket_test
+    SUBDAEMON: hsmd:remote_hsmd_socket
   script:
     - ./scripts/install-additional
     - git submodule update --init --recursive
     - make list-versions
     - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
-    - remote_hsmd_socket_test --git-desc
+    - remote_hsmd_socket --git-desc
+    - vlsd2 --git-desc
     - cd lightning
     - unzip -o ../bin-experimental.zip
     - bash -x ../scripts/ci-test.sh
@@ -167,14 +167,14 @@ test-permissive:
   variables:
     EXPERIMENTAL_FEATURES: "1"
     VLS_PERMISSIVE: "1"
-    SUBDAEMON: hsmd:remote_hsmd_socket_test
+    SUBDAEMON: hsmd:remote_hsmd_socket
   script:
     - ./scripts/install-additional
     - git submodule update --init --recursive
     - make list-versions
     - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
-    - remote_hsmd_socket_test --git-desc
+    - remote_hsmd_socket --git-desc
     - cd lightning
     - unzip -o ../bin-experimental.zip
     - bash -x ../scripts/ci-test.sh

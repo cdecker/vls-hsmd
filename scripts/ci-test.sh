@@ -18,6 +18,7 @@ export TEST_NETWORK=${NETWORK:-"regtest"}
 export PYTEST_SENTRY_ALWAYS_REPORT=1
 export VALGRIND=0
 export FUZZING=0
+export RUST_BACKTRACE=1
 
 poetry config virtualenvs.create false --local
 poetry install
@@ -32,6 +33,11 @@ EOF
 
 GREENLIGHT_VERSION=$(./lightningd/lightningd --version)
 export GREENLIGHT_VERSION
+
+# This is run from vls-hsmd/lightning
+# note that accessing this via a symlink doesn't work on gitlab CI runners - perhaps a docker bug
+REMOTE_SIGNER_ALLOWLIST="$(pwd)/../remote_hsmd/TESTING_ALLOWLIST"
+export REMOTE_SIGNER_ALLOWLIST
 
 PYTHONPATH=${PYTHONPATH}${PYTHONPATH:+:}contrib/pyln-client:contrib/pyln-testing:contrib/pyln-proto/:external/lnprototest:contrib/pyln-spec/bolt1:contrib/pyln-spec/bolt2:contrib/pyln-spec/bolt4:contrib/pyln-spec/bolt7 TEST_DEBUG=1 DEVELOPER=1 VALGRIND=0 \
   eatmydata python3 -m pytest tests/ -v -p no:logging --maxfail=5 --suppress-no-test-exit-code  -n=10

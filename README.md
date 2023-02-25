@@ -28,10 +28,6 @@ Run tests w/ VLS in permissive mode:
 
     make -k test-all VLS_MODE=cln:socket VLS_PERMISSIVE=1
 
-Standalone mode (deprecated):
-
-    make -k test-all VLS_MODE=cln:standalone
-
 Summarize results:
 
     scripts/summary standard.log
@@ -56,7 +52,6 @@ See [VLS Integration Modes](https://gitlab.com/lightning-signer/docs/-/blob/mast
 for more information.
 
 Possible values:
-- `VLS_MODE=cln:standalone`
 - `VLS_MODE=cln:inplace`
 - `VLS_MODE=cln:socket`
 - `VLS_MODE=cln:serial`
