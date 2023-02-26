@@ -2,7 +2,7 @@ export PATH="$PATH:`pwd`/bin"
 export PYTEST_PAR=10
 
 # These are used by the remote_hsmd_inplace
-export ALLOWLIST="$(pwd)/remote_hsmd/TESTING_ALLOWLIST"
+export REMOTE_SIGNER_ALLOWLIST="$(pwd)/remote_hsmd/TESTING_ALLOWLIST"
 export GREENLIGHT_VERSION=`cd lightning && git describe --always --dirty=-modded --abbrev=7`
 
 # CLN integration tests need payment autoapproval (otherwise still enforcing)
