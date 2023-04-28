@@ -11,6 +11,7 @@ variables:
   LIGHTNING_REF:
     value: ""
     description: "rebase onto the ref (e.g. master) from the upstream c-lightning repository"
+  VLS_CHAINFOLLOWER_ENABLE: 1
 
 
 get-bitcoin:
