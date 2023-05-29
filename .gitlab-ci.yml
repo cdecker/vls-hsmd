@@ -11,8 +11,6 @@ variables:
   LIGHTNING_REF:
     value: ""
     description: "rebase onto the ref (e.g. master) from the upstream c-lightning repository"
-  VLS_CHAINFOLLOWER_ENABLE: "1"
-  VLS_ONCHAIN_VALIDATION: "1"
 
 get-bitcoin:
   image: python:3.8
@@ -106,7 +104,7 @@ test-inplace-standard:
     - compile-vls
     - get-bitcoin
   variables:
-    VLS_ONCHAIN_VALIDATION: "0"
+    VLS_ONCHAIN_VALIDATION_DISABLE: "1"
   script:
     - ./scripts/install-additional
     - git submodule update --init --recursive
@@ -127,7 +125,7 @@ test-inplace:
     - get-bitcoin
   variables:
     EXPERIMENTAL_FEATURES: "1"
-    VLS_ONCHAIN_VALIDATION: "0"
+    VLS_ONCHAIN_VALIDATION_DISABLE: "1"
   script:
     - ./scripts/install-additional
     - git submodule update --init --recursive
