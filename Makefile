@@ -79,7 +79,7 @@ test-experimental:	LOGFILE = experimental.log
 	touch $@
 
 build build-standard build-experimental:	setup
-	cd lightning && make -j$(JPAR)
+	cd lightning && poetry run make -j$(JPAR)
 	cd vls && cargo build --bins $(VLS_BUILDARGS)
 	cd vls/lightning-storage-server && cargo build --bins $(VLS_BUILDARGS)
 
