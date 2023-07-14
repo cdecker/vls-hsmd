@@ -7,3 +7,6 @@ export GREENLIGHT_VERSION=`cd lightning && git describe --always --dirty=-modded
 
 # CLN integration tests need payment autoapproval (otherwise still enforcing)
 export VLS_AUTOAPPROVE=1
+
+# Force streaming of full blocks instead of using proofs (pretend all false-positive)
+export VLS_CHAINFOLLOWER_TEST_STREAMING=1
