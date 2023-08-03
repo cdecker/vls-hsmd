@@ -20,17 +20,16 @@ endif
 
 GITDESC:=$(shell git describe --tags --long --always --match='v*.*')
 
-all: test-standard
+all: test
 
-test-all: test-standard test-experimental summary
+test-all: test summary
 
 list-versions:
 	@echo "vls-hsmd ($(shell git describe --tags --long --always --match='v*.*' --dirty))"
 	@git submodule status
 
 summary:
-	./scripts/summary standard.log
-	./scripts/summary experimental.log
+	./scripts/summary all.log
 
 setup:	check-git-version .setup-complete
 
@@ -42,20 +41,13 @@ ifneq ("$(wildcard .setup-complete)", "")
   endif
 endif
 
-config-standard:	setup .config-standard
-config-standard:	CFGFLAGS=
+config:	setup .config
+config:	CFGFLAGS=
 
-config-experimental:	setup .config-experimental
-config-experimental:	CFGFLAGS = --enable-experimental-features
+build:	config
 
-build-standard:		config-standard
-build-experimental:		config-experimental
-
-test-standard:	build-standard
-test-standard:	LOGFILE = standard.log
-
-test-experimental:	build-experimental
-test-experimental:	LOGFILE = experimental.log
+test:	build
+test:	LOGFILE = all.log
 
 .setup-complete: ./scripts/setup-remote-hsmd
 	git submodule update --init --recursive
@@ -69,8 +61,8 @@ test-experimental:	LOGFILE = experimental.log
 	(cd bin && ln -fs ../vls/lightning-storage-server/target/debug/lssd)
 	echo "$(GITDESC)" > $@
 
-.config-standard .config-experimental:
-	rm -f .config-standard .config-experimental
+.config:
+	rm -f .config
 	(cd lightning/external/lowdown && ./configure) # WORKAROUND
 	cd lightning \
 		&& make distclean \
@@ -78,12 +70,12 @@ test-experimental:	LOGFILE = experimental.log
 		&& ./configure --enable-developer $(CFGFLAGS)
 	touch $@
 
-build build-standard build-experimental:	setup
+build:	config
 	cd lightning && poetry run make -j$(JPAR)
 	cd vls && cargo build --bins $(VLS_BUILDARGS)
 	cd vls/lightning-storage-server && cargo build --bins $(VLS_BUILDARGS)
 
-test-standard test-experimental:	check-subdaemon
+test:	check-subdaemon
 	-. scripts/setup-env && cd lightning \
 		&& SUBDAEMON=$(SUBDAEMON) \
 		poetry run make -j$(JPAR) \
@@ -95,12 +87,12 @@ test-standard test-experimental:	check-subdaemon
 		2>&1 | tee ../$(LOGFILE)
 
 clean:
-	rm -f .config-standard .config-experimental
+	rm -f .config
 	cd vls && cargo clean
 	cd lightning && make distclean
 
 test-one:	LOGFILE = one.log
-test-one:	check-configured check-subdaemon check-test-one build
+test-one:	check-subdaemon check-test-one build
 	. scripts/setup-env && cd lightning \
 		&& SUBDAEMON=$(SUBDAEMON) VALGRIND=$(VALGRIND) poetry run ../scripts/run-one-test $(TEST) \
 		2>&1 | tee ../$(LOGFILE)
@@ -111,14 +103,10 @@ check-subdaemon:
 check-test-one:
 	@if test -z $(TEST); then echo "usage: make test-one TEST=<your-test-here>"; exit 1; fi
 
-check-configured:
-	@if test ! -e .config-standard && test ! -e .config-experimental; then \
-		echo "Need \"make config-standard\" or \"make config-experimental\" first"; exit 1; fi
-
 .PHONY : all test-all setup clean summary list-versions
-.PHONY : config-standard config-experimental
-.PHONY : build build-standard build-experimental
-.PHONY : test-standard test-experimental
+.PHONY : config
+.PHONY : build
+.PHONY : test
 .PHONY : test-one check-test-one
-.PHONY : check-git-version check-configured check-subdaemon
+.PHONY : check-git-version check-subdaemon
 
