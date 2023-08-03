@@ -112,7 +112,7 @@ Enable githooks
 
 Build everything
 
-    make build-experimental
+    make build
 
 Run a test
 
