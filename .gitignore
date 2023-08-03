@@ -1,7 +1,5 @@
-/.config-experimental
-/.config-standard
+/.config
 /.setup-complete
 /bin
-/experimental.log
 /one.log
-/standard.log
+/all.log
