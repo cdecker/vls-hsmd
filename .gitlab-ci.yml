@@ -79,7 +79,7 @@ compile-cln:
     paths:
       - bin-cln.zip
 
-test-inplace:
+test-enforcing-inplace:
   tags: [ saas-linux-large-amd64 ]
   image: ubuntu
   needs:
@@ -99,7 +99,7 @@ test-inplace:
     - unzip -o ../bin-cln.zip
     - bash -x ../scripts/ci-test.sh
 
-test-socket:
+test-enforcing-socket:
   tags: [ saas-linux-large-amd64 ]
   image: ubuntu
   needs:
@@ -120,7 +120,7 @@ test-socket:
     - unzip -o ../bin-cln.zip
     - bash -x ../scripts/ci-test.sh
 
-test-permissive:
+test-permissive-socket:
   tags: [ saas-linux-large-amd64 ]
   image: ubuntu
   needs:
