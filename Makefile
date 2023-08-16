@@ -81,7 +81,7 @@ test-experimental:	LOGFILE = experimental.log
 build build-standard build-experimental:	setup
 	cd lightning && poetry run make -j$(JPAR)
 	cd vls && cargo build --bins $(VLS_BUILDARGS)
-	cd vls/lightning-storage-server && cargo build --bins $(VLS_BUILDARGS)
+	cd vls/lightning-storage-server && cargo build --bins $(LSS_BUILDARGS)
 
 test-standard test-experimental:	check-subdaemon
 	-. scripts/setup-env && cd lightning \
