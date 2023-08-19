@@ -64,24 +64,7 @@ compile-vls:
       - bin/remote_hsmd_socket
       - bin/remote_hsmd_serial
 
-compile-experimental:
-  tags: [ saas-linux-large-amd64 ]
-  image: ubuntu
-  variables:
-    EXPERIMENTAL_FEATURES: "1"
-  script:
-    - ./scripts/install-additional
-    - git submodule update --init --recursive
-    - make list-versions
-    - cd lightning
-    - bash -x .github/scripts/setup.sh
-    - bash -x ../scripts/ci-build.sh
-    - zip ../bin-experimental.zip $(find lightningd cli plugins tools devtools tests/plugins -executable -type f) config.vars
-  artifacts:
-    paths:
-      - bin-experimental.zip
-
-compile-standard:
+compile-cln:
   tags: [ saas-linux-large-amd64 ]
   image: ubuntu
   script:
@@ -91,16 +74,16 @@ compile-standard:
     - cd lightning
     - bash -x .github/scripts/setup.sh
     - bash -x ../scripts/ci-build.sh
-    - zip ../bin-standard.zip $(find lightningd cli plugins tools devtools tests/plugins -executable -type f) config.vars
+    - zip ../bin-cln.zip $(find lightningd cli plugins tools devtools tests/plugins -executable -type f) config.vars
   artifacts:
     paths:
-      - bin-standard.zip
+      - bin-cln.zip
 
-test-inplace-standard:
+test-enforcing-inplace:
   tags: [ saas-linux-large-amd64 ]
   image: ubuntu
   needs:
-    - compile-standard
+    - compile-cln
     - compile-vls
     - get-bitcoin
   variables:
@@ -113,39 +96,17 @@ test-inplace-standard:
     - source scripts/setup-env
     - remote_hsmd_inplace --git-desc
     - cd lightning
-    - unzip -o ../bin-standard.zip
+    - unzip -o ../bin-cln.zip
     - bash -x ../scripts/ci-test.sh
 
-test-inplace:
+test-enforcing-socket:
   tags: [ saas-linux-large-amd64 ]
   image: ubuntu
   needs:
-    - compile-experimental
+    - compile-cln
     - compile-vls
     - get-bitcoin
   variables:
-    EXPERIMENTAL_FEATURES: "1"
-    VLS_ONCHAIN_VALIDATION_DISABLE: "1"
-  script:
-    - ./scripts/install-additional
-    - git submodule update --init --recursive
-    - make list-versions
-    - ./scripts/setup-remote-hsmd
-    - source scripts/setup-env
-    - remote_hsmd_inplace --git-desc
-    - cd lightning
-    - unzip -o ../bin-experimental.zip
-    - bash -x ../scripts/ci-test.sh
-
-test-socket:
-  tags: [ saas-linux-large-amd64 ]
-  image: ubuntu
-  needs:
-    - compile-experimental
-    - compile-vls
-    - get-bitcoin
-  variables:
-    EXPERIMENTAL_FEATURES: "1"
     SUBDAEMON: hsmd:remote_hsmd_socket
   script:
     - ./scripts/install-additional
@@ -156,18 +117,17 @@ test-socket:
     - remote_hsmd_socket --git-desc
     - vlsd2 --git-desc
     - cd lightning
-    - unzip -o ../bin-experimental.zip
+    - unzip -o ../bin-cln.zip
     - bash -x ../scripts/ci-test.sh
 
-test-permissive:
+test-permissive-socket:
   tags: [ saas-linux-large-amd64 ]
   image: ubuntu
   needs:
-    - compile-experimental
+    - compile-cln
     - compile-vls
     - get-bitcoin
   variables:
-    EXPERIMENTAL_FEATURES: "1"
     VLS_PERMISSIVE: "1"
     SUBDAEMON: hsmd:remote_hsmd_socket
   script:
@@ -178,5 +138,5 @@ test-permissive:
     - source scripts/setup-env
     - remote_hsmd_socket --git-desc
     - cd lightning
-    - unzip -o ../bin-experimental.zip
+    - unzip -o ../bin-cln.zip
     - bash -x ../scripts/ci-test.sh
