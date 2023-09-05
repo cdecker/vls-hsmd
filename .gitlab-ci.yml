@@ -79,7 +79,7 @@ compile-cln:
     paths:
       - bin-cln.zip
 
-test-enforcing-inplace:
+test-openv1-enforcing-inplace:
   tags: [ saas-linux-large-amd64 ]
   image: ubuntu
   needs:
@@ -99,7 +99,7 @@ test-enforcing-inplace:
     - unzip -o ../bin-cln.zip
     - bash -x ../scripts/ci-test.sh
 
-test-enforcing-socket:
+test-openv1-enforcing-socket:
   tags: [ saas-linux-large-amd64 ]
   image: ubuntu
   needs:
@@ -120,7 +120,7 @@ test-enforcing-socket:
     - unzip -o ../bin-cln.zip
     - bash -x ../scripts/ci-test.sh
 
-test-permissive-socket:
+test-openv1-permissive-socket:
   tags: [ saas-linux-large-amd64 ]
   image: ubuntu
   needs:
@@ -129,6 +129,48 @@ test-permissive-socket:
     - get-bitcoin
   variables:
     VLS_PERMISSIVE: "1"
+    SUBDAEMON: hsmd:remote_hsmd_socket
+  script:
+    - ./scripts/install-additional
+    - git submodule update --init --recursive
+    - make list-versions
+    - ./scripts/setup-remote-hsmd
+    - source scripts/setup-env
+    - remote_hsmd_socket --git-desc
+    - cd lightning
+    - unzip -o ../bin-cln.zip
+    - bash -x ../scripts/ci-test.sh
+
+test-splice-enforcing-socket:
+  tags: [ saas-linux-large-amd64 ]
+  image: ubuntu
+  needs:
+    - compile-cln
+    - compile-vls
+    - get-bitcoin
+  variables:
+    EXPERIMENTAL_SPLICING: "1"
+    SUBDAEMON: hsmd:remote_hsmd_socket
+  script:
+    - ./scripts/install-additional
+    - git submodule update --init --recursive
+    - make list-versions
+    - ./scripts/setup-remote-hsmd
+    - source scripts/setup-env
+    - remote_hsmd_socket --git-desc
+    - cd lightning
+    - unzip -o ../bin-cln.zip
+    - bash -x ../scripts/ci-test.sh
+
+test-dualfund-enforcing-socket:
+  tags: [ saas-linux-large-amd64 ]
+  image: ubuntu
+  needs:
+    - compile-cln
+    - compile-vls
+    - get-bitcoin
+  variables:
+    EXPERIMENTAL_DUAL_FUND: "1"
     SUBDAEMON: hsmd:remote_hsmd_socket
   script:
     - ./scripts/install-additional
