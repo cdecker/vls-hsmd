@@ -6,7 +6,7 @@ variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
   CARGO_HOME: "$CI_PROJECT_DIR/.cache/cargo"
   SUBDAEMON:
-    value: "hsmd:remote_hsmd_inplace"
+    value: "hsmd:remote_hsmd_socket"
     description: "use the inplace hsmd replacement (default), or the socket version: `hsmd:remote_hsmd_socket`"
   LIGHTNING_REF:
     value: ""
@@ -79,25 +79,26 @@ compile-cln:
     paths:
       - bin-cln.zip
 
-test-openv1-enforcing-inplace:
-  tags: [ saas-linux-large-amd64 ]
-  image: ubuntu
-  needs:
-    - compile-cln
-    - compile-vls
-    - get-bitcoin
-  variables:
-    VLS_ONCHAIN_VALIDATION_DISABLE: "1"
-  script:
-    - ./scripts/install-additional
-    - git submodule update --init --recursive
-    - make list-versions
-    - ./scripts/setup-remote-hsmd
-    - source scripts/setup-env
-    - remote_hsmd_inplace --git-desc
-    - cd lightning
-    - unzip -o ../bin-cln.zip
-    - bash -x ../scripts/ci-test.sh
+# test-openv1-enforcing-inplace:
+#   tags: [ saas-linux-large-amd64 ]
+#   image: ubuntu
+#   needs:
+#     - compile-cln
+#     - compile-vls
+#     - get-bitcoin
+#   variables:
+#     SUBDAEMON: hsmd:remote_hsmd_socket
+#     VLS_ONCHAIN_VALIDATION_DISABLE: "1"
+#   script:
+#     - ./scripts/install-additional
+#     - git submodule update --init --recursive
+#     - make list-versions
+#     - ./scripts/setup-remote-hsmd
+#     - source scripts/setup-env
+#     - remote_hsmd_inplace --git-desc
+#     - cd lightning
+#     - unzip -o ../bin-cln.zip
+#     - bash -x ../scripts/ci-test.sh
 
 test-openv1-enforcing-socket:
   tags: [ saas-linux-large-amd64 ]
@@ -107,7 +108,6 @@ test-openv1-enforcing-socket:
     - compile-vls
     - get-bitcoin
   variables:
-    SUBDAEMON: hsmd:remote_hsmd_socket
   script:
     - ./scripts/install-additional
     - git submodule update --init --recursive
@@ -129,7 +129,6 @@ test-openv1-permissive-socket:
     - get-bitcoin
   variables:
     VLS_PERMISSIVE: "1"
-    SUBDAEMON: hsmd:remote_hsmd_socket
   script:
     - ./scripts/install-additional
     - git submodule update --init --recursive
@@ -150,7 +149,6 @@ test-splice-enforcing-socket:
     - get-bitcoin
   variables:
     EXPERIMENTAL_SPLICING: "1"
-    SUBDAEMON: hsmd:remote_hsmd_socket
   script:
     - ./scripts/install-additional
     - git submodule update --init --recursive
@@ -171,7 +169,6 @@ test-dualfund-enforcing-socket:
     - get-bitcoin
   variables:
     EXPERIMENTAL_DUAL_FUND: "1"
-    SUBDAEMON: hsmd:remote_hsmd_socket
   script:
     - ./scripts/install-additional
     - git submodule update --init --recursive
