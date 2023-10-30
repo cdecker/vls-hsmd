@@ -67,7 +67,7 @@ test:	LOGFILE = all.log
 	cd lightning \
 		&& make distclean \
 		&& poetry install \
-		&& ./configure --enable-developer $(CFGFLAGS)
+		&& ./configure $(CFGFLAGS)
 	touch $@
 
 build:	config
