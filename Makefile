@@ -1,6 +1,6 @@
 
 VLS_MODE ?= cln:socket
-TIMEOUT ?= 120
+TIMEOUT ?= 300
 VALGRIND ?= 0
 
 JPAR:=$(shell nproc)
@@ -44,7 +44,6 @@ config:	CFGFLAGS=
 build:	config
 
 test:	build
-test:	LOGFILE = all.log
 
 .setup-complete: ./scripts/setup-remote-hsmd
 	git submodule update --init --recursive
@@ -72,27 +71,58 @@ build:	config
 	cd vls && cargo build --bins $(VLS_BUILDARGS)
 	cd vls/lightning-storage-server && cargo build --bins $(LSS_BUILDARGS)
 
+# use a timestamp version test results directory
+TEST_SUBDIR := TEST-$(shell date +"%Y%m%d-%H%M%S")
+
+test:	RUN_DIR ?= /tmp
+test:	TEST_DIR = $(abspath $(RUN_DIR)/$(TEST_SUBDIR))
+test:	LOGFILE = ALL.log
+test:	LATEST = ./LATEST-TEST-ALL
 test:	check-subdaemon
-	-. scripts/setup-env && cd lightning \
-		&& SUBDAEMON=$(SUBDAEMON) \
-		poetry run make -j$(JPAR) \
-			PYTEST_PAR=$(TPAR) \
+	-. scripts/setup-env \
+		&& echo Running all tests in $(TEST_DIR) \
+		&& mkdir -p $(TEST_DIR) \
+		&& rm -f  $(LATEST) \
+		&& ln -s $(TEST_DIR) $(LATEST) \
+	    && cd lightning \
+		&& export \
 			DEVELOPER=1 \
+			SUBDAEMON=$(SUBDAEMON) \
 			VALGRIND=$(VALGRIND) \
 			TIMEOUT=$(TIMEOUT) \
+			TEST_DIR=$(TEST_DIR) \
+		&& printenv >  $(TEST_DIR)/ENV.log \
+		&& poetry run make -j$(JPAR) \
+			VALGRIND=$(VALGRIND) \
+			PYTEST_MOREOPTS="--timeout=$(TIMEOUT) --timeout_method=thread" \
+			PYTEST_PAR=$(TPAR) \
 		pytest \
-		2>&1 | tee ../$(LOGFILE)
+		2>&1 | tee $(TEST_DIR)/$(LOGFILE)
 
 clean:
 	rm -f .config
 	cd vls && cargo clean
 	cd lightning && make distclean
 
-test-one:	LOGFILE = one.log
+test-one:	RUN_DIR ?= $(PWD)
+test-one:	TEST_DIR = $(abspath $(RUN_DIR)/$(TEST_SUBDIR))
+test-one:	LOGFILE = ONE.log
+test-one:	LATEST = ./LATEST-TEST-ONE
 test-one:	check-subdaemon check-test-one build
-	. scripts/setup-env && cd lightning \
-		&& SUBDAEMON=$(SUBDAEMON) VALGRIND=$(VALGRIND) poetry run ../scripts/run-one-test $(TEST) \
-		2>&1 | tee ../$(LOGFILE)
+	. scripts/setup-env \
+		&& echo Running $(TEST) in $(TEST_DIR) \
+		&& mkdir -p $(TEST_DIR) \
+		&& rm -f  $(LATEST) \
+		&& ln -s $(TEST_DIR) $(LATEST) \
+		&& cd lightning \
+		&& export \
+			DEVELOPER=1 \
+			SUBDAEMON=$(SUBDAEMON) \
+			VALGRIND=$(VALGRIND) \
+			TIMEOUT=$(TIMEOUT) \
+			TEST_DIR=$(TEST_DIR) \
+		&& poetry run ../scripts/run-one-test $(TEST) \
+		2>&1 | tee $(TEST_DIR)/$(LOGFILE)
 
 check-subdaemon:
 	@if test -z $(SUBDAEMON); then echo "unknown VLS_MODE $(VLS_MODE)"; exit 1; fi
@@ -106,4 +136,3 @@ check-test-one:
 .PHONY : test
 .PHONY : test-one check-test-one
 .PHONY : check-git-version check-subdaemon
-
