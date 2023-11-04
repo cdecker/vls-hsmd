@@ -119,6 +119,9 @@ test-openv1-enforcing-socket:
     - cd lightning
     - unzip -o ../bin-cln.zip
     - bash -x ../scripts/ci-test.sh
+  artifacts:
+    paths:
+      - /tmp/test_dir
 
 test-openv1-permissive-socket:
   tags: [ saas-linux-large-amd64 ]
@@ -139,6 +142,9 @@ test-openv1-permissive-socket:
     - cd lightning
     - unzip -o ../bin-cln.zip
     - bash -x ../scripts/ci-test.sh
+  artifacts:
+    paths:
+      - /tmp/test_dir
 
 test-splice-enforcing-socket:
   tags: [ saas-linux-large-amd64 ]
@@ -159,6 +165,9 @@ test-splice-enforcing-socket:
     - cd lightning
     - unzip -o ../bin-cln.zip
     - bash -x ../scripts/ci-test.sh
+  artifacts:
+    paths:
+      - /tmp/test_dir
 
 test-dualfund-enforcing-socket:
   tags: [ saas-linux-large-amd64 ]
@@ -179,3 +188,6 @@ test-dualfund-enforcing-socket:
     - cd lightning
     - unzip -o ../bin-cln.zip
     - bash -x ../scripts/ci-test.sh
+  artifacts:
+    paths:
+      - /tmp/test_dir
