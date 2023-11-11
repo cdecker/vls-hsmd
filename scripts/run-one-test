@@ -13,4 +13,4 @@ SLOW_MACHINE=0 \
 RUST_BACKTRACE=1 \
 pytest \
 $THETEST \
--v --timeout=300 --timeout_method=thread -p no:logging -s --help
+-v --timeout=300 --timeout_method=thread -p no:logging -s
