@@ -1,6 +1,6 @@
 
 VLS_MODE ?= cln:socket
-TIMEOUT ?= 120
+TIMEOUT ?= 300
 VALGRIND ?= 0
 
 JPAR:=$(shell nproc)

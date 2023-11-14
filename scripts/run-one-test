@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Use default timeout if none set
+: ${TIMEOUT:=300}
+
 THETEST=$1
 
 PYTHONPATH=\
@@ -13,4 +16,4 @@ SLOW_MACHINE=0 \
 RUST_BACKTRACE=1 \
 pytest \
 $THETEST \
--v --timeout=300 --timeout_method=thread -p no:logging -s
+-v --timeout=$TIMEOUT --timeout_method=thread -p no:logging -s
