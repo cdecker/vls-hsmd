@@ -5,6 +5,7 @@ cache:
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
   CARGO_HOME: "$CI_PROJECT_DIR/.cache/cargo"
+  TEST_DIR: "$CI_BUILDS_DIR/TESTS"
   SUBDAEMON:
     value: "hsmd:remote_hsmd_socket"
     description: "use the inplace hsmd replacement (default), or the socket version: `hsmd:remote_hsmd_socket`"
@@ -122,9 +123,9 @@ test-openv1-enforcing-socket:
   artifacts:
     when: always
     paths:
-      - TESTS/
+      - ${CI_PROJECT_DIR}/TESTS/
     exclude:
-      - TESTS/*/*/*/*/lightning-rpc
+      - ${CI_PROJECT_DIR}/TESTS/*/*/*/*/lightning-rpc
 
 test-openv1-permissive-socket:
   tags: [ saas-linux-large-amd64 ]
@@ -148,9 +149,9 @@ test-openv1-permissive-socket:
   artifacts:
     when: always
     paths:
-      - TESTS/
+      - ${CI_PROJECT_DIR}/TESTS/
     exclude:
-      - TESTS/*/*/*/*/lightning-rpc
+      - ${CI_PROJECT_DIR}/TESTS/*/*/*/*/lightning-rpc
 
 test-splice-enforcing-socket:
   tags: [ saas-linux-large-amd64 ]
@@ -174,9 +175,9 @@ test-splice-enforcing-socket:
   artifacts:
     when: always
     paths:
-      - TESTS/
+      - ${CI_PROJECT_DIR}/TESTS/
     exclude:
-      - TESTS/*/*/*/*/lightning-rpc
+      - ${CI_PROJECT_DIR}/TESTS/*/*/*/*/lightning-rpc
 
 test-dualfund-enforcing-socket:
   tags: [ saas-linux-large-amd64 ]
@@ -200,6 +201,6 @@ test-dualfund-enforcing-socket:
   artifacts:
     when: always
     paths:
-      - TESTS/
+      - ${CI_PROJECT_DIR}/TESTS/
     exclude:
-      - TESTS/*/*/*/*/lightning-rpc
+      - ${CI_PROJECT_DIR}/TESTS/*/*/*/*/lightning-rpc
