@@ -80,6 +80,7 @@ test:	check-subdaemon
 		&& SUBDAEMON=$(SUBDAEMON) \
 		poetry run make -j$(JPAR) \
 			PYTEST_PAR=$(TPAR) \
+			MORE_PYTEST_OPTS="--timeout=$(TIMEOUT) --timeout_method=thread" \
 			DEVELOPER=1 \
 			VALGRIND=$(VALGRIND) \
 			TIMEOUT=$(TIMEOUT) \
