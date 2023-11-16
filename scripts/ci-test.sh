@@ -38,8 +38,15 @@ export GREENLIGHT_VERSION
 REMOTE_SIGNER_ALLOWLIST="$(pwd)/../remote_hsmd/TESTING_ALLOWLIST"
 export REMOTE_SIGNER_ALLOWLIST
 
-export TEST_DIR=/tmp/test_dir
+export TEST_DIR=$(pwd)/../TESTS
+rm -rf ${TEST_DIR}
 mkdir -p ${TEST_DIR}
 
 PYTHONPATH=${PYTHONPATH}${PYTHONPATH:+:}contrib/pyln-client:contrib/pyln-testing:contrib/pyln-proto/:external/lnprototest:contrib/pyln-spec/bolt1:contrib/pyln-spec/bolt2:contrib/pyln-spec/bolt4:contrib/pyln-spec/bolt7 TEST_DEBUG=1 DEVELOPER=1 VALGRIND=0 \
-    eatmydata python3 -m pytest tests/ -v -p no:logging --maxfail=5 --suppress-no-test-exit-code  -n=10 --show-capture=no
+    eatmydata python3 -m pytest tests/ -v -p no:logging --maxfail=5 --suppress-no-test-exit-code  -n=10 --show-capture=no 2>&1 | tee $TEST_DIR/test.log
+
+# Capture the exit status of pytest
+PYTEST_EXIT_CODE=${PIPESTATUS[0]}
+
+# Use the captured exit code as the exit status of the script
+exit $PYTEST_EXIT_CODE
