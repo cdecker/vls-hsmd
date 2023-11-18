@@ -94,7 +94,7 @@ test:	check-subdaemon
 		&& printenv >  $(TEST_DIR)/ENV.log \
 		&& poetry run make -j$(JPAR) \
 			VALGRIND=$(VALGRIND) \
-			PYTEST_MOREOPTS="--timeout=$(TIMEOUT) --timeout_method=thread" \
+			PYTEST_MOREOPTS="--timeout=$(TIMEOUT) --timeout_method=signal" \
 			PYTEST_PAR=$(TPAR) \
 		pytest \
 		2>&1 | tee $(TEST_DIR)/$(LOGFILE)

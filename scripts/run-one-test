@@ -18,4 +18,4 @@ RUST_BACKTRACE=1 \
 && printenv > $TEST_DIR/ENV.log && \
 pytest \
 $THETEST \
--v --timeout=$TIMEOUT --timeout_method=thread -p no:logging -s
+-v --timeout=$TIMEOUT --timeout_method=signal -p no:logging -s
