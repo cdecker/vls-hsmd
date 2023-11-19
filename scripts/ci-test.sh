@@ -56,7 +56,7 @@ export RUST_LOG=debug
 
 export PYTHONPATH=${PYTHONPATH}${PYTHONPATH:+:}contrib/pyln-client:contrib/pyln-testing:contrib/pyln-proto/:external/lnprototest:contrib/pyln-spec/bolt1:contrib/pyln-spec/bolt2:contrib/pyln-spec/bolt4:contrib/pyln-spec/bolt7 TEST_DEBUG=1 DEVELOPER=1 VALGRIND=0 && \
     printenv >  $TEST_DIR/ENV.log && \
-    eatmydata python3 -m pytest tests/ -v -p no:logging --maxfail=5 --suppress-no-test-exit-code  -n=10 --show-capture=no 2>&1 | tee $TEST_DIR/ALL.log
+    eatmydata python3 -m pytest tests/ -v -p no:logging --maxfail=20 --suppress-no-test-exit-code  -n=10 --show-capture=no 2>&1 | tee $TEST_DIR/ALL.log
 
 # Capture the exit status of pytest
 PYTEST_EXIT_CODE=${PIPESTATUS[0]}
