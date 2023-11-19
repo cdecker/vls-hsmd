@@ -13,6 +13,9 @@ export LIGHTNINGD_POSTGRES_NO_VACUUM=1
 # WORKAROUND for https://github.com/ElementsProject/lightning/issues/6529
 pip3 install --ignore-installed blinker
 
+# WORKAROUND
+pip install certifi==2023.7.22
+
 find . -name "poetry.lock" -print
 
 pip3 install --user poetry

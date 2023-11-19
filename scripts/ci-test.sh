@@ -19,6 +19,9 @@ export VALGRIND=0
 export FUZZING=0
 export RUST_BACKTRACE=1
 
+# WORKAROUND
+pip install certifi==2023.7.22
+
 find . -name "poetry.lock" -print
 
 poetry config virtualenvs.create false --local
