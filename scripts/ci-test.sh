@@ -19,6 +19,8 @@ export VALGRIND=0
 export FUZZING=0
 export RUST_BACKTRACE=1
 
+find . -name "poetry.lock" -print
+
 poetry config virtualenvs.create false --local
 poetry install
 
