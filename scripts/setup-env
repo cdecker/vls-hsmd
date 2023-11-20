@@ -12,5 +12,5 @@ export VLS_AUTOAPPROVE=1
 unset VLS_FRONTEND_DISABLE
 unset VLS_ONCHAIN_VALIDATION_DISABLE
 
-# Skip tests expected to fail before VLS dual-funding / splicing support
-export VLS_SKIP_SPLICE_TESTS=1
+# Don't skip splicing tests on splicing branch
+unset VLS_SKIP_SPLICE_TESTS
