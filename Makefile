@@ -22,14 +22,11 @@ GITDESC:=$(shell git describe --tags --long --always --match='v*.*')
 
 all: test
 
-test-all: test summary
+test-all: test
 
 list-versions:
 	@echo "vls-hsmd ($(shell git describe --tags --long --always --match='v*.*' --dirty))"
 	@git submodule status
-
-summary:
-	./scripts/summary all.log
 
 setup:	check-git-version .setup-complete
 
@@ -103,7 +100,7 @@ check-subdaemon:
 check-test-one:
 	@if test -z $(TEST); then echo "usage: make test-one TEST=<your-test-here>"; exit 1; fi
 
-.PHONY : all test-all setup clean summary list-versions
+.PHONY : all test-all setup clean list-versions
 .PHONY : config
 .PHONY : build
 .PHONY : test
