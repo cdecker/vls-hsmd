@@ -53,6 +53,10 @@ ln -sf ${CI_PROJECT_DIR}/TESTS ${TEST_DIR}
 
 export RUST_LOG=debug
 
+# Don't run splicing tests on VLS which lacks support
+if [ -n "$VLS_SKIP_SPLICE_TESTS" ] && [ -n "$EXPERIMENTAL_SPLICING" ]; then
+    exit 0
+fi
 
 export PYTHONPATH=${PYTHONPATH}${PYTHONPATH:+:}contrib/pyln-client:contrib/pyln-testing:contrib/pyln-proto/:external/lnprototest:contrib/pyln-spec/bolt1:contrib/pyln-spec/bolt2:contrib/pyln-spec/bolt4:contrib/pyln-spec/bolt7 TEST_DEBUG=1 DEVELOPER=1 VALGRIND=0 && \
     printenv >  $TEST_DIR/ENV.log && \
