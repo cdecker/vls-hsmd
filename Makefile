@@ -98,6 +98,7 @@ test:	check-subdaemon
 			PYTEST_PAR=$(TPAR) \
 		pytest \
 		2>&1 | tee $(TEST_DIR)/$(LOGFILE)
+		scripts/prune-test-dir $(TEST_DIR)
 
 clean:
 	rm -f .config

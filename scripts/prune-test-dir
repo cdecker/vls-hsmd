@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# Check if an argument is provided
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 TEST_DIR"
+    exit 1
+fi
+
+# Assign TEST_DIR from the argument
+TEST_DIR=$1
+
+# Define the expected files and directories
+declare -a expected_files=("errlog" "bitcoin.conf" "log")
+declare -a expected_dirs=("lss" "regtest")
+
+# Initialize counters
+count_processed=0
+count_deleted=0
+session_deleted=0
+
+# Function to check for expected files and directories
+check_and_delete() {
+    local dir="$1"
+    local file_count=0
+    local dir_count=0
+    ((count_processed++))
+
+    # Iterate over the contents of the directory
+    for item in "$dir"/*; do
+        if [ -f "$item" ]; then
+            # Check if it's an expected file
+            [[ " ${expected_files[*]} " == *" $(basename "$item") "* ]] || return 1
+            ((file_count++))
+        elif [ -d "$item" ]; then
+            # Check if it's an expected directory
+            [[ " ${expected_dirs[*]} " == *" $(basename "$item") "* ]] || return 1
+            ((dir_count++))
+        else
+            # Unknown type (neither file nor dir)
+            return 1
+        fi
+    done
+
+    # Check if the count matches the expected count
+    if (( file_count == ${#expected_files[@]} && dir_count == ${#expected_dirs[@]} )); then
+        rm -rf "$dir"
+        ((count_deleted++))
+    fi
+}
+
+# Main loop to iterate over two-deep subdirectories of TEST_DIR
+for subdir in "$TEST_DIR"/*/*; do
+    if [ -d "$subdir" ]; then
+        check_and_delete "$subdir"
+    fi
+done
+
+# Check if first-level subdirectories are empty and remove them
+for subdir in "$TEST_DIR"/*; do
+    if [ -d "$subdir" ] && [ -z "$(ls -A "$subdir")" ]; then
+        rm -rf "$subdir"
+        ((session_deleted++))
+    fi
+done
+
+# Print summary
+echo "Checked $count_processed test directories. Deleted $count_deleted test directories and $session_deleted session directories."

@@ -56,5 +56,8 @@ export PYTHONPATH=${PYTHONPATH}${PYTHONPATH:+:}contrib/pyln-client:contrib/pyln-
 # Capture the exit status of pytest
 PYTEST_EXIT_CODE=${PIPESTATUS[0]}
 
+# Prune useless directories
+../scripts/prune-test-dir $TEST_DIR
+
 # Use the captured exit code as the exit status of the script
 exit $PYTEST_EXIT_CODE
