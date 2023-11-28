@@ -74,7 +74,12 @@ build:	config
 # use a timestamp version test results directory
 TEST_SUBDIR := TEST-$(shell date +"%Y%m%d-%H%M%S")
 
-test:	RUN_DIR ?= /tmp
+ifeq ($(wildcard /etc/redhat-release),)
+    RUN_DIR ?= /run/shm
+else
+    RUN_DIR ?= /tmp
+endif
+
 test:	TEST_DIR = $(abspath $(RUN_DIR)/$(TEST_SUBDIR))
 test:	LOGFILE = ALL.log
 test:	LATEST = ./LATEST-TEST-ALL
