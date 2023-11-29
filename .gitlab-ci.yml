@@ -5,8 +5,9 @@ cache:
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
   CARGO_HOME: "$CI_PROJECT_DIR/.cache/cargo"
+  TEST_DIR: "$CI_BUILDS_DIR/TESTS"
   SUBDAEMON:
-    value: "hsmd:remote_hsmd_inplace"
+    value: "hsmd:remote_hsmd_socket"
     description: "use the inplace hsmd replacement (default), or the socket version: `hsmd:remote_hsmd_socket`"
   LIGHTNING_REF:
     value: ""
@@ -79,27 +80,28 @@ compile-cln:
     paths:
       - bin-cln.zip
 
-test-enforcing-inplace:
-  tags: [ saas-linux-large-amd64 ]
-  image: ubuntu
-  needs:
-    - compile-cln
-    - compile-vls
-    - get-bitcoin
-  variables:
-    VLS_ONCHAIN_VALIDATION_DISABLE: "1"
-  script:
-    - ./scripts/install-additional
-    - git submodule update --init --recursive
-    - make list-versions
-    - ./scripts/setup-remote-hsmd
-    - source scripts/setup-env
-    - remote_hsmd_inplace --git-desc
-    - cd lightning
-    - unzip -o ../bin-cln.zip
-    - bash -x ../scripts/ci-test.sh
+# test-openv1-enforcing-inplace:
+#   tags: [ saas-linux-large-amd64 ]
+#   image: ubuntu
+#   needs:
+#     - compile-cln
+#     - compile-vls
+#     - get-bitcoin
+#   variables:
+#     SUBDAEMON: hsmd:remote_hsmd_socket
+#     VLS_ONCHAIN_VALIDATION_DISABLE: "1"
+#   script:
+#     - ./scripts/install-additional
+#     - git submodule update --init --recursive
+#     - make list-versions
+#     - ./scripts/setup-remote-hsmd
+#     - source scripts/setup-env
+#     - remote_hsmd_inplace --git-desc
+#     - cd lightning
+#     - unzip -o ../bin-cln.zip
+#     - bash -x ../scripts/ci-test.sh
 
-test-enforcing-socket:
+test-openv1-enforcing-socket:
   tags: [ saas-linux-large-amd64 ]
   image: ubuntu
   needs:
@@ -107,7 +109,6 @@ test-enforcing-socket:
     - compile-vls
     - get-bitcoin
   variables:
-    SUBDAEMON: hsmd:remote_hsmd_socket
   script:
     - ./scripts/install-additional
     - git submodule update --init --recursive
@@ -119,8 +120,14 @@ test-enforcing-socket:
     - cd lightning
     - unzip -o ../bin-cln.zip
     - bash -x ../scripts/ci-test.sh
+  artifacts:
+    when: always
+    paths:
+      - ${CI_PROJECT_DIR}/TESTS/
+    exclude:
+      - ${CI_PROJECT_DIR}/TESTS/*/*/*/*/lightning-rpc
 
-test-permissive-socket:
+test-openv1-permissive-socket:
   tags: [ saas-linux-large-amd64 ]
   image: ubuntu
   needs:
@@ -129,7 +136,6 @@ test-permissive-socket:
     - get-bitcoin
   variables:
     VLS_PERMISSIVE: "1"
-    SUBDAEMON: hsmd:remote_hsmd_socket
   script:
     - ./scripts/install-additional
     - git submodule update --init --recursive
@@ -140,3 +146,61 @@ test-permissive-socket:
     - cd lightning
     - unzip -o ../bin-cln.zip
     - bash -x ../scripts/ci-test.sh
+  artifacts:
+    when: always
+    paths:
+      - ${CI_PROJECT_DIR}/TESTS/
+    exclude:
+      - ${CI_PROJECT_DIR}/TESTS/*/*/*/*/lightning-rpc
+
+test-splice-enforcing-socket:
+  tags: [ saas-linux-large-amd64 ]
+  image: ubuntu
+  needs:
+    - compile-cln
+    - compile-vls
+    - get-bitcoin
+  variables:
+    EXPERIMENTAL_SPLICING: "1"
+  script:
+    - ./scripts/install-additional
+    - git submodule update --init --recursive
+    - make list-versions
+    - ./scripts/setup-remote-hsmd
+    - source scripts/setup-env
+    - remote_hsmd_socket --git-desc
+    - cd lightning
+    - unzip -o ../bin-cln.zip
+    - bash -x ../scripts/ci-test.sh
+  artifacts:
+    when: always
+    paths:
+      - ${CI_PROJECT_DIR}/TESTS/
+    exclude:
+      - ${CI_PROJECT_DIR}/TESTS/*/*/*/*/lightning-rpc
+
+test-dualfund-enforcing-socket:
+  tags: [ saas-linux-large-amd64 ]
+  image: ubuntu
+  needs:
+    - compile-cln
+    - compile-vls
+    - get-bitcoin
+  variables:
+    EXPERIMENTAL_DUAL_FUND: "1"
+  script:
+    - ./scripts/install-additional
+    - git submodule update --init --recursive
+    - make list-versions
+    - ./scripts/setup-remote-hsmd
+    - source scripts/setup-env
+    - remote_hsmd_socket --git-desc
+    - cd lightning
+    - unzip -o ../bin-cln.zip
+    - bash -x ../scripts/ci-test.sh
+  artifacts:
+    when: always
+    paths:
+      - ${CI_PROJECT_DIR}/TESTS/
+    exclude:
+      - ${CI_PROJECT_DIR}/TESTS/*/*/*/*/lightning-rpc
