@@ -4,9 +4,8 @@ TIMEOUT ?= 300
 VALGRIND ?= 0
 TEST ?= tests/test_pay.py::test_pay
 
-JPAR:=$(shell nproc)
-# TPAR:=$$(( $(JPAR) * 2 ))
-TPAR=$(JPAR)
+JPAR ?= $(shell nproc)
+TPAR ?= $(JPAR)
 
 ifeq ("$(VLS_MODE)","cln:inplace")
 	SUBDAEMON:="hsmd:remote_hsmd_inplace"
