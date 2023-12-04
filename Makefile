@@ -2,6 +2,7 @@
 VLS_MODE ?= cln:socket
 TIMEOUT ?= 300
 VALGRIND ?= 0
+TEST ?= tests/test_pay.py::test_pay
 
 JPAR:=$(shell nproc)
 # TPAR:=$$(( $(JPAR) * 2 ))
