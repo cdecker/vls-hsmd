@@ -8,9 +8,9 @@ export GREENLIGHT_VERSION=`cd lightning && git describe --always --dirty=-modded
 # CLN integration tests need payment autoapproval (otherwise still enforcing)
 export VLS_AUTOAPPROVE=1
 
-# Use the frontend for beta3
-unset VLS_FRONTEND_DISABLE
-unset VLS_ONCHAIN_VALIDATION_DISABLE
+# Don't use the frontend until the monitor is ready
+export VLS_FRONTEND_DISABLE=1
+export VLS_ONCHAIN_VALIDATION_DISABLE=1
 
 # Don't skip splicing tests on splicing branch
 unset VLS_SKIP_SPLICE_TESTS
