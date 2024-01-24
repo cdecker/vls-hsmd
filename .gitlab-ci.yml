@@ -116,6 +116,31 @@ test-openv1-enforcing-socket:
       - ${CI_PROJECT_DIR}/TESTS/*/*/*/*/lightning-rpc
     expire_in: 1 week
 
+test-openv1-enforcing-socket-hsmdv4:
+  stage: test
+  tags: [ saas-linux-large-amd64 ]
+  image: ubuntu
+  variables:
+    VLS_MAX_HSMD_PROTOCOL_VERSION: "4"
+  script:
+    - ./scripts/install-additional
+    - git submodule update --init --recursive
+    - make list-versions
+    - ./scripts/setup-remote-hsmd
+    - source scripts/setup-env
+    - remote_hsmd_socket --git-desc
+    - vlsd2 --git-desc
+    - cd lightning
+    - unzip -o ../bin-cln.zip
+    - bash -x ../scripts/ci-test.sh
+  artifacts:
+    when: always
+    paths:
+      - ${CI_PROJECT_DIR}/TESTS/
+    exclude:
+      - ${CI_PROJECT_DIR}/TESTS/*/*/*/*/lightning-rpc
+    expire_in: 1 week
+
 test-openv1-permissive-socket:
   stage: test
   tags: [ saas-linux-large-amd64 ]
