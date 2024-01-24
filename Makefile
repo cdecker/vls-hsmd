@@ -51,7 +51,6 @@ test:	build
 	./scripts/setup-remote-hsmd
 	mkdir -p $(PWD)/bin
 	(cd bin && ln -fs ../vls/target/debug/vlsd2)
-	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_inplace)
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_socket)
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_serial)
 	(cd bin && ln -fs ../vls/lightning-storage-server/target/debug/lssd)
