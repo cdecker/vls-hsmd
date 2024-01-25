@@ -98,6 +98,7 @@ test:	check-subdaemon
 		pytest \
 		2>&1 | tee $(TEST_DIR)/$(LOGFILE)
 		scripts/prune-test-dir $(TEST_DIR)
+		vls/contrib/howto/assets/logsum $(TEST_DIR)
 
 clean:
 	rm -f .config
@@ -123,6 +124,7 @@ test-one:	check-subdaemon check-test-one build
 			TEST_DIR=$(TEST_DIR) \
 		&& poetry run ../scripts/run-one-test $(TEST) \
 		2>&1 | tee $(TEST_DIR)/$(LOGFILE)
+		vls/contrib/howto/assets/logsum $(TEST_DIR)
 
 check-subdaemon:
 	@if test -z $(SUBDAEMON); then echo "unknown VLS_MODE $(VLS_MODE)"; exit 1; fi
