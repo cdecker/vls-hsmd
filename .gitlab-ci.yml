@@ -1,3 +1,7 @@
+stages:
+  - build
+  - test
+
 cache:
   paths:
     - .cache
@@ -14,6 +18,7 @@ variables:
     description: "rebase onto the ref (e.g. master) from the upstream c-lightning repository"
 
 get-bitcoin:
+  stage: build
   image: python:3.8
   cache:
     key: vls-bitcoin
@@ -32,8 +37,10 @@ get-bitcoin:
     paths:
       - bin/bitcoind
       - bin/bitcoin-cli
+    expire_in: 1 week
 
 compile-vls:
+  stage: build
   tags: [ saas-linux-large-amd64 ]
   image: rust:1.67.0
   timeout: 30m
@@ -64,8 +71,10 @@ compile-vls:
       - bin/remote_hsmd_inplace
       - bin/remote_hsmd_socket
       - bin/remote_hsmd_serial
+    expire_in: 1 week
 
 compile-cln:
+  stage: build
   tags: [ saas-linux-large-amd64 ]
   image: ubuntu
   script:
@@ -79,35 +88,12 @@ compile-cln:
   artifacts:
     paths:
       - bin-cln.zip
-
-# test-openv1-enforcing-inplace:
-#   tags: [ saas-linux-large-amd64 ]
-#   image: ubuntu
-#   needs:
-#     - compile-cln
-#     - compile-vls
-#     - get-bitcoin
-#   variables:
-#     SUBDAEMON: hsmd:remote_hsmd_socket
-#     VLS_ONCHAIN_VALIDATION_DISABLE: "1"
-#   script:
-#     - ./scripts/install-additional
-#     - git submodule update --init --recursive
-#     - make list-versions
-#     - ./scripts/setup-remote-hsmd
-#     - source scripts/setup-env
-#     - remote_hsmd_inplace --git-desc
-#     - cd lightning
-#     - unzip -o ../bin-cln.zip
-#     - bash -x ../scripts/ci-test.sh
+    expire_in: 1 week
 
 test-openv1-enforcing-socket:
+  stage: test
   tags: [ saas-linux-large-amd64 ]
   image: ubuntu
-  needs:
-    - compile-cln
-    - compile-vls
-    - get-bitcoin
   variables:
   script:
     - ./scripts/install-additional
@@ -126,14 +112,12 @@ test-openv1-enforcing-socket:
       - ${CI_PROJECT_DIR}/TESTS/
     exclude:
       - ${CI_PROJECT_DIR}/TESTS/*/*/*/*/lightning-rpc
+    expire_in: 1 week
 
 test-openv1-permissive-socket:
+  stage: test
   tags: [ saas-linux-large-amd64 ]
   image: ubuntu
-  needs:
-    - compile-cln
-    - compile-vls
-    - get-bitcoin
   variables:
     VLS_PERMISSIVE: "1"
   script:
@@ -152,14 +136,12 @@ test-openv1-permissive-socket:
       - ${CI_PROJECT_DIR}/TESTS/
     exclude:
       - ${CI_PROJECT_DIR}/TESTS/*/*/*/*/lightning-rpc
+    expire_in: 1 week
 
 test-splice-enforcing-socket:
+  stage: test
   tags: [ saas-linux-large-amd64 ]
   image: ubuntu
-  needs:
-    - compile-cln
-    - compile-vls
-    - get-bitcoin
   variables:
     EXPERIMENTAL_SPLICING: "1"
   script:
@@ -178,14 +160,12 @@ test-splice-enforcing-socket:
       - ${CI_PROJECT_DIR}/TESTS/
     exclude:
       - ${CI_PROJECT_DIR}/TESTS/*/*/*/*/lightning-rpc
+    expire_in: 1 week
 
 test-dualfund-enforcing-socket:
+  stage: test
   tags: [ saas-linux-large-amd64 ]
   image: ubuntu
-  needs:
-    - compile-cln
-    - compile-vls
-    - get-bitcoin
   variables:
     EXPERIMENTAL_DUAL_FUND: "1"
   script:
@@ -204,3 +184,4 @@ test-dualfund-enforcing-socket:
       - ${CI_PROJECT_DIR}/TESTS/
     exclude:
       - ${CI_PROJECT_DIR}/TESTS/*/*/*/*/lightning-rpc
+    expire_in: 1 week
