@@ -12,7 +12,7 @@ variables:
   TEST_DIR: "$CI_BUILDS_DIR/TESTS"
   SUBDAEMON:
     value: "hsmd:remote_hsmd_socket"
-    description: "use the inplace hsmd replacement (default), or the socket version: `hsmd:remote_hsmd_socket`"
+    description: "use the socket based hsmd replacement procy (default)"
   LIGHTNING_REF:
     value: ""
     description: "rebase onto the ref (e.g. master) from the upstream c-lightning repository"
@@ -61,16 +61,18 @@ compile-vls:
     - (cd vls/lightning-storage-server && cargo build --locked --bins)
     # replace the symbolic links w/ actual files
     - mkdir -p newbin && cp -L bin/* newbin/ && rm -rf bin && mv newbin bin
+    - cp vls/contrib/howto/assets/log{filter,sum,testdir} bin/
     - ls -l bin
-    - bin/remote_hsmd_inplace --git-desc
     - bin/remote_hsmd_socket --git-desc
   artifacts:
     paths:
       - bin/vlsd2
       - bin/lssd
-      - bin/remote_hsmd_inplace
       - bin/remote_hsmd_socket
       - bin/remote_hsmd_serial
+      - bin/logfilter
+      - bin/logsum
+      - bin/logtestdir
     expire_in: 1 week
 
 compile-cln:

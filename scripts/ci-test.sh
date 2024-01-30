@@ -68,5 +68,8 @@ PYTEST_EXIT_CODE=${PIPESTATUS[0]}
 # Prune useless directories
 ../scripts/prune-test-dir $TEST_DIR
 
+# Make summaries and a directory
+logsum $TEST_DIR
+
 # Use the captured exit code as the exit status of the script
 exit $PYTEST_EXIT_CODE
