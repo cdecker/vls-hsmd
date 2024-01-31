@@ -61,7 +61,7 @@ compile-vls:
     - (cd vls/lightning-storage-server && cargo build --locked --bins)
     # replace the symbolic links w/ actual files
     - mkdir -p newbin && cp -L bin/* newbin/ && rm -rf bin && mv newbin bin
-    - cp vls/contrib/howto/assets/log{filter,sum,testdir} bin/
+    - cp vls/contrib/howto/assets/log{elide,filter,sum,testdir} bin/
     - ls -l bin
     - bin/remote_hsmd_socket --git-desc
   artifacts:
@@ -70,6 +70,7 @@ compile-vls:
       - bin/lssd
       - bin/remote_hsmd_socket
       - bin/remote_hsmd_serial
+      - bin/logelide
       - bin/logfilter
       - bin/logsum
       - bin/logtestdir
