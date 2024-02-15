@@ -10,39 +10,43 @@ fi
 TEST_DIR=$1
 
 # Define the expected files and directories
-declare -a expected_files=("errlog" "bitcoin.conf" "log")
-declare -a expected_dirs=("lss" "regtest")
+declare -a expected=("errlog" "bitcoin.conf" "log" "lss" "regtest")
 
 # Initialize counters
 count_processed=0
 count_deleted=0
 session_deleted=0
 
-# Function to check for expected files and directories
 check_and_delete() {
     local dir="$1"
-    local file_count=0
-    local dir_count=0
+    local unexpected_found=0
     ((count_processed++))
 
     # Iterate over the contents of the directory
     for item in "$dir"/*; do
-        if [ -f "$item" ]; then
-            # Check if it's an expected file
-            [[ " ${expected_files[*]} " == *" $(basename "$item") "* ]] || return 1
-            ((file_count++))
-        elif [ -d "$item" ]; then
-            # Check if it's an expected directory
-            [[ " ${expected_dirs[*]} " == *" $(basename "$item") "* ]] || return 1
-            ((dir_count++))
-        else
-            # Unknown type (neither file nor dir)
-            return 1
+
+        # WORKAROUND - prune reckless side files, not needed for debugging
+        rm -f "${dir}/rkls_api_lightningd_plugins.json"
+        rm -f "${dir}/.gitconfig"
+        rm -rf "${dir}/lightningd/testplugpyproj"
+        rm -rf "${dir}/lightningd/testplugfail"
+        rm -rf "${dir}/lightningd/testplugpass"
+        rm -rf "${dir}/lightningd/plugins"
+        rm -rf "${dir}/lightningd/scratch-index"
+
+        # Prune empty directories, fails if not dir or not empty
+        rmdir "$item" 2>/dev/null || true
+
+        if [ -f "$item" ] || [ -d "$item" ]; then
+            if [[ ! " ${expected[*]} " =~ " $(basename "$item") " ]]; then
+                unexpected_found=1
+                break
+            fi
         fi
     done
 
-    # Check if the count matches the expected count
-    if (( file_count == ${#expected_files[@]} && dir_count == ${#expected_dirs[@]} )); then
+    # If no unexpected file or directory is found, delete the directory
+    if (( unexpected_found == 0 )); then
         rm -rf "$dir"
         ((count_deleted++))
     fi
