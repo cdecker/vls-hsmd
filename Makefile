@@ -55,6 +55,7 @@ test:	build
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_serial)
 	(cd bin && ln -fs ../vls/lightning-storage-server/target/debug/lssd)
 	echo "$(GITDESC)" > $@
+	make list-versions
 
 .config:
 	rm -f .config

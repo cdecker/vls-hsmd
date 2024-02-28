@@ -14,3 +14,6 @@ unset VLS_ONCHAIN_VALIDATION_DISABLE
 
 # Skip tests expected to fail before VLS dual-funding / splicing support
 export VLS_SKIP_SPLICE_TESTS=1
+
+# CLN integration tests need a longer timeout
+export BITCOIND_CLIENT_TIMEOUT_SECS=60
