@@ -35,8 +35,8 @@ markers =
 EOF
 
 
-GREENLIGHT_VERSION=$(./lightningd/lightningd --version)
-export GREENLIGHT_VERSION
+VLS_CLN_VERSION=$(./lightningd/lightningd --version)
+export VLS_CLN_VERSION
 
 # This is run from vls-hsmd/lightning
 # note that accessing this via a symlink doesn't work on gitlab CI runners - perhaps a docker bug
