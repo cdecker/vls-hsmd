@@ -3,6 +3,7 @@ VLS_MODE ?= cln:socket
 TIMEOUT ?= 300
 VALGRIND ?= 0
 TEST ?= tests/test_pay.py::test_pay
+PREFIX ?= /usr/local
 
 JPAR ?= $(shell nproc)
 TPAR ?= $(JPAR)
@@ -70,6 +71,17 @@ build:	config
 	cd lightning && poetry run make -j$(JPAR)
 	cd vls && cargo build --bins $(VLS_BUILDARGS)
 	cd vls/lightning-storage-server && cargo build --bins $(LSS_BUILDARGS)
+
+install:
+	(cd lightning && make install PREFIX=$(PREFIX))
+	cp vls/target/debug/remote_hsmd_serial $(PREFIX)/libexec/c-lightning/
+	cp vls/target/debug/remote_hsmd_socket $(PREFIX)/libexec/c-lightning/
+	cp vls/target/debug/vlsd2 $(PREFIX)/bin
+	@$(PREFIX)/bin/lightningd --version
+	@$(PREFIX)/libexec/c-lightning/remote_hsmd_serial --git-desc
+	@$(PREFIX)/libexec/c-lightning/remote_hsmd_socket --git-desc
+	@$(PREFIX)/bin/vlsd2 --git-desc
+
 
 # use a timestamp version test results directory
 TEST_SUBDIR := TEST-$(shell date +"%Y%m%d-%H%M%S")
