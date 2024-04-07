@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Assign the first command line argument to a variable
+networkType=$1
+
+baseDir="/usr/local"
+descriptor=$(git describe --always)
+dateTimeStamp=$(date +"%Y%m%d%H%M%S")
+leafDir="vls-hsmd-${descriptor}-${dateTimeStamp}"
+installDir="${baseDir}/${leafDir}"
+
+mkdir -p "$installDir"
+make install PREFIX="$installDir"
+
+echo "Installation completed in directory: $installDir"
+
+# If an arg is provided set the symbolic link
+if [[ -n $networkType ]]; then
+    sudo rm -f "/usr/local/vls-hsmd-${networkType}"
+    cd /usr/local && sudo ln -s "$leafDir" "vls-hsmd-${networkType}"
+    echo "${networkType} setup completed."
+fi
