@@ -12,11 +12,14 @@ installDir="${baseDir}/${leafDir}"
 mkdir -p "$installDir"
 make install PREFIX="$installDir"
 
+# add a lib subdir for the demo_signer STM32 image
+mkdir -p "$installDir/lib"
+
 echo "Installation completed in directory: $installDir"
 
 # If an arg is provided set the symbolic link
 if [[ -n $networkType ]]; then
-    sudo rm -f "/usr/local/vls-hsmd-${networkType}"
-    cd /usr/local && sudo ln -s "$leafDir" "vls-hsmd-${networkType}"
+    rm -f "/usr/local/vls-hsmd-${networkType}"
+    cd /usr/local && ln -s "$leafDir" "vls-hsmd-${networkType}"
     echo "${networkType} setup completed."
 fi
