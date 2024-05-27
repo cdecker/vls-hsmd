@@ -4,15 +4,31 @@ set -e
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
-apt-get install -yy -qq eatmydata postgresql libsqlite3-dev pigz zip git \
-     autoconf automake build-essential libtool \
+apt-get install -yy -qq \
+     autoconf \
+     automake \
+     build-essential \
+     ca-certificates \
+     eatmydata \
+     git \
+     libgrpc++-dev \
+     libsqlite3-dev \
+     libtool \
+     pigz \
+     pkg-config \
+     postgresql \
+     protobuf-compiler \
+     protobuf-compiler-grpc \
+     python-is-python3 \
      python-pkg-resources \
      python3 \
      python3-dev \
+     python3-mako \
      python3-pip \
      python3-setuptools \
-     python3-mako \
-  ca-certificates sudo tzdata python3 python3-pip python3-setuptools python3-dev python-is-python3 \
-  protobuf-compiler protobuf-compiler-grpc libgrpc++-dev pkg-config
+     sudo \
+     tzdata \
+     zip \
+     $(NULL)
 pip3 install --upgrade pip
 pip3 install --user poetry==1.3.2 poetry-core==1.4.0
