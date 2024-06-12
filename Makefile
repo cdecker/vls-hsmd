@@ -72,6 +72,8 @@ build:	config
 	cd vls && cargo build --bins $(VLS_BUILDARGS)
 	cd vls/lightning-storage-server && cargo build --bins $(LSS_BUILDARGS)
 
+# unfortunately this cannot depend on build because frequently run as
+# sudo root and will not have poetry available
 install:
 	(cd lightning && make install PREFIX=$(PREFIX))
 	cp vls/target/debug/remote_hsmd_serial $(PREFIX)/libexec/c-lightning/
@@ -82,6 +84,8 @@ install:
 	@$(PREFIX)/libexec/c-lightning/remote_hsmd_socket --git-desc
 	@$(PREFIX)/bin/vlsd2 --git-desc
 
+install-testnet: build
+	sudo ./scripts/install-version testnet
 
 # use a timestamp version test results directory
 TEST_SUBDIR := TEST-$(shell date +"%Y%m%d-%H%M%S")
