@@ -79,7 +79,7 @@ compile-vls:
 compile-cln:
   stage: build
   tags: [ saas-linux-large-amd64 ]
-  image: ubuntu
+  image: ubuntu:22.04
   script:
     - ./scripts/install-additional
     - git submodule update --init --recursive
@@ -96,7 +96,7 @@ compile-cln:
 test-openv1-enforcing-socket:
   stage: test
   tags: [ saas-linux-large-amd64 ]
-  image: ubuntu
+  image: ubuntu:22.04
   variables:
   script:
     - ./scripts/install-additional
@@ -120,7 +120,7 @@ test-openv1-enforcing-socket:
 test-openv1-permissive-socket:
   stage: test
   tags: [ saas-linux-large-amd64 ]
-  image: ubuntu
+  image: ubuntu:22.04
   variables:
     VLS_PERMISSIVE: "1"
   script:
@@ -144,7 +144,7 @@ test-openv1-permissive-socket:
 test-splice-enforcing-socket:
   stage: test
   tags: [ saas-linux-large-amd64 ]
-  image: ubuntu
+  image: ubuntu:22.04
   variables:
     EXPERIMENTAL_SPLICING: "1"
   script:
@@ -168,7 +168,7 @@ test-splice-enforcing-socket:
 test-dualfund-enforcing-socket:
   stage: test
   tags: [ saas-linux-large-amd64 ]
-  image: ubuntu
+  image: ubuntu:22.04
   variables:
     EXPERIMENTAL_DUAL_FUND: "1"
   script:

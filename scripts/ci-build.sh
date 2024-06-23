@@ -11,14 +11,14 @@ export PATH="$CWD/dependencies/bin:$HOME/.local/bin:$PATH"
 export LIGHTNINGD_POSTGRES_NO_VACUUM=1
 
 # WORKAROUND for https://github.com/ElementsProject/lightning/issues/6529
-pip3 install --break-system-packages --ignore-installed blinker
+pip3 install --ignore-installed blinker
 
 # WORKAROUND
-pip install --break-system-packages certifi==2023.7.22
+pip install certifi==2023.7.22
 
 find . -name "poetry.lock" -print
 
-pip3 install --break-system-packages --user poetry
+pip3 install --user poetry
 poetry config virtualenvs.create false --local
 poetry install
 
