@@ -90,7 +90,7 @@ install-testnet: build
 # use a timestamp version test results directory
 TEST_SUBDIR := TEST-$(shell date +"%Y%m%d-%H%M%S")
 
-test:	RUN_DIR ?= /tmp
+test:	RUN_DIR ?= /dev/shm
 test:	TEST_DIR = $(abspath $(RUN_DIR)/$(TEST_SUBDIR))
 test:	LOGFILE = ALL.log
 test:	LATEST = ./LATEST-TEST-ALL
