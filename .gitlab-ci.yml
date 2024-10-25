@@ -10,12 +10,13 @@ variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
   CARGO_HOME: "$CI_PROJECT_DIR/.cache/cargo"
   TEST_DIR: "$CI_BUILDS_DIR/TESTS"
+  # referred in cln unit tests
   SUBDAEMON:
     value: "hsmd:remote_hsmd_socket"
     description: "use the socket based hsmd replacement procy (default)"
-  LIGHTNING_REF:
+  VLS_REF:
     value: ""
-    description: "rebase onto the ref (e.g. master) from the upstream c-lightning repository"
+    description: "checkout to the ref (e.g. main) from the upstream validating lightning signer repository"
 
 get-bitcoin:
   stage: build
@@ -45,17 +46,14 @@ compile-vls:
   image: rust:1.67.0
   timeout: 30m
   script:
-    # we don't need to rebase lightning here, but fail fast if rebase fails
-    # - ./scripts/maybe-rebase "$LIGHTNING_REF"
-    # latest rust images seem to require rustfmt for cargo build
     - apt-get update
     - apt-get install -y protobuf-compiler
-    - rustup component add rustfmt
     - make setup
     - make list-versions
     - (cd vls && git status)
     - (cd vls && git clean -f && cargo clean)
     - (cd vls/lightning-storage-server && git clean -f && cargo clean)
+    - (cd vls && test -n $VLS_REF && git fetch && git checkout $VLS_REF)
     - (cd vls && git status)
     - (cd vls && cargo build --locked --bins)
     - (cd vls/lightning-storage-server && cargo build --locked --bins)
