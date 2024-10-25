@@ -45,6 +45,10 @@ compile-vls:
   tags: [ saas-linux-large-amd64 ]
   image: rust:1.67.0
   timeout: 30m
+  cache:
+    key: vls-hsmd-compile
+    paths:
+      - .cache/cargo
   script:
     - apt-get update
     - apt-get install -y protobuf-compiler
