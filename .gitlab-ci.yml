@@ -59,7 +59,7 @@ compile-vls:
     - (cd vls/lightning-storage-server && git clean -f && cargo clean)
     - (cd vls && test -n $VLS_REF && git fetch && git checkout $VLS_REF)
     - (cd vls && git status)
-    - (cd vls && cargo build --locked --bins)
+    - (cd vls && cargo build --locked --bins --features developer)
     - (cd vls/lightning-storage-server && cargo build --locked --bins)
     # replace the symbolic links w/ actual files
     - mkdir -p newbin && cp -L bin/* newbin/ && rm -rf bin && mv newbin bin
