@@ -69,7 +69,7 @@ test:	build
 
 build:	config
 	cd lightning && poetry run make -j$(JPAR)
-	cd vls && cargo build --bins $(VLS_BUILDARGS)
+	cd vls && cargo build --bins --features developer $(VLS_BUILDARGS)
 	cd vls/lightning-storage-server && cargo build --bins $(LSS_BUILDARGS)
 
 # unfortunately this cannot depend on build because frequently run as
