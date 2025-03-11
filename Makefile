@@ -5,18 +5,21 @@ VALGRIND ?= 0
 TEST ?= tests/test_pay.py::test_pay
 PREFIX ?= /usr/local
 
+CARGO_TARGET_DIR ?= "$(shell pwd)/vls/target/"
+RUST_TARGET = "debug"
+CARGO_BINDIR = "$(CARGO_TARGET_DIR)/$(RUST_TARGET)"
 JPAR ?= $(shell nproc)
 TPAR ?= $(JPAR)
 
 ifeq ("$(VLS_MODE)","cln:inplace")
-	SUBDAEMON:="hsmd:remote_hsmd_inplace"
+	SUBDAEMON:="hsmd:$(CARGO_BINDIR)/remote_hsmd_inplace"
 else ifeq ("$(VLS_MODE)","cln:socket")
-	SUBDAEMON:="hsmd:remote_hsmd_socket"
+	SUBDAEMON:="hsmd:$(CARGO_BINDIR)/remote_hsmd_socket"
 else ifeq ("$(VLS_MODE)","cln:native")
 	SUBDAEMON:="hsmd:lightning_hsmd"
 else ifeq ("$(VLS_MODE)","cln:serial")
     # embedded for node 1, native for the rest
-	SUBDAEMON:="hsmd:remote_hsmd_serial,hsmd:lightning_hsmd"
+	SUBDAEMON:="hsmd:$(CARGO_BINDIR)/remote_hsmd_serial,hsmd:$(CARGO_BINDIR)/lightning_hsmd"
 endif
 
 GITDESC:=$(shell git describe --tags --long --always --match='v*.*')
@@ -108,11 +111,10 @@ test:	check-subdaemon
 			TIMEOUT=$(TIMEOUT) \
 			TEST_DIR=$(TEST_DIR) \
 		&& printenv >  $(TEST_DIR)/ENV.log \
-		&& poetry run make -j$(JPAR) \
+		&& poetry run make pytest -j$(JPAR)\
 			VALGRIND=$(VALGRIND) \
-			PYTEST_MOREOPTS="--timeout=$(TIMEOUT) --timeout_method=signal" \
+			PYTEST_MOREOPTS="--timeout=$(TIMEOUT) --timeout_method=signal -vvv" \
 			PYTEST_PAR=$(TPAR) \
-		pytest \
 		2>&1 | tee $(TEST_DIR)/$(LOGFILE)
 		scripts/prune-test-dir $(TEST_DIR)
 		vls/contrib/howto/assets/logsum $(TEST_DIR)
