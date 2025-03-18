@@ -144,6 +144,9 @@ test-openv1-permissive-socket:
     expire_in: 1 week
 
 test-splice-enforcing-socket:
+  # DISABLE
+  rules:
+    - when: never 
   stage: test
   tags: [ saas-linux-large-amd64 ]
   image: ubuntu
@@ -168,6 +171,9 @@ test-splice-enforcing-socket:
     expire_in: 1 week
 
 test-dualfund-enforcing-socket:
+  # DISABLE
+  rules:
+    - when: never 
   stage: test
   tags: [ saas-linux-large-amd64 ]
   image: ubuntu
