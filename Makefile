@@ -63,7 +63,7 @@ test:	build
 	(cd lightning/external/lowdown && ./configure) # WORKAROUND
 	cd lightning \
 		&& make distclean \
-		&& poetry install \
+		&& poetry install --no-root \
 		&& ./configure $(CFGFLAGS)
 	touch $@
 
