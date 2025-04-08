@@ -43,7 +43,8 @@ get-bitcoin:
 compile-vls:
   stage: build
   tags: [ saas-linux-large-amd64 ]
-  image: rust:1.74.0
+  # lssd has msrv of 1.75.0
+  image: rust:1.75.0
   timeout: 30m
   cache:
     key: vls-hsmd-compile
