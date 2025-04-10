@@ -89,6 +89,8 @@ compile-cln:
     - make list-versions
     - cd lightning
     - bash -x .github/scripts/setup.sh
+    - bash -x ../scripts/setup-python-env.sh
+    - source .venv/bin/activate
     - bash -x ../scripts/ci-build.sh
     - zip ../bin-cln.zip $(find lightningd cli plugins tools devtools tests/plugins -executable -type f) config.vars
   artifacts:
@@ -111,6 +113,8 @@ test-openv1-enforcing-socket:
     - vlsd2 --git-desc
     - cd lightning
     - unzip -o ../bin-cln.zip
+    - bash -x ../scripts/setup-python-env.sh
+    - source .venv/bin/activate
     - bash -x ../scripts/ci-test.sh
   artifacts:
     when: always
@@ -135,6 +139,8 @@ test-openv1-permissive-socket:
     - remote_hsmd_socket --git-desc
     - cd lightning
     - unzip -o ../bin-cln.zip
+    - bash -x ../scripts/setup-python-env.sh
+    - source .venv/bin/activate
     - bash -x ../scripts/ci-test.sh
   artifacts:
     when: always
@@ -162,6 +168,8 @@ test-splice-enforcing-socket:
     - remote_hsmd_socket --git-desc
     - cd lightning
     - unzip -o ../bin-cln.zip
+    - bash -x ../scripts/setup-python-env.sh
+    - source .venv/bin/activate
     - bash -x ../scripts/ci-test.sh
   artifacts:
     when: always
@@ -189,6 +197,8 @@ test-dualfund-enforcing-socket:
     - remote_hsmd_socket --git-desc
     - cd lightning
     - unzip -o ../bin-cln.zip
+    - bash -x ../scripts/setup-python-env.sh
+    - source .venv/bin/activate
     - bash -x ../scripts/ci-test.sh
   artifacts:
     when: always
