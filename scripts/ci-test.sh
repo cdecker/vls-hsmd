@@ -19,14 +19,6 @@ export VALGRIND=0
 export FUZZING=0
 export RUST_BACKTRACE=1
 
-# WORKAROUND
-pip install --break-system-packages certifi==2023.7.22
-
-find . -name "poetry.lock" -print
-
-poetry config virtualenvs.create false --local
-poetry install
-
 cat << EOF > pytest.ini
 [pytest]
 addopts=-p no:logging --color=yes --timeout=300 --timeout-method=signal --test-group-random-seed=42
