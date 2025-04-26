@@ -19,14 +19,14 @@ else ifeq ("$(VLS_MODE)","cln:serial")
 	SUBDAEMON:="hsmd:remote_hsmd_serial,hsmd:lightning_hsmd"
 endif
 
-GITDESC:=$(shell git describe --tags --long --always --match='v*.*')
+GITDESC:=$(shell git describe --tags --long --always --match='VLS-v*.*')
 
 all: test
 
 test-all: test
 
 list-versions:
-	@echo "vls-hsmd ($(shell git describe --tags --long --always --match='v*.*' --dirty))"
+	@echo "vls-hsmd $(GITDESC)"
 	@git submodule status
 
 setup:	check-git-version .setup-complete
