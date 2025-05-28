@@ -69,7 +69,7 @@ compile-vls:
     - bin/remote_hsmd_socket --git-desc
   artifacts:
     paths:
-      - bin/vlsd2
+      - bin/vlsd
       - bin/lssd
       - bin/remote_hsmd_socket
       - bin/remote_hsmd_serial
@@ -110,7 +110,7 @@ test-openv1-enforcing-socket:
     - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
     - remote_hsmd_socket --git-desc
-    - vlsd2 --git-desc
+    - vlsd --git-desc
     - cd lightning
     - unzip -o ../bin-cln.zip
     - bash -x ../scripts/setup-python-env.sh
