@@ -30,9 +30,9 @@ get-bitcoin:
     - mkdir -p bin
     - ls -l bin
     - if [ ! -e bin/bitcoind ]; then
-        wget https://bitcoincore.org/bin/bitcoin-core-${BITCOIN_VERSION}/bitcoin-${BITCOIN_VERSION}-x86_64-linux-gnu.tar.gz &&
-        tar -xf bitcoin-$BITCOIN_VERSION-x86_64-linux-gnu.tar.gz &&
-        mv bitcoin-$BITCOIN_VERSION/bin/* bin ;
+      wget https://bitcoincore.org/bin/bitcoin-core-${BITCOIN_VERSION}/bitcoin-${BITCOIN_VERSION}-x86_64-linux-gnu.tar.gz &&
+      tar -xf bitcoin-$BITCOIN_VERSION-x86_64-linux-gnu.tar.gz &&
+      mv bitcoin-$BITCOIN_VERSION/bin/* bin ;
       fi
   artifacts:
     paths:
@@ -42,7 +42,7 @@ get-bitcoin:
 
 compile-vls:
   stage: build
-  tags: [ saas-linux-large-amd64 ]
+  tags: [saas-linux-large-amd64]
   # lssd has msrv of 1.75.0
   image: rust:1.75.0
   timeout: 30m
@@ -81,8 +81,12 @@ compile-vls:
 
 compile-cln:
   stage: build
-  tags: [ saas-linux-large-amd64 ]
+  tags: [saas-linux-large-amd64]
   image: ubuntu
+  cache:
+    key: cln-compile
+    paths:
+      - .cache/cargo
   script:
     - ./scripts/install-additional
     - git submodule update --init --recursive
@@ -91,6 +95,7 @@ compile-cln:
     - bash -x .github/scripts/setup.sh
     - bash -x ../scripts/setup-python-env.sh
     - source .venv/bin/activate
+    - export PATH="$CARGO_HOME/bin:$PATH"
     - bash -x ../scripts/ci-build.sh
     - zip ../bin-cln.zip $(find lightningd cli plugins tools devtools tests/plugins -executable -type f) config.vars
   artifacts:
@@ -100,9 +105,8 @@ compile-cln:
 
 test-openv1-enforcing-socket:
   stage: test
-  tags: [ saas-linux-large-amd64 ]
+  tags: [saas-linux-large-amd64]
   image: ubuntu
-  variables:
   script:
     - ./scripts/install-additional
     - git submodule update --init --recursive
@@ -126,7 +130,7 @@ test-openv1-enforcing-socket:
 
 test-openv1-permissive-socket:
   stage: test
-  tags: [ saas-linux-large-amd64 ]
+  tags: [saas-linux-large-amd64]
   image: ubuntu
   variables:
     VLS_PERMISSIVE: "1"
@@ -153,9 +157,9 @@ test-openv1-permissive-socket:
 test-splice-enforcing-socket:
   # DISABLE
   rules:
-    - when: never 
+    - when: never
   stage: test
-  tags: [ saas-linux-large-amd64 ]
+  tags: [saas-linux-large-amd64]
   image: ubuntu
   variables:
     EXPERIMENTAL_SPLICING: "1"
@@ -182,9 +186,9 @@ test-splice-enforcing-socket:
 test-dualfund-enforcing-socket:
   # DISABLE
   rules:
-    - when: never 
+    - when: never
   stage: test
-  tags: [ saas-linux-large-amd64 ]
+  tags: [saas-linux-large-amd64]
   image: ubuntu
   variables:
     EXPERIMENTAL_DUAL_FUND: "1"

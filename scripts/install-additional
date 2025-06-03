@@ -15,6 +15,7 @@ apt-get install -yy -qq \
      libgrpc++-dev \
      libsqlite3-dev \
      libtool \
+     man-db \
      pigz \
      pkg-config \
      postgresql \
