@@ -9,6 +9,7 @@ export COMPAT=${COMPAT:-1}
 export DEVELOPER=${DEVELOPER:-1}
 export PATH="$CWD/dependencies/bin:$HOME/.local/bin:$PATH"
 export LIGHTNINGD_POSTGRES_NO_VACUUM=1
+export RUST=${RUST:-1}
 
 git clone https://github.com/lightning/bolts.git ../${BOLTDIR}
 git submodule update --init --recursive

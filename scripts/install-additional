@@ -9,12 +9,14 @@ apt-get install -yy -qq \
      automake \
      build-essential \
      ca-certificates \
+     curl \
      eatmydata \
      git \
      jq \
      libgrpc++-dev \
      libsqlite3-dev \
      libtool \
+     man-db \
      pigz \
      pkg-config \
      postgresql \
@@ -31,3 +33,5 @@ apt-get install -yy -qq \
      tzdata \
      zip \
      $(NULL)
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
