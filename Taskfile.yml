@@ -1,0 +1,72 @@
+version: '3'
+output: "prefixed"
+env:
+  CARGO_TARGET_DIR: "{{ .ROOT_DIR }}/target"
+
+tasks:
+
+  build-vls:
+    dir: 'vls'
+    deps:
+      - build-lssd
+    cmds:
+      - CARGO_TARGET_DIR=../target cargo build --all --features developer
+
+  build-lssd:
+    dir: 'vls/lightning-storage-server'
+    cmds:
+      - CARGO_TARGET_DIR=../../target cargo build --all
+
+  configure-cln:
+    dir: 'lightning'
+    cmds:
+      - poetry config virtualenvs.create true --local
+      - poetry install
+      - poetry run ./configure --disable-valgrind CC='clang'
+    status:
+      - "[ -f config.vars ]"
+      
+  build-cln:
+    dir: 'lightning'
+    deps:
+      - configure-cln
+    cmds:
+      - poetry config virtualenvs.create true --local
+      - poetry install
+      - CARGO_TARGET_DIR=../target poetry run make -j $(nproc)
+  build:
+    deps:
+      - build-vls
+      - build-cln
+
+
+  test:
+    deps:
+      - build
+    dir: '.'
+    env:
+      DEVELOPER: "1"
+      VALGRIND: "0"
+      # Dummy value to make `@pytest.mark.skipIf` work
+      SUBDAEMON: "hsmd:lightning_hsmd"
+      VLS_MODE: cln:native
+    cmds:
+      - env
+      - uv sync
+      - PATH="{{ .ROOT_DIR }}/target/debug:{{ .ROOT_DIR }}/lightning/lightningd:$PATH" uv run pytest tests -vvv -n 4 --color=yes
+
+
+  test-native:
+    env:
+      VLS_MODE: cln:native
+    cmds:
+      - task:test
+
+  test-vls-socket:
+    env:
+      VLS_MODE: cln:socket
+      ALLOWLIST: remote_hsmd/TESTING_ALLOWLIST
+      VLS_CLN_VERSION:
+        sh: ./lightning/lightningd/lightning_hsmd --version
+    cmds:
+      - task: test
