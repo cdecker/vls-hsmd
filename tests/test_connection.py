@@ -1493,6 +1493,7 @@ def test_funding_v2_corners(node_factory, bitcoind):
 
 @unittest.skipIf(SLOW_MACHINE and not VALGRIND, "Way too taxing on CI machines")
 @pytest.mark.openchannel('v1')
+@unittest.skipIf(not VLS_MODE_NATIVE, "VLS is not happy with this test, too many logs to even start debugging")
 def test_funding_cancel_race(node_factory, bitcoind, executor):
     l1 = node_factory.get_node()
 

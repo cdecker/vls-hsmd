@@ -8,11 +8,13 @@ ENV RUST_VERSION=1.48.0
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- \
       -y --default-toolchain ${RUST_VERSION} --profile minimal
+RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
 
-RUN mkdir /src
-WORKDIR /src
-COPY remote_hsmd_inplace remote_hsmd_inplace
-COPY scripts scripts
-COPY .gitmodules .gitmodules
-COPY .git .git
-ENV SUBDAEMON hsmd:remote_hsmd_inplace
+RUN mkdir /repo
+WORKDIR /repo
+#COPY remote_hsmd_inplace remote_hsmd_inplace
+#COPY scripts scripts
+#COPY .gitmodules .gitmodules
+#COPY .git .git
+#ENV SUBDAEMON hsmd:remote_hsmd_inplace
+

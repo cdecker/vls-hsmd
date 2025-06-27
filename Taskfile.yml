@@ -53,7 +53,7 @@ tasks:
       - build
     cmds:
       - uv sync
-      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes -n 4 --force-flaky -x --max-runs=5
+      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes -n 2 --force-flaky --max-runs=5
 
   test-vls-socket-single:
     env:
@@ -73,3 +73,13 @@ tasks:
     cmds:
       - uv sync
       - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes -sk {{ .CLI_ARGS }}
+
+
+  docker-image:
+    cmds:
+      - docker build -t vls-hsmd-tester -f Dockerfile .
+  docker-test:
+    deps:
+      - docker-image
+    cmds:
+      - docker run -ti -v {{ .ROOT_DIR }}:/repo qvls-hsmd-tester task test-vls-socket

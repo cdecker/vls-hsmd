@@ -24,6 +24,10 @@ import pytest
 import re
 
 
+# Quick way to get the current request
+REQUEST = None
+
+
 def signer_subdaemon():
     root = Path(__file__).parent.parent
     mode = os.environ.get("VLS_MODE", "cln:native")
@@ -61,6 +65,8 @@ class VlsLightningNode(utils.LightningNode):
 
         # We start the signer first, otherwise the lightningd startup hangs on the init message
         if self.use_vlsd:
+            self.daemon.env["VLS_PORT"] = str(self.vlsd_port)
+            self.daemon.env["VLS_LSS"] = os.environ.get("LSS_URI", "")
             self.vlsd = ValidatingLightningSignerD(
                 vlsd_dir=self.vls_dir,
                 vlsd_port=self.vlsd_port,
@@ -70,9 +76,9 @@ class VlsLightningNode(utils.LightningNode):
             )
             import threading
 
-            threading.Timer(3, self.vlsd.start).start()
-            self.daemon.env["VLS_PORT"] = str(self.vlsd_port)
-            self.daemon.env["VLS_LSS"] = os.environ.get("LSS_URI", "")
+            threading.Timer(1, self.vlsd.start).start()
+            REQUEST.addfinalizer(self.vlsd.stop)
+
         utils.LightningNode.start(
             self,
             wait_for_bitcoind_sync=wait_for_bitcoind_sync,
@@ -90,8 +96,9 @@ LightningNode = VlsLightningNode
 
 
 @pytest.fixture
-def node_cls(lssd):
-    print(lssd)
+def node_cls(lssd, request):
+    global REQUEST
+    REQUEST = request
     return VlsLightningNode
 
 
