@@ -39,34 +39,71 @@ tasks:
       - build-vls
       - build-cln
 
-
-  test:
-    deps:
-      - build
-    dir: '.'
-    env:
-      DEVELOPER: "1"
-      VALGRIND: "0"
-      # Dummy value to make `@pytest.mark.skipIf` work
-      SUBDAEMON: "hsmd:lightning_hsmd"
-      VLS_MODE: cln:native
-    cmds:
-      - env
-      - uv sync
-      - PATH="{{ .ROOT_DIR }}/target/debug:{{ .ROOT_DIR }}/lightning/lightningd:$PATH" uv run pytest tests -vvv -n 4 --color=yes
-
-
   test-native:
     env:
-      VLS_MODE: cln:native
+      VLS_MODE: "cln:native"
+      SUBDAEMON: "hsmd:lightning_hsmd"
     cmds:
-      - task:test
+      - uv sync
+      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes -sk {{ .CLI_ARGS }}
 
   test-vls-socket:
     env:
-      VLS_MODE: cln:socket
-      ALLOWLIST: remote_hsmd/TESTING_ALLOWLIST
+      VLS_MODE: "cln:socket"
+      ALLOWLIST: "{{ .ROOT_DIR }}/remote_hsmd/TESTING_ALLOWLIST"
       VLS_CLN_VERSION:
         sh: ./lightning/lightningd/lightning_hsmd --version
+      SUBDAEMON: "hsmd:{{ .ROOT_DIR }}/target/debug/remote_hsmd_socket"
+      VLS_NETWORK: regtest
+      VLS_PERMISSIVE: 1
+      TEST_DEBUG: 1
+      RUST_BACKTRACE: full
+      PATH:
+        sh: echo "$PATH:{{ .ROOT_DIR }}/target/debug:{{ .ROOT_DIR }}/lightning/lightningd:"
+    deps:
+      - build
     cmds:
-      - task: test
+      - uv sync
+      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes --force-flaky --max-runs=5 -n 5
+
+  test-vls-socket-single:
+    env:
+      VLS_MODE: "cln:socket"
+      ALLOWLIST: "{{ .ROOT_DIR }}/remote_hsmd/TESTING_ALLOWLIST"
+      VLS_CLN_VERSION:
+        sh: ./lightning/lightningd/lightning_hsmd --version
+      SUBDAEMON: "hsmd:{{ .ROOT_DIR }}/target/debug/remote_hsmd_socket"
+      VLS_NETWORK: regtest
+      VLS_PERMISSIVE: 1
+      TEST_DEBUG: 1
+      RUST_BACKTRACE: full
+      PATH:
+        sh: echo "$PATH:{{ .ROOT_DIR }}/target/debug:{{ .ROOT_DIR }}/lightning/lightningd:"
+    deps:
+      - build
+    cmds:
+      - uv sync
+      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes -k {{ .CLI_ARGS }}
+
+  clean:
+    deps:
+      - cln-clean
+      - vls-clean
+  cln-clean:
+    directory: '.'
+    cmds:
+      - rm -rf target
+  vls-clean:
+    directory: 'vls'
+    cmds:
+      - make clean
+      
+
+  docker-image:
+    cmds:
+      - docker build -t vls-hsmd-tester -f Dockerfile .
+  docker-test:
+    deps:
+      - docker-image
+    cmds:
+      - docker run -ti -v {{ .ROOT_DIR }}:/repo vls-hsmd-tester task test-vls-socket

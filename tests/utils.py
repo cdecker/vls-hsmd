@@ -10,6 +10,9 @@ import tempfile
 import time
 
 COMPAT = env("COMPAT", "1") == "1"
+VLS_MODE = env("VLS_MODE", "cln:native")
+REMOTE_VLS_SOCKET = VLS_MODE == "cln:socket"
+VLS_MODE_NATIVE = VLS_MODE == "cln:native"
 
 # Big enough to make channels with 10k effective capacity, including Elements channels
 # which have bigger txns
