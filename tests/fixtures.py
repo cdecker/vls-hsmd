@@ -49,8 +49,8 @@ class VlsLightningNode(utils.LightningNode):
         self.daemon.executable = "lightningd"
         self.vlsd: ValidatingLightningSignerD | None = None
         self.vls_dir = Path(lightning_dir) / "vlsd"
-        self.vlsd_port: int | None = None
-        self.vlsd_rpc_port: int | None = None
+        self.vlsd_port: int = reserve_unused_port()
+        self.vlsd_rpc_port: int = reserve_unused_port()
         self.node_id: int = node_id
         self.network = "regtest"
         if self.use_vlsd:
@@ -58,9 +58,6 @@ class VlsLightningNode(utils.LightningNode):
 
     def start(self, wait_for_bitcoind_sync=True, stderr_redir=False):
         self.vls_dir.mkdir(exist_ok=True, parents=True)
-        self.vlsd_port = reserve_unused_port()
-        self.vlsd_rpc_port = reserve_unused_port()
-        print(f'XXX {os.environ["BITCOIND_RPC_URL"]}')
 
         # We start the signer first, otherwise the lightningd startup hangs on the init message
         if self.use_vlsd:
@@ -85,7 +82,8 @@ class VlsLightningNode(utils.LightningNode):
     def stop(self, timeout: int = 10):
         utils.LightningNode.stop(self, timeout=timeout)
         if self.vlsd is not None and self.use_vlsd:
-            self.vlsd.stop()
+            rc = self.vlsd.stop(timeout=timeout)
+            print(f"VLSD2 exited with rc={rc}")
 
 
 LightningNode = VlsLightningNode
