@@ -12,6 +12,7 @@ from utils import (
 @pytest.mark.openchannel('v1')
 @pytest.mark.openchannel('v2')
 @unittest.skipIf(TEST_NETWORK != 'regtest', 'elementsd doesnt yet support PSBT features we need')
+@unittest.skip("VLS does not support experimental-splicing")
 def test_splice_disconnect_sig(node_factory, bitcoind):
     # Dual open and splicing both use tx_sig messages. If we have dual enabled, ignore the first one.
     disconnect = ['-WIRE_TX_SIGNATURES']
