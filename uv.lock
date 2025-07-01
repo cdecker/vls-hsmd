@@ -1303,7 +1303,7 @@ requires-dist = [
     { name = "gevent", specifier = ">=25.5.1" },
     { name = "protobuf", specifier = ">=6.31.1" },
     { name = "pyln-client", directory = "lightning/contrib/pyln-client" },
-    { name = "pyln-grpc-proto", specifier = ">=24.2.1" },
+    { name = "pyln-grpc-proto", specifier = ">=24" },
     { name = "pyln-testing", directory = "lightning/contrib/pyln-testing" },
     { name = "pytest-timeout", specifier = ">=2.4.0" },
     { name = "pytest-xdist", specifier = ">=3.7.0" },
