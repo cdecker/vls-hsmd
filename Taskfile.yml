@@ -85,6 +85,19 @@ tasks:
       - uv sync
       - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes -k {{ .CLI_ARGS }}
 
+  clean:
+    deps:
+      - cln-clean
+      - vls-clean
+  cln-clean:
+    directory: '.'
+    cmds:
+      - rm -rf target
+  vls-clean:
+    directory: 'vls'
+    cmds:
+      - make clean
+      
 
   docker-image:
     cmds:
