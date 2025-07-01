@@ -28,6 +28,8 @@ tasks:
       
   build-cln:
     dir: 'lightning'
+    deps:
+      - configure-cln
     cmds:
       - poetry config virtualenvs.create true --local
       - poetry install
