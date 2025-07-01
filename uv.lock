@@ -940,7 +940,7 @@ wheels = [
 
 [[package]]
 name = "pyln-testing"
-version = "24.11.1"
+version = "25.2.2"
 source = { directory = "lightning/contrib/pyln-testing" }
 dependencies = [
     { name = "cheroot" },
