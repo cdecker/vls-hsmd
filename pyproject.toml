@@ -11,7 +11,7 @@ dependencies = [
     "gevent>=25.5.1",
     "protobuf>=6.31.1",
     "pyln-client",
-    "pyln-grpc-proto>=24.2.1",
+    "pyln-grpc-proto>=24",
     "pyln-testing",
     "pytest-timeout>=2.4.0",
     "pytest-xdist>=3.7.0",
