@@ -17,6 +17,15 @@ tasks:
     cmds:
       - CARGO_TARGET_DIR=../../target cargo build --all
 
+  configure-cln:
+    dir: 'lightning'
+    cmds:
+      - poetry config virtualenvs.create true --local
+      - poetry install
+      - poetry run ./configure --disable-valgrind CC='clang'
+    status:
+      - "[ -f config.vars ]"
+      
   build-cln:
     dir: 'lightning'
     cmds:
