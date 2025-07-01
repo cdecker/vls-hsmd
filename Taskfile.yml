@@ -64,7 +64,7 @@ tasks:
       - build
     cmds:
       - uv sync
-      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes -n 2 --force-flaky --max-runs=5
+      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes --force-flaky --max-runs=5 -n 5
 
   test-vls-socket-single:
     env:
