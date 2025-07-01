@@ -50,6 +50,7 @@ def wait_for_restart(l1, l2):
 @pytest.mark.openchannel('v1')
 @pytest.mark.openchannel('v2')
 @unittest.skipIf(TEST_NETWORK != 'regtest', 'elementsd doesnt yet support PSBT features we need')
+@unittest.skip("VLS does not support experimental-splicing")
 def test_splice_insane(node_factory, bitcoind):
     nodes = []
 
