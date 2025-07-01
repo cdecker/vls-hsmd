@@ -106,4 +106,4 @@ tasks:
     deps:
       - docker-image
     cmds:
-      - docker run -ti -v {{ .ROOT_DIR }}:/repo qvls-hsmd-tester task test-vls-socket
+      - docker run -ti -v {{ .ROOT_DIR }}:/repo vls-hsmd-tester task test-vls-socket
