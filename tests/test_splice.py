@@ -12,6 +12,7 @@ from utils import (
 @pytest.mark.openchannel('v1')
 @pytest.mark.openchannel('v2')
 @unittest.skipIf(TEST_NETWORK != 'regtest', 'elementsd doesnt yet support PSBT features we need')
+@unittest.skip("VLS does not support experimental-splicing")
 def test_script_splice_out(node_factory, bitcoind, chainparams):
     fundamt = 1000000
 
