@@ -896,7 +896,7 @@ wheels = [
 
 [[package]]
 name = "pyln-client"
-version = "24.11.1"
+version = "25.2.2"
 source = { directory = "lightning/contrib/pyln-client" }
 dependencies = [
     { name = "pyln-bolt7" },
