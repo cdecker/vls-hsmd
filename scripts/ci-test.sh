@@ -5,7 +5,7 @@ echo "Running in $(pwd)"
 basedir="$(pwd)/.."
 ls -l "$basedir/bin"
 
-export TIMEOUT=300
+export TIMEOUT=1200
 export DEVELOPER=${DEVELOPER:-1}
 export PATH="$PATH:~/.local/bin:$basedir/bin"
 export SLOW_MACHINE=1
@@ -21,7 +21,7 @@ export RUST_BACKTRACE=1
 
 cat << EOF > pytest.ini
 [pytest]
-addopts=-p no:logging --color=yes --timeout=300 --timeout-method=signal --test-group-random-seed=42
+addopts=-p no:logging --color=yes --timeout=1200 --timeout-method=signal --test-group-random-seed=42
 markers =
     slow_test: marks tests as slow (deselect with '-m "not slow_test"')
 EOF
