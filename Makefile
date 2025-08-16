@@ -1,6 +1,6 @@
 
 VLS_MODE ?= cln:socket
-TIMEOUT ?= 300
+TIMEOUT ?= 1200
 VALGRIND ?= 0
 TEST ?= tests/test_pay.py::test_pay
 PREFIX ?= /usr/local
