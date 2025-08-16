@@ -7,6 +7,7 @@ cache:
     - .cache
 
 variables:
+  RUNNER_TAG: "saas-linux-large-amd64"
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
   CARGO_HOME: "$CI_PROJECT_DIR/.cache/cargo"
   TEST_DIR: "$CI_BUILDS_DIR/TESTS"
@@ -17,6 +18,17 @@ variables:
   VLS_REF:
     value: ""
     description: "checkout to the ref (e.g. main) from the upstream validating lightning signer repository"
+
+workflow:
+  rules:
+    # If the CI_PROJECT_NAMESPACE does not contain 'lightning-signer' (e.g., external MRs or forks),
+    # set the RUNNER_TAG variable to use a saas-linux-medium-amd64 runner instead of the default saas-linux-large-amd64.
+    - if: '$CI_PROJECT_NAMESPACE !~ /lightning-signer/'
+      variables:
+        RUNNER_TAG: "saas-linux-medium-amd64"
+    - if: '$CI_MERGE_REQUEST_ID || $CI_COMMIT_BRANCH == "main"'
+      when: always
+    - when: never
 
 get-bitcoin:
   stage: build
@@ -42,7 +54,7 @@ get-bitcoin:
 
 compile-vls:
   stage: build
-  tags: [ saas-linux-large-amd64 ]
+  tags: [ $RUNNER_TAG ]
   # lssd has msrv of 1.75.0
   image: rust:1.75.0
   timeout: 30m
@@ -81,7 +93,7 @@ compile-vls:
 
 compile-cln:
   stage: build
-  tags: [ saas-linux-large-amd64 ]
+  tags: [ $RUNNER_TAG ]
   image: ubuntu
   script:
     - ./scripts/install-additional
@@ -100,7 +112,7 @@ compile-cln:
 
 test-openv1-enforcing-socket:
   stage: test
-  tags: [ saas-linux-large-amd64 ]
+  tags: [ $RUNNER_TAG ]
   image: ubuntu
   variables:
   script:
@@ -126,7 +138,7 @@ test-openv1-enforcing-socket:
 
 test-openv1-permissive-socket:
   stage: test
-  tags: [ saas-linux-large-amd64 ]
+  tags: [ $RUNNER_TAG ]
   image: ubuntu
   variables:
     VLS_PERMISSIVE: "1"
@@ -155,7 +167,7 @@ test-splice-enforcing-socket:
   rules:
     - when: never 
   stage: test
-  tags: [ saas-linux-large-amd64 ]
+  tags: [ $RUNNER_TAG ]
   image: ubuntu
   variables:
     EXPERIMENTAL_SPLICING: "1"
@@ -184,7 +196,7 @@ test-dualfund-enforcing-socket:
   rules:
     - when: never 
   stage: test
-  tags: [ saas-linux-large-amd64 ]
+  tags: [ $RUNNER_TAG ]
   image: ubuntu
   variables:
     EXPERIMENTAL_DUAL_FUND: "1"
