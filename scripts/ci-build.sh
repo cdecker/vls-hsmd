@@ -16,11 +16,11 @@ pip3 install --break-system-packages --ignore-installed blinker
 # WORKAROUND
 pip install --break-system-packages certifi==2023.7.22
 
-find . -name "poetry.lock" -print
+find . -name "uv.lock" -print
 
-pip3 install --break-system-packages --user poetry
-poetry config virtualenvs.create false --local
-poetry install
+# uv is already installed in most CI environments, but ensure it's available
+pip3 install --break-system-packages --user uv || true
+uv sync
 
 git clone https://github.com/lightning/bolts.git ../${BOLTDIR}
 git submodule update --init --recursive

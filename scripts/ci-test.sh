@@ -22,10 +22,9 @@ export RUST_BACKTRACE=1
 # WORKAROUND
 pip install --break-system-packages certifi==2023.7.22
 
-find . -name "poetry.lock" -print
+find . -name "uv.lock" -print
 
-poetry config virtualenvs.create false --local
-poetry install
+uv sync
 
 cat << EOF > pytest.ini
 [pytest]

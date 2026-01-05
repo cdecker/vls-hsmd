@@ -66,17 +66,16 @@ test:	build
 	(cd lightning/external/lowdown && ./configure) # WORKAROUND
 	cd lightning \
 		&& make distclean \
-		&& poetry install \
-		&& ./configure $(CFGFLAGS)
+		&& ../scripts/build-lightning.sh ./configure $(CFGFLAGS)
 	touch $@
 
 build:	config
-	cd lightning && poetry run make -j$(JPAR)
+	cd lightning && ../scripts/build-lightning.sh make -j$(JPAR)
 	cd vls && cargo build --bins --features developer $(VLS_BUILDARGS)
 	cd vls/lightning-storage-server && cargo build --bins $(LSS_BUILDARGS)
 
 # unfortunately this cannot depend on build because frequently run as
-# sudo root and will not have poetry available
+# sudo root and will not have uv available
 install:
 	(cd lightning && make install PREFIX=$(PREFIX))
 	cp vls/target/debug/remote_hsmd_serial $(PREFIX)/libexec/c-lightning/
@@ -111,7 +110,7 @@ test:	check-subdaemon
 			TIMEOUT=$(TIMEOUT) \
 			TEST_DIR=$(TEST_DIR) \
 		&& printenv >  $(TEST_DIR)/ENV.log \
-		&& poetry run make pytest -j$(JPAR)\
+		&& uv run make pytest -j$(JPAR)\
 			VALGRIND=$(VALGRIND) \
 			PYTEST_MOREOPTS="--timeout=$(TIMEOUT) --timeout_method=signal -vvv" \
 			PYTEST_PAR=$(TPAR) \
@@ -141,7 +140,7 @@ test-one:	check-subdaemon check-test-one build
 			VALGRIND=$(VALGRIND) \
 			TIMEOUT=$(TIMEOUT) \
 			TEST_DIR=$(TEST_DIR) \
-		&& poetry run ../scripts/run-one-test $(TEST) \
+		&& uv run ../scripts/run-one-test $(TEST) \
 		2>&1 | tee $(TEST_DIR)/$(LOGFILE)
 		vls/contrib/howto/assets/logsum $(TEST_DIR)
 

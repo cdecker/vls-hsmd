@@ -20,20 +20,15 @@ tasks:
   configure-cln:
     dir: 'lightning'
     cmds:
-      - poetry config virtualenvs.create true --local
-      - poetry install
-      - poetry run ./configure --disable-valgrind CC='clang'
+      - ../scripts/build-lightning.sh ./configure --disable-valgrind CC='clang'
     status:
-      - "[ -f config.vars ]"
+      - "[ -f lightning/config.vars ]"
       
   build-cln:
     dir: 'lightning'
-    deps:
-      - configure-cln
     cmds:
-      - poetry config virtualenvs.create true --local
-      - poetry install
-      - CARGO_TARGET_DIR=../target poetry run make -j $(nproc)
+      - ../scripts/build-lightning.sh ./configure --disable-valgrind CC='clang'
+      - CARGO_TARGET_DIR=../target ../scripts/build-lightning.sh make
   build:
     deps:
       - build-vls
@@ -43,9 +38,10 @@ tasks:
     env:
       VLS_MODE: "cln:native"
       SUBDAEMON: "hsmd:lightning_hsmd"
+      VALGRIND: "0"
     cmds:
       - uv sync
-      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes -sk {{ .CLI_ARGS }}
+      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes {{ .CLI_ARGS }}
 
   test-vls-socket:
     env:
@@ -58,13 +54,14 @@ tasks:
       VLS_PERMISSIVE: 1
       TEST_DEBUG: 1
       RUST_BACKTRACE: full
+      VALGRIND: "0"
       PATH:
         sh: echo "$PATH:{{ .ROOT_DIR }}/target/debug:{{ .ROOT_DIR }}/lightning/lightningd:"
     deps:
       - build
     cmds:
       - uv sync
-      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes --force-flaky --max-runs=5 -n 5
+      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes -n 5 {{ .CLI_ARGS }}
 
   test-vls-socket-single:
     env:
@@ -77,6 +74,7 @@ tasks:
       VLS_PERMISSIVE: 1
       TEST_DEBUG: 1
       RUST_BACKTRACE: full
+      VALGRIND: "0"
       PATH:
         sh: echo "$PATH:{{ .ROOT_DIR }}/target/debug:{{ .ROOT_DIR }}/lightning/lightningd:"
     deps:

@@ -43,7 +43,7 @@ On Fedora:
 On Both:
 
     pip3 install --upgrade pip
-    pip3 install --user poetry
+    pip3 install --user uv
     
     # These are currently touchy about versions (2022-05-02)
     pip3 install --user mistune==0.8.4
