@@ -34,7 +34,9 @@ tasks:
     deps:
       - configure-cln
     cmds:
-      - CARGO_TARGET_DIR=../target ../scripts/build-lightning.sh make -j $(nproc)
+      - uv pip install lightning/contrib/pyln-testing
+      - CARGO_TARGET_DIR=../target uv run ../scripts/build-lightning.sh make -j $(nproc)
+      - touch __init__.py tests/__init__.py  # Make lightning/ importable as a Python package
   build:
     deps:
       - build-vls
