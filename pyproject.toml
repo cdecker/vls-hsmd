@@ -21,6 +21,9 @@ dependencies = [
     "websockets>=15.0.1",
 ]
 
+[project.scripts]
+compat-test = "scripts.compat_test_runner:main"
+
 [tool.uv]
 default-groups = ["dev"]
 
