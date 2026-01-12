@@ -19,19 +19,5 @@ dependencies = [
     "rich>=14.0.0",
     "websocket-client>=1.8.0",
     "websockets>=15.0.1",
-]
-
-[project.scripts]
-compat-test = "scripts.compat_test_runner:main"
-
-[tool.uv]
-default-groups = ["dev"]
-
-[tool.uv.sources]
-pyln-client = { path = "lightning/contrib/pyln-client", editable = true }
-pyln-testing = { path = "lightning/contrib/pyln-testing", editable = false }
-
-[dependency-groups]
-dev = [
     "poetry>=2.2.1",
 ]
