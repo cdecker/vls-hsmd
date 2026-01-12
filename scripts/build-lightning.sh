@@ -18,7 +18,7 @@ fi
 if [ -f "poetry.lock" ]; then
     echo "Found poetry.lock, using poetry..."
     # Install dependencies if needed (use Python 3.10 for compatibility)
-    PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1 poetry install
+    PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1 uv tool run poetry install
     
     # Run the command with poetry
     poetry run "$@"
