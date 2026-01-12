@@ -17,11 +17,6 @@ fi
 
 if [ -f "poetry.lock" ]; then
     echo "Found poetry.lock, using poetry..."
-    if ! command -v poetry &> /dev/null; then
-        echo "Error: poetry.lock exists but poetry is not installed"
-        exit 1
-    fi
-    
     # Install dependencies if needed (use Python 3.10 for compatibility)
     PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1 poetry install
     
