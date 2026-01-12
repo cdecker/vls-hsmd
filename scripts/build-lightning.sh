@@ -24,10 +24,6 @@ if [ -f "poetry.lock" ]; then
     uv tool run poetry run "$@"
 else
     echo "No poetry.lock found, using uv..."
-    if ! command -v uv &> /dev/null; then
-        echo "Error: uv is not installed"
-        exit 1
-    fi
     
     # Sync dependencies
     uv sync
