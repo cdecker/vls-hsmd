@@ -21,9 +21,12 @@ dependencies = [
     "websockets>=15.0.1",
 ]
 
+[tool.uv]
+default-groups = ["dev"]
+
 [tool.uv.sources]
-pyln-client = { path = "lightning/contrib/pyln-client" }
-pyln-testing = { path = "lightning/contrib/pyln-testing" }
+pyln-client = { path = "lightning/contrib/pyln-client", editable = false }
+pyln-testing = { path = "lightning/contrib/pyln-testing", editable = false }
 
 [dependency-groups]
 dev = [

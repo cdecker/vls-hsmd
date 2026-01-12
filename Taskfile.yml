@@ -22,13 +22,19 @@ tasks:
     cmds:
       - ../scripts/build-lightning.sh ./configure --disable-valgrind CC='clang'
     status:
-      - "[ -f lightning/config.vars ]"
+      - "[ -f config.vars ]"
       
   build-cln:
     dir: 'lightning'
+    sources:
+     - '**/*.c'
+     - '**/*.h'
+    generates:
+     - 'lightningd/lightningd'
+    deps:
+      - configure-cln
     cmds:
-      - ../scripts/build-lightning.sh ./configure --disable-valgrind CC='clang'
-      - CARGO_TARGET_DIR=../target ../scripts/build-lightning.sh make
+      - CARGO_TARGET_DIR=../target ../scripts/build-lightning.sh make -j $(nproc)
   build:
     deps:
       - build-vls
@@ -39,9 +45,30 @@ tasks:
       VLS_MODE: "cln:native"
       SUBDAEMON: "hsmd:lightning_hsmd"
       VALGRIND: "0"
+      SLOW_MACHINE: "1"
     cmds:
       - uv sync
-      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes {{ .CLI_ARGS }}
+      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes --timeout=180 {{ .CLI_ARGS }}
+
+  test-native-single:
+    env:
+      VLS_MODE: "cln:native"
+      SUBDAEMON: "hsmd:lightning_hsmd"
+      VALGRIND: "0"
+      SLOW_MACHINE: "1"
+    cmds:
+      - uv sync
+      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes -k {{ .CLI_ARGS }} --timeout=180
+
+  test-native-*:
+    env:
+      VLS_MODE: "cln:native"
+      SUBDAEMON: "hsmd:lightning_hsmd"
+      VALGRIND: "0"
+      SLOW_MACHINE: "1"
+    cmds:
+      - uv sync
+      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest "tests/test_$(echo {{index .MATCH 0}} | tr - _).py" -vvv --color=yes --timeout=180 -n 5 {{ .CLI_ARGS }}
 
   test-vls-socket:
     env:
@@ -55,13 +82,14 @@ tasks:
       TEST_DEBUG: 1
       RUST_BACKTRACE: full
       VALGRIND: "0"
+      SLOW_MACHINE: "1"
       PATH:
         sh: echo "$PATH:{{ .ROOT_DIR }}/target/debug:{{ .ROOT_DIR }}/lightning/lightningd:"
     deps:
       - build
     cmds:
       - uv sync
-      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes -n 5 {{ .CLI_ARGS }}
+      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes -n 5 --timeout=180 {{ .CLI_ARGS }}
 
   test-vls-socket-single:
     env:
@@ -75,13 +103,35 @@ tasks:
       TEST_DEBUG: 1
       RUST_BACKTRACE: full
       VALGRIND: "0"
+      SLOW_MACHINE: "1"
       PATH:
         sh: echo "$PATH:{{ .ROOT_DIR }}/target/debug:{{ .ROOT_DIR }}/lightning/lightningd:"
     deps:
       - build
     cmds:
       - uv sync
-      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes -k {{ .CLI_ARGS }}
+      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes -k {{ .CLI_ARGS }} --timeout=180
+
+  test-vls-socket-*:
+    env:
+      VLS_MODE: "cln:socket"
+      ALLOWLIST: "{{ .ROOT_DIR }}/remote_hsmd/TESTING_ALLOWLIST"
+      VLS_CLN_VERSION:
+        sh: ./lightning/lightningd/lightning_hsmd --version
+      SUBDAEMON: "hsmd:{{ .ROOT_DIR }}/target/debug/remote_hsmd_socket"
+      VLS_NETWORK: regtest
+      VLS_PERMISSIVE: 1
+      TEST_DEBUG: 1
+      RUST_BACKTRACE: full
+      VALGRIND: "0"
+      SLOW_MACHINE: "1"
+      PATH:
+        sh: echo "$PATH:{{ .ROOT_DIR }}/target/debug:{{ .ROOT_DIR }}/lightning/lightningd:"
+    deps:
+      - build
+    cmds:
+      - uv sync
+      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest "tests/test_$(echo {{index .MATCH 0}} | tr - _).py" -vvv --color=yes -n 5 --timeout=180 {{ .CLI_ARGS }}
 
   clean:
     deps:
@@ -104,4 +154,10 @@ tasks:
     deps:
       - docker-image
     cmds:
-      - docker run -ti -v {{ .ROOT_DIR }}:/repo vls-hsmd-tester task test-vls-socket
+      - docker run --ulimit nofile=10240:10240 -ti -v {{ .ROOT_DIR }}:/repo -v /repo/.venv vls-hsmd-tester task test-vls-socket
+
+  dockerize-*:
+    deps:
+      - docker-image
+    cmds:
+      - docker run --ulimit nofile=10240:10240 -ti -v {{ .ROOT_DIR }}:/repo -v /repo/.venv vls-hsmd-tester task {{index .MATCH 0}} -- {{.CLI_ARGS}}

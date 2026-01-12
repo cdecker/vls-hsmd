@@ -17,7 +17,6 @@ if [ -f "poetry.lock" ]; then
     fi
     
     # Install dependencies if needed (use Python 3.10 for compatibility)
-    PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1 poetry env use /usr/bin/python3.10
     PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1 poetry install
     
     # Run the command with poetry

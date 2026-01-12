@@ -40,6 +40,11 @@ jq \
       postgresql \
       protobuf-compiler \
       protobuf-compiler-grpc \
+      python-is-python3 \
+      python3 \
+      python3-dev \
+      python3-venv \
+      python3-pip \
       shellcheck \
       software-properties-common \
       sudo \
