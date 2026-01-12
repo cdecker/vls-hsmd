@@ -180,7 +180,7 @@ jobs:
       - name: Run VLS compatibility tests
         id: test
         run: |
-          uv run task test-vls-socket -- -n 8 --force-flaky --timeout 300 --maxfail=10 2>&1 | tee test-output.log
+          uv run task test-vls-socket -- -n 8 --force-flaky --timeout 300 2>&1 | tee test-output.log
         continue-on-error: true
       
       - name: Parse test results
