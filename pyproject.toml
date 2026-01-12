@@ -24,3 +24,8 @@ dependencies = [
 [tool.uv.sources]
 pyln-client = { path = "lightning/contrib/pyln-client" }
 pyln-testing = { path = "lightning/contrib/pyln-testing" }
+
+[dependency-groups]
+dev = [
+    "poetry>=2.2.1",
+]
