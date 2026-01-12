@@ -46,7 +46,7 @@ tasks:
     cmds:
       - uv venv
       - uv pip install contrib/pyln-testing contrib/pyln-client
-      - CARGO_TARGET_DIR=../target uv run ../scripts/build-lightning.sh make -j $(( ${MAKE_JOBS:-$(nproc)} > 8 ? 8 : ${MAKE_JOBS:-$(nproc)} ))
+      - CARGO_TARGET_DIR=../target uv run ../scripts/build-lightning.sh make -j ${MAKE_JOBS:-$(nproc)}
       - touch __init__.py tests/__init__.py  # Make lightning/ importable as a Python package
   build:
     deps:
