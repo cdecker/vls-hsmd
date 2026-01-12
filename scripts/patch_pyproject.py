@@ -33,6 +33,7 @@ def convert_poetry_dependency(dep_spec):
     - "^1.0.0" -> ">=1.0.0,<2.0.0"
     - "~1.2.3" -> ">=1.2.3,<1.3.0"
     - ">=1.0.0" -> ">=1.0.0"
+    - ">=8 <=10" -> ">=8,<=10"
     - "*" -> ""
     - {"version": "^1.0", "optional": true} -> ">=1.0,<2.0"
     """
@@ -61,7 +62,14 @@ def convert_poetry_dependency(dep_spec):
             next_minor = int(minor) + 1
             return f">={version},<{major}.{next_minor}.0"
     
-    # Already in PEP 440 format
+    # Handle space-separated version specifiers (e.g., ">=8 <=10" -> ">=8,<=10")
+    # This is invalid PEP 440 syntax but sometimes appears in Poetry configs
+    import re
+    if re.search(r'(>=|<=|>|<|==|!=)\s*\d+.*\s+(>=|<=|>|<|==|!=)', dep_spec):
+        # Replace spaces between version specifiers with commas
+        dep_spec = re.sub(r'\s+(>=|<=|>|<|==|!=)', r',\1', dep_spec)
+    
+    # Already in PEP 440 format (or converted above)
     return dep_spec
 
 
