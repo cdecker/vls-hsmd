@@ -173,7 +173,9 @@ jobs:
       - name: Run VLS compatibility tests
         id: test
         run: |
-          task test-vls-socket 2>&1 | tee test-output.log
+          uv venv
+          uv run pip install lightning/contrib/pyln-testing lightning/contrib/pyln-client
+          uv run task test-vls-socket 2>&1 | tee test-output.log
         continue-on-error: true
       
       - name: Parse test results
