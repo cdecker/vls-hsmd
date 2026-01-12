@@ -1,0 +1,297 @@
+name: VLS-CLN Compatibility Matrix
+
+on:
+  push:
+    branches:
+    - main
+    - 202601-gh-compat-matrix
+  pull_request:
+    branches:
+    - main
+    - 202601-gh-compat-matrix
+  schedule:
+    # Run weekly on Monday at 00:00 UTC
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
+    inputs:
+      cln_versions:
+        description: 'Comma-separated list of CLN versions (e.g., v24.11,v24.08.2)'
+        required: false
+        default: ''
+      vls_versions:
+        description: 'Comma-separated list of VLS versions (e.g., v0.13.0,v0.12.1)'
+        required: false
+        default: ''
+
+env:
+  # Default versions to test if not provided via workflow_dispatch
+  DEFAULT_CLN_VERSIONS: 'v24.11.1,v24.08.2,v24.05,v25.05,v25.12'
+  DEFAULT_VLS_VERSIONS: 'v0.14.0,v0.13.0,v0.12.1,v0.12.0'
+
+jobs:
+  generate-matrix:
+    name: Generate Test Matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Generate compatibility matrix
+        id: set-matrix
+        run: |
+          # Use workflow inputs or defaults
+          if [ -n "${{ github.event.inputs.cln_versions }}" ]; then
+            CLN_VERSIONS="${{ github.event.inputs.cln_versions }}"
+          else
+            CLN_VERSIONS="${DEFAULT_CLN_VERSIONS}"
+          fi
+          
+          if [ -n "${{ github.event.inputs.vls_versions }}" ]; then
+            VLS_VERSIONS="${{ github.event.inputs.vls_versions }}"
+          else
+            VLS_VERSIONS="${DEFAULT_VLS_VERSIONS}"
+          fi
+          
+          echo "CLN versions: $CLN_VERSIONS"
+          echo "VLS versions: $VLS_VERSIONS"
+          
+          # Convert comma-separated lists to JSON arrays
+          CLN_ARRAY=$(echo "$CLN_VERSIONS" | jq -R 'split(",") | map(gsub("^\\s+|\\s+$";""))')
+          VLS_ARRAY=$(echo "$VLS_VERSIONS" | jq -R 'split(",") | map(gsub("^\\s+|\\s+$";""))')
+          
+          # Generate all combinations
+          MATRIX=$(jq -n \
+            --argjson cln "$CLN_ARRAY" \
+            --argjson vls "$VLS_ARRAY" \
+            '{include: [foreach $cln[] as $c (0; . + 1; foreach $vls[] as $v (0; . + 1; {cln_version: $c, vls_version: $v}))]}')
+          
+          echo "Generated matrix:"
+          echo "$MATRIX" | jq .
+          
+          # Set output (using environment file for multi-line)
+          echo "matrix<<EOF" >> $GITHUB_OUTPUT
+          echo "$MATRIX" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+  test-compatibility:
+    name: CLN ${{ matrix.cln_version }} + VLS ${{ matrix.vls_version }}
+    needs: generate-matrix
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: false
+      
+      - name: Checkout CLN submodule at ${{ matrix.cln_version }}
+        run: |
+          git submodule update --init lightning
+          cd lightning
+          git fetch --tags
+          git checkout ${{ matrix.cln_version }}
+          cd ..
+      
+      - name: Checkout VLS submodule at ${{ matrix.vls_version }}
+        run: |
+          git submodule update --init vls
+          cd vls
+          git fetch --tags
+          git checkout ${{ matrix.vls_version }}
+          cd ..
+      
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: 1.87.0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+      
+      - name: Install task
+        run: |
+          sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
+      
+      - name: Cache Rust dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ matrix.vls_version }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-${{ matrix.vls_version }}-
+            ${{ runner.os }}-cargo-
+      
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            autoconf \
+            automake \
+            build-essential \
+            clang \
+            gettext \
+            git \
+            libgmp-dev \
+            libpq-dev \
+            libsodium-dev \
+            libsqlite3-dev \
+            libtool \
+            pkg-config \
+            protobuf-compiler \
+            python3-dev \
+            wget \
+            zlib1g-dev
+      
+      - name: Install Bitcoin Core
+        run: |
+          BITCOIN_VERSION=25.0
+          cd /tmp
+          wget "https://bitcoincore.org/bin/bitcoin-core-${BITCOIN_VERSION}/bitcoin-${BITCOIN_VERSION}-x86_64-linux-gnu.tar.gz" -O bitcoin.tar.gz
+          tar -xzf bitcoin.tar.gz
+          sudo mv bitcoin-${BITCOIN_VERSION}/bin/bitcoin* /usr/local/bin/
+          rm -rf bitcoin.tar.gz bitcoin-${BITCOIN_VERSION}
+          bitcoind --version
+      
+      - name: Build VLS
+        run: task build-vls
+      
+      - name: Build CLN
+        run: task build-cln
+      
+      - name: Run VLS compatibility tests
+        id: test
+        run: |
+          task test-vls-socket 2>&1 | tee test-output.log
+        continue-on-error: true
+      
+      - name: Parse test results
+        if: always()
+        id: results
+        run: |
+          # Extract pytest results
+          if [ -f test-output.log ]; then
+            PASSED=$(grep -oP '\d+(?= passed)' test-output.log | tail -1 || echo "0")
+            FAILED=$(grep -oP '\d+(?= failed)' test-output.log | tail -1 || echo "0")
+            SKIPPED=$(grep -oP '\d+(?= skipped)' test-output.log | tail -1 || echo "0")
+            ERRORS=$(grep -oP '\d+(?= error)' test-output.log | tail -1 || echo "0")
+            
+            echo "passed=$PASSED" >> $GITHUB_OUTPUT
+            echo "failed=$FAILED" >> $GITHUB_OUTPUT
+            echo "skipped=$SKIPPED" >> $GITHUB_OUTPUT
+            echo "errors=$ERRORS" >> $GITHUB_OUTPUT
+            
+            # Create summary
+            echo "## Test Results: CLN ${{ matrix.cln_version }} + VLS ${{ matrix.vls_version }}" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "- ✅ Passed: $PASSED" >> $GITHUB_STEP_SUMMARY
+            echo "- ❌ Failed: $FAILED" >> $GITHUB_STEP_SUMMARY
+            echo "- ⏭️  Skipped: $SKIPPED" >> $GITHUB_STEP_SUMMARY
+            echo "- ⚠️  Errors: $ERRORS" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No test output found"
+            echo "passed=0" >> $GITHUB_OUTPUT
+            echo "failed=0" >> $GITHUB_OUTPUT
+            echo "skipped=0" >> $GITHUB_OUTPUT
+            echo "errors=1" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-cln-${{ matrix.cln_version }}-vls-${{ matrix.vls_version }}
+          path: |
+            test-output.log
+            reports/
+            results/
+          retention-days: 30
+      
+      - name: Check test status
+        if: always()
+        run: |
+          if [ "${{ steps.results.outputs.failed }}" != "0" ] || [ "${{ steps.results.outputs.errors }}" != "0" ]; then
+            echo "Tests failed or had errors"
+            exit 1
+          fi
+
+  report-results:
+    name: Generate Compatibility Report
+    needs: [generate-matrix, test-compatibility]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Download all test results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: test-results-*
+          path: test-results
+      
+      - name: Generate compatibility matrix report
+        run: |
+          echo "# VLS-CLN Compatibility Matrix Report" > compatibility-report.md
+          echo "" >> compatibility-report.md
+          echo "Generated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> compatibility-report.md
+          echo "" >> compatibility-report.md
+          echo "## Summary" >> compatibility-report.md
+          echo "" >> compatibility-report.md
+          echo "| CLN Version | VLS Version | Status | Passed | Failed | Skipped |" >> compatibility-report.md
+          echo "|-------------|-------------|--------|--------|--------|---------|" >> compatibility-report.md
+          
+          # Parse results from artifacts
+          for dir in test-results/test-results-*; do
+            if [ -d "$dir" ] && [ -f "$dir/test-output.log" ]; then
+              # Extract versions from directory name
+              basename=$(basename "$dir")
+              CLN_VER=$(echo "$basename" | sed -n 's/test-results-cln-\(.*\)-vls-.*/\1/p')
+              VLS_VER=$(echo "$basename" | sed -n 's/test-results-cln-.*-vls-\(.*\)/\1/p')
+              
+              # Parse test results
+              PASSED=$(grep -oP '\d+(?= passed)' "$dir/test-output.log" | tail -1 || echo "0")
+              FAILED=$(grep -oP '\d+(?= failed)' "$dir/test-output.log" | tail -1 || echo "0")
+              SKIPPED=$(grep -oP '\d+(?= skipped)' "$dir/test-output.log" | tail -1 || echo "0")
+              
+              # Determine status
+              if [ "$FAILED" = "0" ]; then
+                STATUS="✅ Pass"
+              else
+                STATUS="❌ Fail"
+              fi
+              
+              echo "| $CLN_VER | $VLS_VER | $STATUS | $PASSED | $FAILED | $SKIPPED |" >> compatibility-report.md
+            fi
+          done
+          
+          cat compatibility-report.md
+      
+      - name: Upload compatibility report
+        uses: actions/upload-artifact@v4
+        with:
+          name: compatibility-report
+          path: compatibility-report.md
+          retention-days: 90
+      
+      - name: Comment on PR (if applicable)
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('compatibility-report.md', 'utf8');
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: report
+            });
