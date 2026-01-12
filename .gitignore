@@ -11,4 +11,6 @@ target
 .env
 \#*\#
 .\#*
-.*.swp
+.*.swp# Python package markers for import-farm
+lightning/__init__.py
+lightning/tests/__init__.py
