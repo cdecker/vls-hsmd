@@ -42,6 +42,7 @@ def signer_subdaemon():
 
 class VlsLightningNode(utils.LightningNode):
     def __init__(self, node_id, lightning_dir, bitcoind, *args, **kwargs):
+        print(f"DEBUG: VlsLightningNode.__init__ for node {node_id}")
         utils.LightningNode.__init__(
             self, node_id, lightning_dir, bitcoind, *args, **kwargs
         )
@@ -52,6 +53,7 @@ class VlsLightningNode(utils.LightningNode):
         self.use_vlsd = self.subdaemon is not None
         self.daemon.executable = "lightningd"
         self.vlsd: ValidatingLightningSignerD | None = None
+        self.vlsd_timer = None
         self.vls_dir = Path(lightning_dir) / "vlsd"
         self.vlsd_port: int = reserve_unused_port()
         self.vlsd_rpc_port: int = reserve_unused_port()
@@ -76,7 +78,8 @@ class VlsLightningNode(utils.LightningNode):
             )
             import threading
 
-            threading.Timer(1, self.vlsd.start).start()
+            self.vlsd_timer = threading.Timer(1, self.vlsd.start)
+            self.vlsd_timer.start()
             REQUEST.addfinalizer(self.vlsd.stop)
 
         utils.LightningNode.start(
@@ -86,10 +89,32 @@ class VlsLightningNode(utils.LightningNode):
         )
 
     def stop(self, timeout: int = 10):
-        utils.LightningNode.stop(self, timeout=timeout)
+        # Stop lightningd first, but catch errors to ensure vlsd cleanup happens
+        try:
+            utils.LightningNode.stop(self, timeout=timeout)
+        except Exception as e:
+            print(f"Error stopping lightningd: {e}")
+
+        # Cancel the vlsd startup timer if it hasn't fired yet
+        if self.vlsd_timer:
+            self.vlsd_timer.cancel()
+            self.vlsd_timer = None
+
+        # Ensure vlsd is stopped even if lightningd stop failed
         if self.vlsd is not None and self.use_vlsd:
-            rc = self.vlsd.stop(timeout=timeout)
-            print(f"VLSD2 exited with rc={rc}")
+            try:
+                rc = self.vlsd.stop(timeout=timeout)
+                print(f"VLSD2 exited with rc={rc}")
+            except Exception as e:
+                print(f"Error stopping vlsd2: {e}")
+                # Try to kill it forcefully
+                try:
+                    if self.vlsd.proc and self.vlsd.proc.poll() is None:
+                        print("Force killing vlsd2")
+                        self.vlsd.proc.kill()
+                        self.vlsd.proc.wait(timeout=5)
+                except Exception as e2:
+                    print(f"Failed to force kill vlsd2: {e2}")
 
 
 LightningNode = VlsLightningNode
