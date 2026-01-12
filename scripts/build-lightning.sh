@@ -9,6 +9,12 @@ LIGHTNING_DIR="${SCRIPT_DIR}/../lightning"
 
 cd "${LIGHTNING_DIR}"
 
+if ! command -v uv &> /dev/null; then
+    echo "Error: uv is not installed"
+    exit 1
+fi
+
+
 if [ -f "poetry.lock" ]; then
     echo "Found poetry.lock, using poetry..."
     if ! command -v poetry &> /dev/null; then
