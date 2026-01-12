@@ -164,17 +164,24 @@ jobs:
           rm -rf bitcoin.tar.gz bitcoin-${BITCOIN_VERSION}
           bitcoind --version
       
+      - name: Patch pyproject.toml files for uv compatibility
+        run: task patch-contrib-pyproject
+      
       - name: Build VLS
         run: task build-vls
       
       - name: Build CLN
         run: task build-cln
       
+      - name: Install Python dependencies
+        run: |
+          uv venv
+          uv pip install ./lightning/contrib/pyln-testing ./lightning/contrib/pyln-client
+      
       - name: Run VLS compatibility tests
         id: test
         run: |
-          uv venv
-          PYTHONPATH=.:./lightning/contrib/pyln-testing::./lightning/contrib/pyln-client uv run task test-vls-socket -- -n 8 --force-flaky --timeout 300 --maxfail=10 2>&1 | tee test-output.log
+          uv run task test-vls-socket -- -n 8 --force-flaky --timeout 300 --maxfail=10 2>&1 | tee test-output.log
         continue-on-error: true
       
       - name: Parse test results

@@ -17,8 +17,19 @@ tasks:
     cmds:
       - CARGO_TARGET_DIR=../../target cargo build --all
 
+  patch-contrib-pyproject:
+    desc: "Patch pyproject.toml files in lightning/contrib to add [project] tables for uv compatibility"
+    cmds:
+      - uv pip install tomli tomli_w
+      - ./scripts/patch_all_contrib.sh
+    status:
+      - "grep -q '^\\[project\\]' lightning/contrib/pyln-client/pyproject.toml"
+      - "grep -q '^\\[project\\]' lightning/contrib/pyln-testing/pyproject.toml"
+
   configure-cln:
     dir: 'lightning'
+    deps:
+      - patch-contrib-pyproject
     cmds:
       - ../scripts/build-lightning.sh ./configure --disable-valgrind CC='clang'
     status:

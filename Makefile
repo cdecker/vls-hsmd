@@ -58,8 +58,13 @@ test:	build
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_socket)
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_serial)
 	(cd bin && ln -fs ../vls/lightning-storage-server/target/debug/lssd)
+	make patch-contrib-pyproject || true
 	echo "$(GITDESC)" > $@
 	make list-versions
+
+patch-contrib-pyproject:
+	@echo "Patching pyproject.toml files in lightning/contrib for uv compatibility..."
+	@./scripts/patch_all_contrib.sh
 
 .config:
 	rm -f .config
@@ -156,3 +161,4 @@ check-test-one:
 .PHONY : test
 .PHONY : test-one check-test-one
 .PHONY : check-git-version check-subdaemon
+.PHONY : patch-contrib-pyproject

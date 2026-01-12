@@ -86,6 +86,7 @@ compile-cln:
     - ./scripts/install-additional
     - git submodule update --init --recursive
     - make list-versions
+    - make patch-contrib-pyproject || true  # Patch pyproject.toml files for uv compatibility
     - cd lightning
     - bash -x .github/scripts/setup.sh
     - bash -x ../scripts/ci-build.sh
