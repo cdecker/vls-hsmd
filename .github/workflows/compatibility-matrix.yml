@@ -173,10 +173,9 @@ jobs:
       - name: Build CLN
         run: task build-cln
       
-      - name: Install Python dependencies
+      - name: Sync Python dependencies for tests
         run: |
-          uv venv
-          uv pip install ./lightning/contrib/pyln-testing ./lightning/contrib/pyln-client
+          uv sync
       
       - name: Run VLS compatibility tests
         id: test
