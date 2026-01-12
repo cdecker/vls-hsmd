@@ -1,0 +1,156 @@
+config:
+  preamble: |
+    import pytest
+
+# Test configuration using inclusion-based approach
+# For each test file, specify:
+#   - include: list of test functions to import normally
+#   - skip: dict of test functions to skip with reasons {test_name: reason}
+# 
+# If a file is not listed here, all its tests will be skipped with a default reason.
+
+tests:
+  test_pay.py:
+    include:
+      - test_blindedpath_noaddr
+      - test_blindedpath_privchan
+      - test_blinded_reply_path_scid
+      - test_bolt11_null_after_pay
+      - test_channel_receivable
+      - test_channel_spendable
+      - test_channel_spendable_large
+      - test_channel_spendable_receivable_capped
+      - test_createonion_limits
+      - test_createonion_rpc
+      - test_decode
+      - test_decode_expired_bolt12
+      - test_decodepay
+      - test_decryptencrypteddata
+      - test_delpay_argument_invalid
+      - test_delpay_mixed_status
+      - test_delpay_works
+      - test_dev_rawrequest
+      - test_enableoffer
+      - test_error_returns_blockheight
+      - test_excluded_adjacent_routehint
+      - test_fetchinvoice
+      - test_fetchinvoice_3hop
+      - test_fetchinvoice_autoconnect
+      - test_fetchinvoice_disconnected_reply
+      - test_fetchinvoice_recurrence
+      - test_fetchinvoice_with_no_quantity
+      - test_fetchinvoice_with_payer_metadata
+      - test_fetch_no_description_offer
+      - test_fetch_no_description_with_amount
+      - test_forward
+      - test_forward_different_fees_and_cltv
+      - test_forward_local_failed_stats
+      - test_forward_pad_fees_and_cltv
+      - test_forward_stats
+      - test_htlcs_cltv_only_difference
+      - test_htlc_too_dusty_incoming
+      - test_htlc_too_dusty_outgoing
+      - test_injectpaymentonion_3hop
+      - test_injectpaymentonion_blindedpath
+      - test_injectpaymentonion_failures
+      - test_injectpaymentonion_mpp
+      - test_injectpaymentonion_selfpay
+      - test_injectpaymentonion_simple
+      - test_invalid_onion_channel_update
+      - test_invoice_pay_desc_with_quotes
+      - test_keysend
+      - test_keysend_maxfee
+      - test_keysend_routehint
+      - test_keysend_strip_tlvs
+      - test_listpay_result_with_paymod
+      - test_listpays_with_filter_by_status
+      - test_listsendpays_and_listpays_order
+      - test_listsendpays_crash
+      - test_lockup_drain
+      - test_mpp_adaptive
+      - test_mpp_interference_2
+      - test_mpp_overload_payee
+      - test_mpp_waitblockheight_routehint_conflict
+      - test_offer
+      - test_offer_deprecated_api
+      - test_offer_experimental_fields
+      - test_offer_paths
+      - test_offer_path_self
+      - test_offer_selfpay
+      - test_offer_with_private_channels_multyhop2
+      - test_onionmessage_ratelimit
+      - test_parallel_channels_reserve
+      - test_partial_payment
+      - test_partial_payment_htlc_loss
+      - test_partial_payment_restart
+      - test_partial_payment_timeout
+      - test_pay
+      - test_pay0
+      - test_pay_amounts
+      - test_pay_avoid_low_fee_chan
+      - test_pay_blockheight_mismatch
+      - test_pay_bolt11_metadata
+      - test_pay_disconnect
+      - test_payerkey
+      - test_pay_error_update_fees
+      - test_pay_exclude_node
+      - test_pay_exemptfee
+      - test_pay_fail_unconfirmed_channel
+      - test_pay_get_error_with_update
+      - test_pay_legacy_forward
+      - test_pay_limits
+      - test_pay_manual_exclude
+      - test_pay_maxfee_shadow
+      - test_payment_duplicate_uncommitted
+      - test_payment_failed_persistence
+      - test_payment_success_persistence
+      - test_pay_middle_fail
+      - test_pay_multichannel_use_zeroconf
+      - test_pay_no_secret
+      - test_pay_optional_args
+      - test_pay_partial_msat
+      - test_pay_peer
+      - test_pay_remember_hint
+      - test_pay_retry
+      - test_pay_routeboost
+      - test_pay_routehint_minhtlc
+      - test_pay_unannounced_routehint
+      - test_pay_variants
+      - test_pay_waitblockheight_timeout
+      - test_pay_while_opening_channel
+      - test_reject_invalid_payload
+      - test_repay
+      - test_routehint_tous
+      - test_self_pay
+      - test_self_sendpay
+      - test_sendinvoice
+      - test_sendinvoice_blindedpath
+      - test_sendonion_rpc
+      - test_sendonion_sendpay
+      - test_sendpay
+      - test_sendpay_cant_afford
+      - test_sendpay_grouping
+      - test_sendpay_msatoshi_arg
+      - test_sendpays_wait
+      - test_setchannel_all
+      - test_setchannel_enforcement_delay
+      - test_setchannel_restart
+      - test_setchannel_routing
+      - test_setchannel_startup_opts
+      - test_setchannel_state
+      - test_setchannel_usage
+      - test_setchannel_zero
+      - test_shadow_routing
+      - test_strip_lightning_suffix_from_inv
+      - test_unreachable_routehint
+      - test_wait_sendpay
+    skip: {}
+  
+  # Example of a file with some tests skipped with reasons:
+  # test_connection.py:
+  #   include:
+  #     - test_connect_basic
+  #     - test_balance
+  #   skip:
+  #     test_disconnect: "VLS does not support custom disconnect handling"
+  #     test_fee_limits: "Fee limit calculation differs in VLS"

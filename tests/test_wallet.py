@@ -2,7 +2,7 @@
 # Source file: lightning/tests/test_wallet.py
 #
 # To update these tests, run the synchronization script.
-# To selectively exclude tests, modify the 'test_exclusions.yml' file.
+# To selectively include/skip tests, modify the 'test_config.yml' file.
 
 # pylint: disable=unused-import,wildcard-import,unused-wildcard-import,invalid-name
 # flake8: noqa
@@ -13,120 +13,120 @@ import pytest
 
 from lightning.tests.test_wallet import test_addfunds_from_block as _test_addfunds_from_block
 
-test_addfunds_from_block = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_addfunds_from_block)
+test_addfunds_from_block = pytest.mark.skip("Not yet configured for testing")(_test_addfunds_from_block)
 
 from lightning.tests.test_wallet import test_addpsbtoutput as _test_addpsbtoutput
 
-test_addpsbtoutput = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_addpsbtoutput)
+test_addpsbtoutput = pytest.mark.skip("Not yet configured for testing")(_test_addpsbtoutput)
 
 from lightning.tests.test_wallet import test_fundchannel_listtransaction as _test_fundchannel_listtransaction
 
-test_fundchannel_listtransaction = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_fundchannel_listtransaction)
+test_fundchannel_listtransaction = pytest.mark.skip("Not yet configured for testing")(_test_fundchannel_listtransaction)
 
 from lightning.tests.test_wallet import test_fundpsbt as _test_fundpsbt
 
-test_fundpsbt = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_fundpsbt)
+test_fundpsbt = pytest.mark.skip("Not yet configured for testing")(_test_fundpsbt)
 
 from lightning.tests.test_wallet import test_fundpsbt_feerates as _test_fundpsbt_feerates
 
-test_fundpsbt_feerates = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_fundpsbt_feerates)
+test_fundpsbt_feerates = pytest.mark.skip("Not yet configured for testing")(_test_fundpsbt_feerates)
 
 from lightning.tests.test_wallet import test_hsm_secret_encryption as _test_hsm_secret_encryption
 
-test_hsm_secret_encryption = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_hsm_secret_encryption)
+test_hsm_secret_encryption = pytest.mark.skip("Not yet configured for testing")(_test_hsm_secret_encryption)
 
 from lightning.tests.test_wallet import test_hsmtool_dump_descriptors as _test_hsmtool_dump_descriptors
 
-test_hsmtool_dump_descriptors = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_hsmtool_dump_descriptors)
+test_hsmtool_dump_descriptors = pytest.mark.skip("Not yet configured for testing")(_test_hsmtool_dump_descriptors)
 
 from lightning.tests.test_wallet import test_hsmtool_generatehsm as _test_hsmtool_generatehsm
 
-test_hsmtool_generatehsm = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_hsmtool_generatehsm)
+test_hsmtool_generatehsm = pytest.mark.skip("Not yet configured for testing")(_test_hsmtool_generatehsm)
 
 from lightning.tests.test_wallet import test_hsmtool_getnodeid as _test_hsmtool_getnodeid
 
-test_hsmtool_getnodeid = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_hsmtool_getnodeid)
+test_hsmtool_getnodeid = pytest.mark.skip("Not yet configured for testing")(_test_hsmtool_getnodeid)
 
 from lightning.tests.test_wallet import test_hsmtool_makerune as _test_hsmtool_makerune
 
-test_hsmtool_makerune = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_hsmtool_makerune)
+test_hsmtool_makerune = pytest.mark.skip("Not yet configured for testing")(_test_hsmtool_makerune)
 
 from lightning.tests.test_wallet import test_hsmtool_secret_decryption as _test_hsmtool_secret_decryption
 
-test_hsmtool_secret_decryption = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_hsmtool_secret_decryption)
+test_hsmtool_secret_decryption = pytest.mark.skip("Not yet configured for testing")(_test_hsmtool_secret_decryption)
 
 from lightning.tests.test_wallet import test_minconf_withdraw as _test_minconf_withdraw
 
-test_minconf_withdraw = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_minconf_withdraw)
+test_minconf_withdraw = pytest.mark.skip("Not yet configured for testing")(_test_minconf_withdraw)
 
 from lightning.tests.test_wallet import test_multiwithdraw_simple as _test_multiwithdraw_simple
 
-test_multiwithdraw_simple = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_multiwithdraw_simple)
+test_multiwithdraw_simple = pytest.mark.skip("Not yet configured for testing")(_test_multiwithdraw_simple)
 
 from lightning.tests.test_wallet import test_onchain_missing_no_p2tr_migrate as _test_onchain_missing_no_p2tr_migrate
 
-test_onchain_missing_no_p2tr_migrate = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_onchain_missing_no_p2tr_migrate)
+test_onchain_missing_no_p2tr_migrate = pytest.mark.skip("Not yet configured for testing")(_test_onchain_missing_no_p2tr_migrate)
 
 from lightning.tests.test_wallet import test_p2tr_deposit_withdrawal as _test_p2tr_deposit_withdrawal
 
-test_p2tr_deposit_withdrawal = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_p2tr_deposit_withdrawal)
+test_p2tr_deposit_withdrawal = pytest.mark.skip("Not yet configured for testing")(_test_p2tr_deposit_withdrawal)
 
 from lightning.tests.test_wallet import test_psbt_version as _test_psbt_version
 
-test_psbt_version = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_psbt_version)
+test_psbt_version = pytest.mark.skip("Not yet configured for testing")(_test_psbt_version)
 
 from lightning.tests.test_wallet import test_repro_4258 as _test_repro_4258
 
-test_repro_4258 = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_repro_4258)
+test_repro_4258 = pytest.mark.skip("Not yet configured for testing")(_test_repro_4258)
 
 from lightning.tests.test_wallet import test_reserveinputs as _test_reserveinputs
 
-test_reserveinputs = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_reserveinputs)
+test_reserveinputs = pytest.mark.skip("Not yet configured for testing")(_test_reserveinputs)
 
 from lightning.tests.test_wallet import test_sign_and_send_psbt as _test_sign_and_send_psbt
 
-test_sign_and_send_psbt = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_sign_and_send_psbt)
+test_sign_and_send_psbt = pytest.mark.skip("Not yet configured for testing")(_test_sign_and_send_psbt)
 
 from lightning.tests.test_wallet import test_sign_external_psbt as _test_sign_external_psbt
 
-test_sign_external_psbt = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_sign_external_psbt)
+test_sign_external_psbt = pytest.mark.skip("Not yet configured for testing")(_test_sign_external_psbt)
 
 from lightning.tests.test_wallet import test_txprepare as _test_txprepare
 
-test_txprepare = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_txprepare)
+test_txprepare = pytest.mark.skip("Not yet configured for testing")(_test_txprepare)
 
 from lightning.tests.test_wallet import test_txprepare_feerate as _test_txprepare_feerate
 
-test_txprepare_feerate = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_txprepare_feerate)
+test_txprepare_feerate = pytest.mark.skip("Not yet configured for testing")(_test_txprepare_feerate)
 
 from lightning.tests.test_wallet import test_txprepare_multi as _test_txprepare_multi
 
-test_txprepare_multi = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_txprepare_multi)
+test_txprepare_multi = pytest.mark.skip("Not yet configured for testing")(_test_txprepare_multi)
 
 from lightning.tests.test_wallet import test_txsend as _test_txsend
 
-test_txsend = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_txsend)
+test_txsend = pytest.mark.skip("Not yet configured for testing")(_test_txsend)
 
 from lightning.tests.test_wallet import test_upgradewallet as _test_upgradewallet
 
-test_upgradewallet = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_upgradewallet)
+test_upgradewallet = pytest.mark.skip("Not yet configured for testing")(_test_upgradewallet)
 
 from lightning.tests.test_wallet import test_utxopsbt as _test_utxopsbt
 
-test_utxopsbt = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_utxopsbt)
+test_utxopsbt = pytest.mark.skip("Not yet configured for testing")(_test_utxopsbt)
 
 from lightning.tests.test_wallet import test_withdraw as _test_withdraw
 
-test_withdraw = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_withdraw)
+test_withdraw = pytest.mark.skip("Not yet configured for testing")(_test_withdraw)
 
 from lightning.tests.test_wallet import test_withdraw_bech32m as _test_withdraw_bech32m
 
-test_withdraw_bech32m = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_withdraw_bech32m)
+test_withdraw_bech32m = pytest.mark.skip("Not yet configured for testing")(_test_withdraw_bech32m)
 
 from lightning.tests.test_wallet import test_withdraw_nlocktime as _test_withdraw_nlocktime
 
-test_withdraw_nlocktime = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_withdraw_nlocktime)
+test_withdraw_nlocktime = pytest.mark.skip("Not yet configured for testing")(_test_withdraw_nlocktime)
 
 from lightning.tests.test_wallet import test_withdraw_nlocktime_fuzz as _test_withdraw_nlocktime_fuzz
 
-test_withdraw_nlocktime_fuzz = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_withdraw_nlocktime_fuzz)
+test_withdraw_nlocktime_fuzz = pytest.mark.skip("Not yet configured for testing")(_test_withdraw_nlocktime_fuzz)

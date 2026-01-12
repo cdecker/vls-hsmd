@@ -2,7 +2,7 @@
 # Source file: lightning/tests/test_opening.py
 #
 # To update these tests, run the synchronization script.
-# To selectively exclude tests, modify the 'test_exclusions.yml' file.
+# To selectively include/skip tests, modify the 'test_config.yml' file.
 
 # pylint: disable=unused-import,wildcard-import,unused-wildcard-import,invalid-name
 # flake8: noqa
@@ -13,184 +13,184 @@ import pytest
 
 from lightning.tests.test_opening import test_anchor_min_emergency as _test_anchor_min_emergency
 
-test_anchor_min_emergency = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_anchor_min_emergency)
+test_anchor_min_emergency = pytest.mark.skip("Not yet configured for testing")(_test_anchor_min_emergency)
 
 from lightning.tests.test_opening import test_buy_liquidity_ad_check_bookkeeping as _test_buy_liquidity_ad_check_bookkeeping
 
-test_buy_liquidity_ad_check_bookkeeping = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_buy_liquidity_ad_check_bookkeeping)
+test_buy_liquidity_ad_check_bookkeeping = pytest.mark.skip("Not yet configured for testing")(_test_buy_liquidity_ad_check_bookkeeping)
 
 from lightning.tests.test_opening import test_buy_liquidity_ad_no_v2 as _test_buy_liquidity_ad_no_v2
 
-test_buy_liquidity_ad_no_v2 = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_buy_liquidity_ad_no_v2)
+test_buy_liquidity_ad_no_v2 = pytest.mark.skip("Not yet configured for testing")(_test_buy_liquidity_ad_no_v2)
 
 from lightning.tests.test_opening import test_coinbase_unspendable as _test_coinbase_unspendable
 
-test_coinbase_unspendable = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_coinbase_unspendable)
+test_coinbase_unspendable = pytest.mark.skip("Not yet configured for testing")(_test_coinbase_unspendable)
 
 from lightning.tests.test_opening import test_commitment_feerate as _test_commitment_feerate
 
-test_commitment_feerate = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_commitment_feerate)
+test_commitment_feerate = pytest.mark.skip("Not yet configured for testing")(_test_commitment_feerate)
 
 from lightning.tests.test_opening import test_fundchannel_utxo_too_small as _test_fundchannel_utxo_too_small
 
-test_fundchannel_utxo_too_small = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_fundchannel_utxo_too_small)
+test_fundchannel_utxo_too_small = pytest.mark.skip("Not yet configured for testing")(_test_fundchannel_utxo_too_small)
 
 from lightning.tests.test_opening import test_funder_contribution_limits as _test_funder_contribution_limits
 
-test_funder_contribution_limits = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_funder_contribution_limits)
+test_funder_contribution_limits = pytest.mark.skip("Not yet configured for testing")(_test_funder_contribution_limits)
 
 from lightning.tests.test_opening import test_funder_options as _test_funder_options
 
-test_funder_options = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_funder_options)
+test_funder_options = pytest.mark.skip("Not yet configured for testing")(_test_funder_options)
 
 from lightning.tests.test_opening import test_inflight_dbload as _test_inflight_dbload
 
-test_inflight_dbload = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_inflight_dbload)
+test_inflight_dbload = pytest.mark.skip("Not yet configured for testing")(_test_inflight_dbload)
 
 from lightning.tests.test_opening import test_multifunding_all_amount as _test_multifunding_all_amount
 
-test_multifunding_all_amount = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_multifunding_all_amount)
+test_multifunding_all_amount = pytest.mark.skip("Not yet configured for testing")(_test_multifunding_all_amount)
 
 from lightning.tests.test_opening import test_multifunding_v2_best_effort as _test_multifunding_v2_best_effort
 
-test_multifunding_v2_best_effort = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_multifunding_v2_best_effort)
+test_multifunding_v2_best_effort = pytest.mark.skip("Not yet configured for testing")(_test_multifunding_v2_best_effort)
 
 from lightning.tests.test_opening import test_no_anchor_liquidity_ads as _test_no_anchor_liquidity_ads
 
-test_no_anchor_liquidity_ads = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_no_anchor_liquidity_ads)
+test_no_anchor_liquidity_ads = pytest.mark.skip("Not yet configured for testing")(_test_no_anchor_liquidity_ads)
 
 from lightning.tests.test_opening import test_openchannel_no_confirmed_inputs_opener as _test_openchannel_no_confirmed_inputs_opener
 
-test_openchannel_no_confirmed_inputs_opener = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_openchannel_no_confirmed_inputs_opener)
+test_openchannel_no_confirmed_inputs_opener = pytest.mark.skip("Not yet configured for testing")(_test_openchannel_no_confirmed_inputs_opener)
 
 from lightning.tests.test_opening import test_openchannel_no_unconfirmed_inputs_accepter as _test_openchannel_no_unconfirmed_inputs_accepter
 
-test_openchannel_no_unconfirmed_inputs_accepter = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_openchannel_no_unconfirmed_inputs_accepter)
+test_openchannel_no_unconfirmed_inputs_accepter = pytest.mark.skip("Not yet configured for testing")(_test_openchannel_no_unconfirmed_inputs_accepter)
 
 from lightning.tests.test_opening import test_opening_explicit_channel_type as _test_opening_explicit_channel_type
 
-test_opening_explicit_channel_type = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_opening_explicit_channel_type)
+test_opening_explicit_channel_type = pytest.mark.skip("Not yet configured for testing")(_test_opening_explicit_channel_type)
 
 from lightning.tests.test_opening import test_queryrates as _test_queryrates
 
-test_queryrates = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_queryrates)
+test_queryrates = pytest.mark.skip("Not yet configured for testing")(_test_queryrates)
 
 from lightning.tests.test_opening import test_rbf_broadcast_close_inflights as _test_rbf_broadcast_close_inflights
 
-test_rbf_broadcast_close_inflights = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_rbf_broadcast_close_inflights)
+test_rbf_broadcast_close_inflights = pytest.mark.skip("Not yet configured for testing")(_test_rbf_broadcast_close_inflights)
 
 from lightning.tests.test_opening import test_rbf_fails_to_broadcast as _test_rbf_fails_to_broadcast
 
-test_rbf_fails_to_broadcast = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_rbf_fails_to_broadcast)
+test_rbf_fails_to_broadcast = pytest.mark.skip("Not yet configured for testing")(_test_rbf_fails_to_broadcast)
 
 from lightning.tests.test_opening import test_rbf_no_overlap as _test_rbf_no_overlap
 
-test_rbf_no_overlap = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_rbf_no_overlap)
+test_rbf_no_overlap = pytest.mark.skip("Not yet configured for testing")(_test_rbf_no_overlap)
 
 from lightning.tests.test_opening import test_rbf_non_last_mined as _test_rbf_non_last_mined
 
-test_rbf_non_last_mined = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_rbf_non_last_mined)
+test_rbf_non_last_mined = pytest.mark.skip("Not yet configured for testing")(_test_rbf_non_last_mined)
 
 from lightning.tests.test_opening import test_rbf_reconnect_ack as _test_rbf_reconnect_ack
 
-test_rbf_reconnect_ack = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_rbf_reconnect_ack)
+test_rbf_reconnect_ack = pytest.mark.skip("Not yet configured for testing")(_test_rbf_reconnect_ack)
 
 from lightning.tests.test_opening import test_rbf_reconnect_init as _test_rbf_reconnect_init
 
-test_rbf_reconnect_init = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_rbf_reconnect_init)
+test_rbf_reconnect_init = pytest.mark.skip("Not yet configured for testing")(_test_rbf_reconnect_init)
 
 from lightning.tests.test_opening import test_rbf_reconnect_tx_construct as _test_rbf_reconnect_tx_construct
 
-test_rbf_reconnect_tx_construct = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_rbf_reconnect_tx_construct)
+test_rbf_reconnect_tx_construct = pytest.mark.skip("Not yet configured for testing")(_test_rbf_reconnect_tx_construct)
 
 from lightning.tests.test_opening import test_rbf_reconnect_tx_sigs as _test_rbf_reconnect_tx_sigs
 
-test_rbf_reconnect_tx_sigs = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_rbf_reconnect_tx_sigs)
+test_rbf_reconnect_tx_sigs = pytest.mark.skip("Not yet configured for testing")(_test_rbf_reconnect_tx_sigs)
 
 from lightning.tests.test_opening import test_rbf_to_chain_before_commit as _test_rbf_to_chain_before_commit
 
-test_rbf_to_chain_before_commit = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_rbf_to_chain_before_commit)
+test_rbf_to_chain_before_commit = pytest.mark.skip("Not yet configured for testing")(_test_rbf_to_chain_before_commit)
 
 from lightning.tests.test_opening import test_scid_alias_private as _test_scid_alias_private
 
-test_scid_alias_private = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_scid_alias_private)
+test_scid_alias_private = pytest.mark.skip("Not yet configured for testing")(_test_scid_alias_private)
 
 from lightning.tests.test_opening import test_v2_fail_second as _test_v2_fail_second
 
-test_v2_fail_second = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_v2_fail_second)
+test_v2_fail_second = pytest.mark.skip("Not yet configured for testing")(_test_v2_fail_second)
 
 from lightning.tests.test_opening import test_v2_open_sigs_out_of_order as _test_v2_open_sigs_out_of_order
 
-test_v2_open_sigs_out_of_order = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_v2_open_sigs_out_of_order)
+test_v2_open_sigs_out_of_order = pytest.mark.skip("Not yet configured for testing")(_test_v2_open_sigs_out_of_order)
 
 from lightning.tests.test_opening import test_v2_open_sigs_reconnect_1 as _test_v2_open_sigs_reconnect_1
 
-test_v2_open_sigs_reconnect_1 = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_v2_open_sigs_reconnect_1)
+test_v2_open_sigs_reconnect_1 = pytest.mark.skip("Not yet configured for testing")(_test_v2_open_sigs_reconnect_1)
 
 from lightning.tests.test_opening import test_v2_open_sigs_reconnect_2 as _test_v2_open_sigs_reconnect_2
 
-test_v2_open_sigs_reconnect_2 = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_v2_open_sigs_reconnect_2)
+test_v2_open_sigs_reconnect_2 = pytest.mark.skip("Not yet configured for testing")(_test_v2_open_sigs_reconnect_2)
 
 from lightning.tests.test_opening import test_v2_open_sigs_restart_while_dead as _test_v2_open_sigs_restart_while_dead
 
-test_v2_open_sigs_restart_while_dead = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_v2_open_sigs_restart_while_dead)
+test_v2_open_sigs_restart_while_dead = pytest.mark.skip("Not yet configured for testing")(_test_v2_open_sigs_restart_while_dead)
 
 from lightning.tests.test_opening import test_v2_rbf_abort_channel_opens as _test_v2_rbf_abort_channel_opens
 
-test_v2_rbf_abort_channel_opens = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_v2_rbf_abort_channel_opens)
+test_v2_rbf_abort_channel_opens = pytest.mark.skip("Not yet configured for testing")(_test_v2_rbf_abort_channel_opens)
 
 from lightning.tests.test_opening import test_v2_rbf_abort_retry as _test_v2_rbf_abort_retry
 
-test_v2_rbf_abort_retry = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_v2_rbf_abort_retry)
+test_v2_rbf_abort_retry = pytest.mark.skip("Not yet configured for testing")(_test_v2_rbf_abort_retry)
 
 from lightning.tests.test_opening import test_v2_rbf_liquidity_ad as _test_v2_rbf_liquidity_ad
 
-test_v2_rbf_liquidity_ad = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_v2_rbf_liquidity_ad)
+test_v2_rbf_liquidity_ad = pytest.mark.skip("Not yet configured for testing")(_test_v2_rbf_liquidity_ad)
 
 from lightning.tests.test_opening import test_v2_rbf_multi as _test_v2_rbf_multi
 
-test_v2_rbf_multi = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_v2_rbf_multi)
+test_v2_rbf_multi = pytest.mark.skip("Not yet configured for testing")(_test_v2_rbf_multi)
 
 from lightning.tests.test_opening import test_v2_rbf_single as _test_v2_rbf_single
 
-test_v2_rbf_single = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_v2_rbf_single)
+test_v2_rbf_single = pytest.mark.skip("Not yet configured for testing")(_test_v2_rbf_single)
 
 from lightning.tests.test_opening import test_v2_replay_bookkeeping as _test_v2_replay_bookkeeping
 
-test_v2_replay_bookkeeping = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_v2_replay_bookkeeping)
+test_v2_replay_bookkeeping = pytest.mark.skip("Not yet configured for testing")(_test_v2_replay_bookkeeping)
 
 from lightning.tests.test_opening import test_zeroconf_forget as _test_zeroconf_forget
 
-test_zeroconf_forget = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_zeroconf_forget)
+test_zeroconf_forget = pytest.mark.skip("Not yet configured for testing")(_test_zeroconf_forget)
 
 from lightning.tests.test_opening import test_zeroconf_forward as _test_zeroconf_forward
 
-test_zeroconf_forward = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_zeroconf_forward)
+test_zeroconf_forward = pytest.mark.skip("Not yet configured for testing")(_test_zeroconf_forward)
 
 from lightning.tests.test_opening import test_zeroconf_mindepth as _test_zeroconf_mindepth
 
-test_zeroconf_mindepth = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_zeroconf_mindepth)
+test_zeroconf_mindepth = pytest.mark.skip("Not yet configured for testing")(_test_zeroconf_mindepth)
 
 from lightning.tests.test_opening import test_zeroconf_multichan_forward as _test_zeroconf_multichan_forward
 
-test_zeroconf_multichan_forward = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_zeroconf_multichan_forward)
+test_zeroconf_multichan_forward = pytest.mark.skip("Not yet configured for testing")(_test_zeroconf_multichan_forward)
 
 from lightning.tests.test_opening import test_zeroconf_open as _test_zeroconf_open
 
-test_zeroconf_open = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_zeroconf_open)
+test_zeroconf_open = pytest.mark.skip("Not yet configured for testing")(_test_zeroconf_open)
 
 from lightning.tests.test_opening import test_zeroconf_public as _test_zeroconf_public
 
-test_zeroconf_public = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_zeroconf_public)
+test_zeroconf_public = pytest.mark.skip("Not yet configured for testing")(_test_zeroconf_public)
 
 from lightning.tests.test_opening import test_zeroreserve as _test_zeroreserve
 
-test_zeroreserve = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_zeroreserve)
+test_zeroreserve = pytest.mark.skip("Not yet configured for testing")(_test_zeroreserve)
 
 from lightning.tests.test_opening import test_zeroreserve_alldust as _test_zeroreserve_alldust
 
-test_zeroreserve_alldust = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_zeroreserve_alldust)
+test_zeroreserve_alldust = pytest.mark.skip("Not yet configured for testing")(_test_zeroreserve_alldust)
 
 from lightning.tests.test_opening import test_zeroreserve_mixed as _test_zeroreserve_mixed
 
-test_zeroreserve_mixed = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_zeroreserve_mixed)
+test_zeroreserve_mixed = pytest.mark.skip("Not yet configured for testing")(_test_zeroreserve_mixed)

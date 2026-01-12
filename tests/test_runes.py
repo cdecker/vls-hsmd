@@ -2,7 +2,7 @@
 # Source file: lightning/tests/test_runes.py
 #
 # To update these tests, run the synchronization script.
-# To selectively exclude tests, modify the 'test_exclusions.yml' file.
+# To selectively include/skip tests, modify the 'test_config.yml' file.
 
 # pylint: disable=unused-import,wildcard-import,unused-wildcard-import,invalid-name
 # flake8: noqa
@@ -13,64 +13,64 @@ import pytest
 
 from lightning.tests.test_runes import test_badrune as _test_badrune
 
-test_badrune = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_badrune)
+test_badrune = pytest.mark.skip("Not yet configured for testing")(_test_badrune)
 
 from lightning.tests.test_runes import test_blacklistrune as _test_blacklistrune
 
-test_blacklistrune = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_blacklistrune)
+test_blacklistrune = pytest.mark.skip("Not yet configured for testing")(_test_blacklistrune)
 
 from lightning.tests.test_runes import test_checkrune as _test_checkrune
 
-test_checkrune = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_checkrune)
+test_checkrune = pytest.mark.skip("Not yet configured for testing")(_test_checkrune)
 
 from lightning.tests.test_runes import test_createrune as _test_createrune
 
-test_createrune = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_createrune)
+test_createrune = pytest.mark.skip("Not yet configured for testing")(_test_createrune)
 
 from lightning.tests.test_runes import test_createrune_per_restriction as _test_createrune_per_restriction
 
-test_createrune_per_restriction = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_createrune_per_restriction)
+test_createrune_per_restriction = pytest.mark.skip("Not yet configured for testing")(_test_createrune_per_restriction)
 
 from lightning.tests.test_runes import test_id_migration as _test_id_migration
 
-test_id_migration = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_id_migration)
+test_id_migration = pytest.mark.skip("Not yet configured for testing")(_test_id_migration)
 
 from lightning.tests.test_runes import test_invalid_restrictions as _test_invalid_restrictions
 
-test_invalid_restrictions = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_invalid_restrictions)
+test_invalid_restrictions = pytest.mark.skip("Not yet configured for testing")(_test_invalid_restrictions)
 
 from lightning.tests.test_runes import test_missing_method_or_nodeid as _test_missing_method_or_nodeid
 
-test_missing_method_or_nodeid = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_missing_method_or_nodeid)
+test_missing_method_or_nodeid = pytest.mark.skip("Not yet configured for testing")(_test_missing_method_or_nodeid)
 
 from lightning.tests.test_runes import test_nonnumeric_uniqueid as _test_nonnumeric_uniqueid
 
-test_nonnumeric_uniqueid = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_nonnumeric_uniqueid)
+test_nonnumeric_uniqueid = pytest.mark.skip("Not yet configured for testing")(_test_nonnumeric_uniqueid)
 
 from lightning.tests.test_runes import test_rune_bolt11_parse as _test_rune_bolt11_parse
 
-test_rune_bolt11_parse = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_rune_bolt11_parse)
+test_rune_bolt11_parse = pytest.mark.skip("Not yet configured for testing")(_test_rune_bolt11_parse)
 
 from lightning.tests.test_runes import test_rune_bolt12_parse as _test_rune_bolt12_parse
 
-test_rune_bolt12_parse = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_rune_bolt12_parse)
+test_rune_bolt12_parse = pytest.mark.skip("Not yet configured for testing")(_test_rune_bolt12_parse)
 
 from lightning.tests.test_runes import test_rune_error_messages as _test_rune_error_messages
 
-test_rune_error_messages = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_rune_error_messages)
+test_rune_error_messages = pytest.mark.skip("Not yet configured for testing")(_test_rune_error_messages)
 
 from lightning.tests.test_runes import test_rune_method_missing as _test_rune_method_missing
 
-test_rune_method_missing = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_rune_method_missing)
+test_rune_method_missing = pytest.mark.skip("Not yet configured for testing")(_test_rune_method_missing)
 
 from lightning.tests.test_runes import test_rune_pay_amount as _test_rune_pay_amount
 
-test_rune_pay_amount = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_rune_pay_amount)
+test_rune_pay_amount = pytest.mark.skip("Not yet configured for testing")(_test_rune_pay_amount)
 
 from lightning.tests.test_runes import test_showrune_id as _test_showrune_id
 
-test_showrune_id = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_showrune_id)
+test_showrune_id = pytest.mark.skip("Not yet configured for testing")(_test_showrune_id)
 
 from lightning.tests.test_runes import test_showrunes as _test_showrunes
 
-test_showrunes = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_showrunes)
+test_showrunes = pytest.mark.skip("Not yet configured for testing")(_test_showrunes)

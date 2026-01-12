@@ -2,7 +2,7 @@
 # Source file: lightning/tests/test_renepay.py
 #
 # To update these tests, run the synchronization script.
-# To selectively exclude tests, modify the 'test_exclusions.yml' file.
+# To selectively include/skip tests, modify the 'test_config.yml' file.
 
 # pylint: disable=unused-import,wildcard-import,unused-wildcard-import,invalid-name
 # flake8: noqa
@@ -13,92 +13,92 @@ import pytest
 
 from lightning.tests.test_renepay import test_amounts as _test_amounts
 
-test_amounts = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_amounts)
+test_amounts = pytest.mark.skip("Not yet configured for testing")(_test_amounts)
 
 from lightning.tests.test_renepay import test_concurrency as _test_concurrency
 
-test_concurrency = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_concurrency)
+test_concurrency = pytest.mark.skip("Not yet configured for testing")(_test_concurrency)
 
 from lightning.tests.test_renepay import test_description as _test_description
 
-test_description = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_description)
+test_description = pytest.mark.skip("Not yet configured for testing")(_test_description)
 
 from lightning.tests.test_renepay import test_direction_matters as _test_direction_matters
 
-test_direction_matters = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_direction_matters)
+test_direction_matters = pytest.mark.skip("Not yet configured for testing")(_test_direction_matters)
 
 from lightning.tests.test_renepay import test_errors as _test_errors
 
-test_errors = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_errors)
+test_errors = pytest.mark.skip("Not yet configured for testing")(_test_errors)
 
 from lightning.tests.test_renepay import test_fee_allocation as _test_fee_allocation
 
-test_fee_allocation = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_fee_allocation)
+test_fee_allocation = pytest.mark.skip("Not yet configured for testing")(_test_fee_allocation)
 
 from lightning.tests.test_renepay import test_fees as _test_fees
 
-test_fees = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_fees)
+test_fees = pytest.mark.skip("Not yet configured for testing")(_test_fees)
 
 from lightning.tests.test_renepay import test_hardmpp as _test_hardmpp
 
-test_hardmpp = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_hardmpp)
+test_hardmpp = pytest.mark.skip("Not yet configured for testing")(_test_hardmpp)
 
 from lightning.tests.test_renepay import test_hardmpp2 as _test_hardmpp2
 
-test_hardmpp2 = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_hardmpp2)
+test_hardmpp2 = pytest.mark.skip("Not yet configured for testing")(_test_hardmpp2)
 
 from lightning.tests.test_renepay import test_htlc_max as _test_htlc_max
 
-test_htlc_max = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_htlc_max)
+test_htlc_max = pytest.mark.skip("Not yet configured for testing")(_test_htlc_max)
 
 from lightning.tests.test_renepay import test_htlcmax0 as _test_htlcmax0
 
-test_htlcmax0 = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_htlcmax0)
+test_htlcmax0 = pytest.mark.skip("Not yet configured for testing")(_test_htlcmax0)
 
 from lightning.tests.test_renepay import test_limits as _test_limits
 
-test_limits = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_limits)
+test_limits = pytest.mark.skip("Not yet configured for testing")(_test_limits)
 
 from lightning.tests.test_renepay import test_local_htlcmax0 as _test_local_htlcmax0
 
-test_local_htlcmax0 = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_local_htlcmax0)
+test_local_htlcmax0 = pytest.mark.skip("Not yet configured for testing")(_test_local_htlcmax0)
 
 from lightning.tests.test_renepay import test_mpp as _test_mpp
 
-test_mpp = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_mpp)
+test_mpp = pytest.mark.skip("Not yet configured for testing")(_test_mpp)
 
 from lightning.tests.test_renepay import test_offer_selfpay as _test_offer_selfpay
 
-test_offer_selfpay = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_offer_selfpay)
+test_offer_selfpay = pytest.mark.skip("Not yet configured for testing")(_test_offer_selfpay)
 
 from lightning.tests.test_renepay import test_offers as _test_offers
 
-test_offers = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_offers)
+test_offers = pytest.mark.skip("Not yet configured for testing")(_test_offers)
 
 from lightning.tests.test_renepay import test_pay as _test_pay
 
-test_pay = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_pay)
+test_pay = pytest.mark.skip("Not yet configured for testing")(_test_pay)
 
 from lightning.tests.test_renepay import test_previous_sendpays as _test_previous_sendpays
 
-test_previous_sendpays = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_previous_sendpays)
+test_previous_sendpays = pytest.mark.skip("Not yet configured for testing")(_test_previous_sendpays)
 
 from lightning.tests.test_renepay import test_privatechan as _test_privatechan
 
-test_privatechan = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_privatechan)
+test_privatechan = pytest.mark.skip("Not yet configured for testing")(_test_privatechan)
 
 from lightning.tests.test_renepay import test_self_pay as _test_self_pay
 
-test_self_pay = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_self_pay)
+test_self_pay = pytest.mark.skip("Not yet configured for testing")(_test_self_pay)
 
 from lightning.tests.test_renepay import test_shadow_routing as _test_shadow_routing
 
-test_shadow_routing = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_shadow_routing)
+test_shadow_routing = pytest.mark.skip("Not yet configured for testing")(_test_shadow_routing)
 
 from lightning.tests.test_renepay import test_simple as _test_simple
 
-test_simple = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_simple)
+test_simple = pytest.mark.skip("Not yet configured for testing")(_test_simple)
 
 from lightning.tests.test_renepay import test_unannounced as _test_unannounced
 
-test_unannounced = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_unannounced)
+test_unannounced = pytest.mark.skip("Not yet configured for testing")(_test_unannounced)

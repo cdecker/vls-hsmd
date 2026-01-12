@@ -2,7 +2,7 @@
 # Source file: lightning/tests/test_splicing_disconnect.py
 #
 # To update these tests, run the synchronization script.
-# To selectively exclude tests, modify the 'test_exclusions.yml' file.
+# To selectively include/skip tests, modify the 'test_config.yml' file.
 
 # pylint: disable=unused-import,wildcard-import,unused-wildcard-import,invalid-name
 # flake8: noqa
@@ -13,8 +13,8 @@ import pytest
 
 from lightning.tests.test_splicing_disconnect import test_splice_disconnect_commit as _test_splice_disconnect_commit
 
-test_splice_disconnect_commit = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_splice_disconnect_commit)
+test_splice_disconnect_commit = pytest.mark.skip("Not yet configured for testing")(_test_splice_disconnect_commit)
 
 from lightning.tests.test_splicing_disconnect import test_splice_disconnect_sig as _test_splice_disconnect_sig
 
-test_splice_disconnect_sig = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_splice_disconnect_sig)
+test_splice_disconnect_sig = pytest.mark.skip("Not yet configured for testing")(_test_splice_disconnect_sig)

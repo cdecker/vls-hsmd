@@ -21,39 +21,41 @@ from pydantic import BaseModel, Field, RootModel, ValidationError
 # These are the default values for the command-line options.
 DEFAULT_SOURCE_DIR = "lightning/tests"
 DEFAULT_TARGET_DIR = "tests"
-DEFAULT_EXCLUSIONS_FILE = "test_exclusions.yml"
+DEFAULT_CONFIG_FILE = "test_config.yml"
 DEFAULT_SOURCE_IMPORT_ROOT = "lightning"
 
 
-# --- Pydantic Schema for test_exclusions.yml ---
+# --- Pydantic Schema for test_config.yml ---
 
 class ScriptConfig(BaseModel):
     """Defines global configuration for the script, like a preamble."""
     preamble: str = ""
 
-class ExclusionSpec(RootModel[Dict[str, str]]):
+class TestFileConfig(BaseModel):
     """
-    Defines the exclusion rules for a single test file.
-    It can either exclude all tests via '__all__' or specific tests by name.
+    Defines the configuration for a single test file.
+    Uses inclusion-based approach: only tests listed in 'include' are imported,
+    and tests in 'skip' are imported but marked with pytest.mark.skip.
     """
-    root: Dict[str, str]
+    include: List[str] = Field(default_factory=list, description="List of test functions to include (import normally)")
+    skip: Dict[str, str] = Field(default_factory=dict, description="Dict of test functions to skip with reasons {test_name: reason}")
 
-    def get_all_exclusion_reason(self) -> Optional[str]:
-        """Returns the reason if the entire file is excluded, otherwise None."""
-        return self.root.get("__all__")
+    def get_included_tests(self) -> Set[str]:
+        """Returns a set of test function names to include."""
+        return set(self.include)
 
-    def get_excluded_tests(self) -> Set[str]:
-        """Returns a set of individually excluded test function names."""
-        return {k for k in self.root if k != "__all__"}
+    def get_skipped_tests(self) -> Dict[str, str]:
+        """Returns a dict of test function names to skip with their reasons."""
+        return self.skip
 
 
-class ExclusionFile(BaseModel):
+class TestConfig(BaseModel):
     """
-    Represents the entire exclusion configuration file, separating global
-    config from the per-file exclusion rules.
+    Represents the entire test configuration file, separating global
+    config from the per-file test rules.
     """
     config: ScriptConfig = Field(default_factory=ScriptConfig)
-    exclusions: Dict[str, ExclusionSpec] = Field(default_factory=dict)
+    tests: Dict[str, TestFileConfig] = Field(default_factory=dict)
 
 
 # --- Core Logic ---
@@ -72,33 +74,30 @@ class TestFinder(ast.NodeVisitor):
         self.generic_visit(node)
 
 
-def load_exclusions(exclusions_file: Path) -> ExclusionFile:
-    """Loads and validates the YAML exclusion file using Pydantic."""
-    if not exclusions_file.exists():
-        click.echo(f"INFO: Exclusions file not found at '{exclusions_file}'. Proceeding without exclusions.")
-        return ExclusionFile()
+def load_config(config_file: Path) -> TestConfig:
+    """Loads and validates the YAML configuration file using Pydantic."""
+    if not config_file.exists():
+        click.echo(f"INFO: Configuration file not found at '{config_file}'. Creating empty config.")
+        return TestConfig()
     
-    with open(exclusions_file, 'r', encoding="utf-8") as f:
+    with open(config_file, 'r', encoding="utf-8") as f:
         data = yaml.safe_load(f) or {}
     
     try:
-        return ExclusionFile.model_validate(data)
+        return TestConfig.model_validate(data)
     except ValidationError as e:
-        click.echo(f"ERROR: Invalid format in exclusions file '{exclusions_file}':\n{e}", err=True)
+        click.echo(f"ERROR: Invalid format in configuration file '{config_file}':\n{e}", err=True)
         sys.exit(1)
 
 
 def generate_wrapper_file_content(
     source_file_path: Path,
-    tests_to_import: List[str],
+    included_tests: List[str],
+    skipped_tests: Dict[str, str],
     source_import_root: str,
     preamble: str = "",
-    excluded_tests: Dict[str, str] = None
 ) -> str:
     """Generates the content for the new wrapper test file."""
-    
-    if excluded_tests is None:
-        excluded_tests = {}
     
     module_path = ".".join(source_file_path.with_suffix('').parts)
 
@@ -116,7 +115,7 @@ def generate_wrapper_file_content(
         f"# Source file: {source_file_path}",
         "#",
         "# To update these tests, run the synchronization script.",
-        "# To selectively exclude tests, modify the 'test_exclusions.yml' file.",
+        "# To selectively include/skip tests, modify the 'test_config.yml' file.",
         "",
         "# pylint: disable=unused-import,wildcard-import,unused-wildcard-import,invalid-name",
         "# flake8: noqa",
@@ -132,19 +131,22 @@ def generate_wrapper_file_content(
             ""
         ])
 
-    if not tests_to_import and not excluded_tests:
-        header.append("# All tests in the source file are excluded or the file is empty.")
+    if not included_tests and not skipped_tests:
+        header.append("# No tests are configured for inclusion or skipping in this file.")
         return "\n".join(header)
 
-    # Generate imports for active tests (not excluded)
+    # Generate imports for included tests (not skipped)
     imports = []
-    for test in sorted(tests_to_import):
-        imports.append(f"from {module_path} import {test}")
+    for test in sorted(included_tests):
+        imports.append(f"from {module_path} import {test} as _{test}")
+        imports.append("")
+        imports.append(f"{test} = _{test}")
+        imports.append("")
     
-    # Generate imports and wrappers for excluded tests
+    # Generate imports and wrappers for skipped tests
     skipped_imports = []
-    for test in sorted(excluded_tests.keys()):
-        reason = excluded_tests[test]
+    for test in sorted(skipped_tests.keys()):
+        reason = skipped_tests[test]
         skipped_imports.extend([
             f"from {module_path} import {test} as _{test}",
             "",
@@ -155,14 +157,13 @@ def generate_wrapper_file_content(
     content_parts = header
     if imports:
         content_parts.extend(imports)
-        content_parts.append("")
     if skipped_imports:
         content_parts.extend(skipped_imports)
     
     return "\n".join(content_parts)
 
 
-def sync_tests(source_dir: Path, target_dir: Path, config: ExclusionFile, source_import_root: str):
+def sync_tests(source_dir: Path, target_dir: Path, config: TestConfig, source_import_root: str):
     """
     Main function to synchronize tests from the source to the target directory.
     """
@@ -173,7 +174,7 @@ def sync_tests(source_dir: Path, target_dir: Path, config: ExclusionFile, source
 
     synced_files: Set[Path] = set()
     preamble = config.config.preamble
-    exclusions = config.exclusions
+    test_configs = config.tests
 
     if preamble:
         click.echo("INFO: Using preamble from configuration file.")
@@ -199,34 +200,42 @@ def sync_tests(source_dir: Path, target_dir: Path, config: ExclusionFile, source
                     click.echo(f"WARNING: Could not parse {source_file_path}. Skipping. Error: {e}", err=True)
                     continue
 
-                # --- Check for exclusions ---
-                exclusion_key = str(relative_path)
-                file_exclusions = exclusions.get(exclusion_key)
+                # --- Check for test configuration ---
+                config_key = str(relative_path)
+                file_config = test_configs.get(config_key)
 
-                excluded_test_dict = {}
-                if file_exclusions:
-                    if reason := file_exclusions.get_all_exclusion_reason():
-                        click.echo(f"Excluding entire file: {relative_path} (Reason: {reason})")
-                        # Mark all tests as excluded with the same reason
-                        excluded_test_dict = {test: reason for test in all_tests}
-                        tests_to_import = []
-                    else:
-                        excluded_tests = file_exclusions.get_excluded_tests()
-                        # Build dictionary of excluded tests with their reasons
-                        excluded_test_dict = {test: file_exclusions.root[test] for test in excluded_tests if test in all_tests}
-                        tests_to_import = sorted(list(all_tests - excluded_tests))
+                included_tests = []
+                skipped_tests = {}
+                
+                if file_config:
+                    included_set = file_config.get_included_tests()
+                    skipped_dict = file_config.get_skipped_tests()
+                    
+                    # Validate that included/skipped tests actually exist
+                    included_tests = sorted([t for t in included_set if t in all_tests])
+                    skipped_tests = {t: reason for t, reason in skipped_dict.items() if t in all_tests}
+                    
+                    # Warn about tests that don't exist
+                    invalid_included = included_set - all_tests
+                    invalid_skipped = set(skipped_dict.keys()) - all_tests
+                    if invalid_included:
+                        click.echo(f"WARNING: In {relative_path}, configured to include non-existent tests: {', '.join(sorted(invalid_included))}", err=True)
+                    if invalid_skipped:
+                        click.echo(f"WARNING: In {relative_path}, configured to skip non-existent tests: {', '.join(sorted(invalid_skipped))}", err=True)
                 else:
-                    tests_to_import = sorted(list(all_tests))
+                    # No configuration for this file - generate stub with all tests skipped
+                    click.echo(f"INFO: No configuration for {relative_path}. All tests will be skipped with default reason.")
+                    skipped_tests = {test: "Not yet configured for testing" for test in all_tests}
 
-                if not tests_to_import and all_tests:
-                    click.echo(f"INFO: All tests in {relative_path} are excluded.")
-                elif excluded_test_dict:
-                    click.echo(f"INFO: In {relative_path}, excluding tests: {', '.join(sorted(excluded_test_dict.keys()))}")
+                if included_tests:
+                    click.echo(f"INFO: In {relative_path}, including {len(included_tests)} tests")
+                if skipped_tests:
+                    click.echo(f"INFO: In {relative_path}, skipping {len(skipped_tests)} tests")
 
                 # --- Generate and write the wrapper file ---
                 click.echo(f"Syncing: {relative_path} -> {target_file_path}")
                 wrapper_content = generate_wrapper_file_content(
-                    source_file_path, tests_to_import, source_import_root, preamble, excluded_test_dict
+                    source_file_path, included_tests, skipped_tests, source_import_root, preamble
                 )
                 
                 target_file_path.parent.mkdir(parents=True, exist_ok=True)
@@ -263,12 +272,12 @@ def sync_tests(source_dir: Path, target_dir: Path, config: ExclusionFile, source
     help="The target directory where wrapper test files will be created.",
 )
 @click.option(
-    "--exclusions",
-    "exclusions_file",
+    "--config",
+    "config_file",
     type=click.Path(dir_okay=False, path_type=Path),
-    default=DEFAULT_EXCLUSIONS_FILE,
+    default=DEFAULT_CONFIG_FILE,
     show_default=True,
-    help="Path to the YAML file specifying tests to exclude.",
+    help="Path to the YAML file specifying which tests to include/skip.",
 )
 @click.option(
     "--source-import-root",
@@ -277,12 +286,14 @@ def sync_tests(source_dir: Path, target_dir: Path, config: ExclusionFile, source
     show_default=True,
     help="The root package name for imports from the source project.",
 )
-def main(source_dir: Path, target_dir: Path, exclusions_file: Path, source_import_root: str):
+def main(source_dir: Path, target_dir: Path, config_file: Path, source_import_root: str):
     """
     Synchronizes pytest tests from a source project to a wrapper project,
-    allowing for selective exclusion of tests via a YAML configuration file.
+    using an inclusion-based approach. Only tests explicitly listed in the
+    configuration will be included, and tests marked for skipping will be
+    imported but wrapped with pytest.mark.skip.
     """
-    config_data = load_exclusions(exclusions_file)
+    config_data = load_config(config_file)
     sync_tests(source_dir, target_dir, config_data, source_import_root)
 
 

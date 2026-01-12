@@ -2,7 +2,7 @@
 # Source file: lightning/tests/test_db.py
 #
 # To update these tests, run the synchronization script.
-# To selectively exclude tests, modify the 'test_exclusions.yml' file.
+# To selectively include/skip tests, modify the 'test_config.yml' file.
 
 # pylint: disable=unused-import,wildcard-import,unused-wildcard-import,invalid-name
 # flake8: noqa
@@ -13,56 +13,56 @@ import pytest
 
 from lightning.tests.test_db import test_backfill_scriptpubkeys as _test_backfill_scriptpubkeys
 
-test_backfill_scriptpubkeys = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_backfill_scriptpubkeys)
+test_backfill_scriptpubkeys = pytest.mark.skip("Not yet configured for testing")(_test_backfill_scriptpubkeys)
 
 from lightning.tests.test_db import test_block_backfill as _test_block_backfill
 
-test_block_backfill = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_block_backfill)
+test_block_backfill = pytest.mark.skip("Not yet configured for testing")(_test_block_backfill)
 
 from lightning.tests.test_db import test_channel_htlcs_id_change as _test_channel_htlcs_id_change
 
-test_channel_htlcs_id_change = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_channel_htlcs_id_change)
+test_channel_htlcs_id_change = pytest.mark.skip("Not yet configured for testing")(_test_channel_htlcs_id_change)
 
 from lightning.tests.test_db import test_db_dangling_peer_fix as _test_db_dangling_peer_fix
 
-test_db_dangling_peer_fix = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_db_dangling_peer_fix)
+test_db_dangling_peer_fix = pytest.mark.skip("Not yet configured for testing")(_test_db_dangling_peer_fix)
 
 from lightning.tests.test_db import test_db_forward_migrate as _test_db_forward_migrate
 
-test_db_forward_migrate = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_db_forward_migrate)
+test_db_forward_migrate = pytest.mark.skip("Not yet configured for testing")(_test_db_forward_migrate)
 
 from lightning.tests.test_db import test_db_sanity_checks as _test_db_sanity_checks
 
-test_db_sanity_checks = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_db_sanity_checks)
+test_db_sanity_checks = pytest.mark.skip("Not yet configured for testing")(_test_db_sanity_checks)
 
 from lightning.tests.test_db import test_last_tx_inflight_psbt_upgrade as _test_last_tx_inflight_psbt_upgrade
 
-test_last_tx_inflight_psbt_upgrade = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_last_tx_inflight_psbt_upgrade)
+test_last_tx_inflight_psbt_upgrade = pytest.mark.skip("Not yet configured for testing")(_test_last_tx_inflight_psbt_upgrade)
 
 from lightning.tests.test_db import test_last_tx_psbt_upgrade as _test_last_tx_psbt_upgrade
 
-test_last_tx_psbt_upgrade = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_last_tx_psbt_upgrade)
+test_last_tx_psbt_upgrade = pytest.mark.skip("Not yet configured for testing")(_test_last_tx_psbt_upgrade)
 
 from lightning.tests.test_db import test_local_basepoints_cache as _test_local_basepoints_cache
 
-test_local_basepoints_cache = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_local_basepoints_cache)
+test_local_basepoints_cache = pytest.mark.skip("Not yet configured for testing")(_test_local_basepoints_cache)
 
 from lightning.tests.test_db import test_max_channel_id as _test_max_channel_id
 
-test_max_channel_id = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_max_channel_id)
+test_max_channel_id = pytest.mark.skip("Not yet configured for testing")(_test_max_channel_id)
 
 from lightning.tests.test_db import test_optimistic_locking as _test_optimistic_locking
 
-test_optimistic_locking = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_optimistic_locking)
+test_optimistic_locking = pytest.mark.skip("Not yet configured for testing")(_test_optimistic_locking)
 
 from lightning.tests.test_db import test_psql_key_value_dsn as _test_psql_key_value_dsn
 
-test_psql_key_value_dsn = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_psql_key_value_dsn)
+test_psql_key_value_dsn = pytest.mark.skip("Not yet configured for testing")(_test_psql_key_value_dsn)
 
 from lightning.tests.test_db import test_scid_upgrade as _test_scid_upgrade
 
-test_scid_upgrade = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_scid_upgrade)
+test_scid_upgrade = pytest.mark.skip("Not yet configured for testing")(_test_scid_upgrade)
 
 from lightning.tests.test_db import test_sqlite3_builtin_backup as _test_sqlite3_builtin_backup
 
-test_sqlite3_builtin_backup = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_sqlite3_builtin_backup)
+test_sqlite3_builtin_backup = pytest.mark.skip("Not yet configured for testing")(_test_sqlite3_builtin_backup)

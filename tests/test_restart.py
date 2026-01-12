@@ -2,7 +2,7 @@
 # Source file: lightning/tests/test_restart.py
 #
 # To update these tests, run the synchronization script.
-# To selectively exclude tests, modify the 'test_exclusions.yml' file.
+# To selectively include/skip tests, modify the 'test_config.yml' file.
 
 # pylint: disable=unused-import,wildcard-import,unused-wildcard-import,invalid-name
 # flake8: noqa
@@ -13,4 +13,4 @@ import pytest
 
 from lightning.tests.test_restart import test_agressive_restart as _test_agressive_restart
 
-test_agressive_restart = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_agressive_restart)
+test_agressive_restart = pytest.mark.skip("Not yet configured for testing")(_test_agressive_restart)

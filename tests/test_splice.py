@@ -2,7 +2,7 @@
 # Source file: lightning/tests/test_splice.py
 #
 # To update these tests, run the synchronization script.
-# To selectively exclude tests, modify the 'test_exclusions.yml' file.
+# To selectively include/skip tests, modify the 'test_config.yml' file.
 
 # pylint: disable=unused-import,wildcard-import,unused-wildcard-import,invalid-name
 # flake8: noqa
@@ -13,8 +13,8 @@ import pytest
 
 from lightning.tests.test_splice import test_script_splice_in as _test_script_splice_in
 
-test_script_splice_in = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_script_splice_in)
+test_script_splice_in = pytest.mark.skip("Not yet configured for testing")(_test_script_splice_in)
 
 from lightning.tests.test_splice import test_script_splice_out as _test_script_splice_out
 
-test_script_splice_out = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_script_splice_out)
+test_script_splice_out = pytest.mark.skip("Not yet configured for testing")(_test_script_splice_out)

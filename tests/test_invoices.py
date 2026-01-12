@@ -2,7 +2,7 @@
 # Source file: lightning/tests/test_invoices.py
 #
 # To update these tests, run the synchronization script.
-# To selectively exclude tests, modify the 'test_exclusions.yml' file.
+# To selectively include/skip tests, modify the 'test_config.yml' file.
 
 # pylint: disable=unused-import,wildcard-import,unused-wildcard-import,invalid-name
 # flake8: noqa
@@ -13,84 +13,84 @@ import pytest
 
 from lightning.tests.test_invoices import test_amountless_invoice as _test_amountless_invoice
 
-test_amountless_invoice = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_amountless_invoice)
+test_amountless_invoice = pytest.mark.skip("Not yet configured for testing")(_test_amountless_invoice)
 
 from lightning.tests.test_invoices import test_decode_unknown as _test_decode_unknown
 
-test_decode_unknown = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_decode_unknown)
+test_decode_unknown = pytest.mark.skip("Not yet configured for testing")(_test_decode_unknown)
 
 from lightning.tests.test_invoices import test_expiry_startup_crash as _test_expiry_startup_crash
 
-test_expiry_startup_crash = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_expiry_startup_crash)
+test_expiry_startup_crash = pytest.mark.skip("Not yet configured for testing")(_test_expiry_startup_crash)
 
 from lightning.tests.test_invoices import test_invoice as _test_invoice
 
-test_invoice = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_invoice)
+test_invoice = pytest.mark.skip("Not yet configured for testing")(_test_invoice)
 
 from lightning.tests.test_invoices import test_invoice_botched_migration as _test_invoice_botched_migration
 
-test_invoice_botched_migration = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_invoice_botched_migration)
+test_invoice_botched_migration = pytest.mark.skip("Not yet configured for testing")(_test_invoice_botched_migration)
 
 from lightning.tests.test_invoices import test_invoice_deschash as _test_invoice_deschash
 
-test_invoice_deschash = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_invoice_deschash)
+test_invoice_deschash = pytest.mark.skip("Not yet configured for testing")(_test_invoice_deschash)
 
 from lightning.tests.test_invoices import test_invoice_expiry as _test_invoice_expiry
 
-test_invoice_expiry = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_invoice_expiry)
+test_invoice_expiry = pytest.mark.skip("Not yet configured for testing")(_test_invoice_expiry)
 
 from lightning.tests.test_invoices import test_invoice_preimage as _test_invoice_preimage
 
-test_invoice_preimage = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_invoice_preimage)
+test_invoice_preimage = pytest.mark.skip("Not yet configured for testing")(_test_invoice_preimage)
 
 from lightning.tests.test_invoices import test_invoice_routeboost as _test_invoice_routeboost
 
-test_invoice_routeboost = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_invoice_routeboost)
+test_invoice_routeboost = pytest.mark.skip("Not yet configured for testing")(_test_invoice_routeboost)
 
 from lightning.tests.test_invoices import test_invoice_routeboost_private as _test_invoice_routeboost_private
 
-test_invoice_routeboost_private = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_invoice_routeboost_private)
+test_invoice_routeboost_private = pytest.mark.skip("Not yet configured for testing")(_test_invoice_routeboost_private)
 
 from lightning.tests.test_invoices import test_invoice_weirdstring as _test_invoice_weirdstring
 
-test_invoice_weirdstring = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_invoice_weirdstring)
+test_invoice_weirdstring = pytest.mark.skip("Not yet configured for testing")(_test_invoice_weirdstring)
 
 from lightning.tests.test_invoices import test_invoice_zeroval as _test_invoice_zeroval
 
-test_invoice_zeroval = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_invoice_zeroval)
+test_invoice_zeroval = pytest.mark.skip("Not yet configured for testing")(_test_invoice_zeroval)
 
 from lightning.tests.test_invoices import test_invoices_wait_db_migration as _test_invoices_wait_db_migration
 
-test_invoices_wait_db_migration = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_invoices_wait_db_migration)
+test_invoices_wait_db_migration = pytest.mark.skip("Not yet configured for testing")(_test_invoices_wait_db_migration)
 
 from lightning.tests.test_invoices import test_listinvoices_filter as _test_listinvoices_filter
 
-test_listinvoices_filter = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_listinvoices_filter)
+test_listinvoices_filter = pytest.mark.skip("Not yet configured for testing")(_test_listinvoices_filter)
 
 from lightning.tests.test_invoices import test_listinvoices_index as _test_listinvoices_index
 
-test_listinvoices_index = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_listinvoices_index)
+test_listinvoices_index = pytest.mark.skip("Not yet configured for testing")(_test_listinvoices_index)
 
 from lightning.tests.test_invoices import test_signinvoice as _test_signinvoice
 
-test_signinvoice = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_signinvoice)
+test_signinvoice = pytest.mark.skip("Not yet configured for testing")(_test_signinvoice)
 
 from lightning.tests.test_invoices import test_unified_invoices as _test_unified_invoices
 
-test_unified_invoices = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_unified_invoices)
+test_unified_invoices = pytest.mark.skip("Not yet configured for testing")(_test_unified_invoices)
 
 from lightning.tests.test_invoices import test_wait_invoices as _test_wait_invoices
 
-test_wait_invoices = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_wait_invoices)
+test_wait_invoices = pytest.mark.skip("Not yet configured for testing")(_test_wait_invoices)
 
 from lightning.tests.test_invoices import test_waitanyinvoice as _test_waitanyinvoice
 
-test_waitanyinvoice = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_waitanyinvoice)
+test_waitanyinvoice = pytest.mark.skip("Not yet configured for testing")(_test_waitanyinvoice)
 
 from lightning.tests.test_invoices import test_waitanyinvoice_reversed as _test_waitanyinvoice_reversed
 
-test_waitanyinvoice_reversed = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_waitanyinvoice_reversed)
+test_waitanyinvoice_reversed = pytest.mark.skip("Not yet configured for testing")(_test_waitanyinvoice_reversed)
 
 from lightning.tests.test_invoices import test_waitinvoice as _test_waitinvoice
 
-test_waitinvoice = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_waitinvoice)
+test_waitinvoice = pytest.mark.skip("Not yet configured for testing")(_test_waitinvoice)

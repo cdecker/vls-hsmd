@@ -2,7 +2,7 @@
 # Source file: lightning/tests/test_mkfunding.py
 #
 # To update these tests, run the synchronization script.
-# To selectively exclude tests, modify the 'test_exclusions.yml' file.
+# To selectively include/skip tests, modify the 'test_config.yml' file.
 
 # pylint: disable=unused-import,wildcard-import,unused-wildcard-import,invalid-name
 # flake8: noqa
@@ -13,36 +13,36 @@ import pytest
 
 from lightning.tests.test_mkfunding import test_mkfunding_bad_cantaffordfee as _test_mkfunding_bad_cantaffordfee
 
-test_mkfunding_bad_cantaffordfee = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_mkfunding_bad_cantaffordfee)
+test_mkfunding_bad_cantaffordfee = pytest.mark.skip("Not yet configured for testing")(_test_mkfunding_bad_cantaffordfee)
 
 from lightning.tests.test_mkfunding import test_mkfunding_bad_input_amount as _test_mkfunding_bad_input_amount
 
-test_mkfunding_bad_input_amount = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_mkfunding_bad_input_amount)
+test_mkfunding_bad_input_amount = pytest.mark.skip("Not yet configured for testing")(_test_mkfunding_bad_input_amount)
 
 from lightning.tests.test_mkfunding import test_mkfunding_bad_input_privkey as _test_mkfunding_bad_input_privkey
 
-test_mkfunding_bad_input_privkey = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_mkfunding_bad_input_privkey)
+test_mkfunding_bad_input_privkey = pytest.mark.skip("Not yet configured for testing")(_test_mkfunding_bad_input_privkey)
 
 from lightning.tests.test_mkfunding import test_mkfunding_bad_input_txid as _test_mkfunding_bad_input_txid
 
-test_mkfunding_bad_input_txid = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_mkfunding_bad_input_txid)
+test_mkfunding_bad_input_txid = pytest.mark.skip("Not yet configured for testing")(_test_mkfunding_bad_input_txid)
 
 from lightning.tests.test_mkfunding import test_mkfunding_bad_local_funding_privkey as _test_mkfunding_bad_local_funding_privkey
 
-test_mkfunding_bad_local_funding_privkey = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_mkfunding_bad_local_funding_privkey)
+test_mkfunding_bad_local_funding_privkey = pytest.mark.skip("Not yet configured for testing")(_test_mkfunding_bad_local_funding_privkey)
 
 from lightning.tests.test_mkfunding import test_mkfunding_bad_privkeys as _test_mkfunding_bad_privkeys
 
-test_mkfunding_bad_privkeys = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_mkfunding_bad_privkeys)
+test_mkfunding_bad_privkeys = pytest.mark.skip("Not yet configured for testing")(_test_mkfunding_bad_privkeys)
 
 from lightning.tests.test_mkfunding import test_mkfunding_bad_remote_funding_privkey as _test_mkfunding_bad_remote_funding_privkey
 
-test_mkfunding_bad_remote_funding_privkey = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_mkfunding_bad_remote_funding_privkey)
+test_mkfunding_bad_remote_funding_privkey = pytest.mark.skip("Not yet configured for testing")(_test_mkfunding_bad_remote_funding_privkey)
 
 from lightning.tests.test_mkfunding import test_mkfunding_bad_usage as _test_mkfunding_bad_usage
 
-test_mkfunding_bad_usage = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_mkfunding_bad_usage)
+test_mkfunding_bad_usage = pytest.mark.skip("Not yet configured for testing")(_test_mkfunding_bad_usage)
 
 from lightning.tests.test_mkfunding import test_mkfunding_good_noabort as _test_mkfunding_good_noabort
 
-test_mkfunding_good_noabort = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_mkfunding_good_noabort)
+test_mkfunding_good_noabort = pytest.mark.skip("Not yet configured for testing")(_test_mkfunding_good_noabort)

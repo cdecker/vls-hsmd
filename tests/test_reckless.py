@@ -2,7 +2,7 @@
 # Source file: lightning/tests/test_reckless.py
 #
 # To update these tests, run the synchronization script.
-# To selectively exclude tests, modify the 'test_exclusions.yml' file.
+# To selectively include/skip tests, modify the 'test_config.yml' file.
 
 # pylint: disable=unused-import,wildcard-import,unused-wildcard-import,invalid-name
 # flake8: noqa
@@ -13,36 +13,36 @@ import pytest
 
 from lightning.tests.test_reckless import test_basic_help as _test_basic_help
 
-test_basic_help = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_basic_help)
+test_basic_help = pytest.mark.skip("Not yet configured for testing")(_test_basic_help)
 
 from lightning.tests.test_reckless import test_contextual_help as _test_contextual_help
 
-test_contextual_help = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_contextual_help)
+test_contextual_help = pytest.mark.skip("Not yet configured for testing")(_test_contextual_help)
 
 from lightning.tests.test_reckless import test_disable_enable as _test_disable_enable
 
-test_disable_enable = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_disable_enable)
+test_disable_enable = pytest.mark.skip("Not yet configured for testing")(_test_disable_enable)
 
 from lightning.tests.test_reckless import test_install as _test_install
 
-test_install = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_install)
+test_install = pytest.mark.skip("Not yet configured for testing")(_test_install)
 
 from lightning.tests.test_reckless import test_local_dir_install as _test_local_dir_install
 
-test_local_dir_install = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_local_dir_install)
+test_local_dir_install = pytest.mark.skip("Not yet configured for testing")(_test_local_dir_install)
 
 from lightning.tests.test_reckless import test_poetry_install as _test_poetry_install
 
-test_poetry_install = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_poetry_install)
+test_poetry_install = pytest.mark.skip("Not yet configured for testing")(_test_poetry_install)
 
 from lightning.tests.test_reckless import test_search as _test_search
 
-test_search = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_search)
+test_search = pytest.mark.skip("Not yet configured for testing")(_test_search)
 
 from lightning.tests.test_reckless import test_sources as _test_sources
 
-test_sources = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_sources)
+test_sources = pytest.mark.skip("Not yet configured for testing")(_test_sources)
 
 from lightning.tests.test_reckless import test_tag_install as _test_tag_install
 
-test_tag_install = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_tag_install)
+test_tag_install = pytest.mark.skip("Not yet configured for testing")(_test_tag_install)
