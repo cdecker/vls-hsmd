@@ -3,5 +3,5 @@
 	url = https://gitlab.com/lightning-signer/validating-lightning-signer.git
 [submodule "lightning"]
 	path = lightning
-	url = https://github.com/lightning-signer/c-lightning.git
-	branch = remote-hsmd
+	url = https://github.com/ElementsProject/lightning.git
+	branch = master
