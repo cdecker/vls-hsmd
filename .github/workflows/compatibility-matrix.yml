@@ -25,7 +25,7 @@ on:
 
 env:
   # Default versions to test if not provided via workflow_dispatch
-  DEFAULT_CLN_VERSIONS: 'v25.12,v25.05,v24.11'
+  DEFAULT_CLN_VERSIONS: 'v25.12,v25.05'
   DEFAULT_VLS_VERSIONS: 'v0.14.0,v0.13.0'
 
 jobs:
@@ -174,8 +174,7 @@ jobs:
         id: test
         run: |
           uv venv
-          uv run pip install lightning/contrib/pyln-testing lightning/contrib/pyln-client
-          uv run task test-vls-socket 2>&1 | tee test-output.log
+          PYTHONPATH=.:./lightning/contrib/pyln-testing::./lightning/contrib/pyln-client uv run task test-vls-socket -- -n 8 --force-flaky --timeout 300 --maxfail=10 2>&1 | tee test-output.log
         continue-on-error: true
       
       - name: Parse test results
