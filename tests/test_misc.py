@@ -27,10 +27,6 @@ from lightning.tests.test_misc import test_badparam_discretion as _test_badparam
 
 test_badparam_discretion = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_badparam_discretion)
 
-from lightning.tests.test_misc import test_bech32_funding as _test_bech32_funding
-
-test_bech32_funding = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_bech32_funding)
-
 from lightning.tests.test_misc import test_bitcoin_failure as _test_bitcoin_failure
 
 test_bitcoin_failure = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_bitcoin_failure)

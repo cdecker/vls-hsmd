@@ -11,10 +11,6 @@
 import pytest
 # --- Preamble from config: End ---
 
-from lightning.tests.test_connection import test_bad_opening as _test_bad_opening
-
-test_bad_opening = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_bad_opening)
-
 from lightning.tests.test_connection import test_balance as _test_balance
 
 test_balance = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_balance)

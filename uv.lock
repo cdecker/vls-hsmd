@@ -1,6 +1,6 @@
 version = 1
 revision = 3
-requires-python = ">=3.10, <4.0"
+requires-python = ">=3.10, <4.0.0"
 
 [manifest]
 members = [
@@ -669,19 +669,18 @@ wheels = [
 
 [[package]]
 name = "flask"
-version = "3.1.2"
+version = "2.3.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "blinker" },
     { name = "click" },
     { name = "itsdangerous" },
     { name = "jinja2" },
-    { name = "markupsafe" },
     { name = "werkzeug" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/dc/6d/cfe3c0fcc5e477df242b98bfe186a4c34357b4847e87ecaef04507332dab/flask-3.1.2.tar.gz", hash = "sha256:bf656c15c80190ed628ad08cdfd3aaa35beb087855e2f494910aa3774cc4fd87", size = 720160, upload-time = "2025-08-19T21:03:21.205Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/46/b7/4ace17e37abd9c21715dea5ee11774a25e404c486a7893fa18e764326ead/flask-2.3.3.tar.gz", hash = "sha256:09c347a92aa7ff4a8e7f3206795f30d826654baf38b873d0744cd571ca609efc", size = 672756, upload-time = "2023-08-21T19:52:35.012Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ec/f9/7f9263c5695f4bd0023734af91bedb2ff8209e8de6ead162f35d8dc762fd/flask-3.1.2-py3-none-any.whl", hash = "sha256:ca1d8112ec8a6158cc29ea4858963350011b5c846a414cdb7a954aa9e967d03c", size = 103308, upload-time = "2025-08-19T21:03:19.499Z" },
+    { url = "https://files.pythonhosted.org/packages/fd/56/26f0be8adc2b4257df20c1c4260ddd0aa396cf8e75d90ab2f7ff99bc34f9/flask-2.3.3-py3-none-any.whl", hash = "sha256:f69fcd559dc907ed196ab9df0e48471709175e696d6e698dd4dbe940f96ce66b", size = 96112, upload-time = "2023-08-21T19:52:33.115Z" },
 ]
 
 [[package]]
@@ -1350,31 +1349,23 @@ wheels = [
 ]
 
 [[package]]
-name = "psutil"
-version = "7.2.1"
+name = "protobuf3"
+version = "0.2.1"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/73/cb/09e5184fb5fc0358d110fc3ca7f6b1d033800734d34cac10f4136cfac10e/psutil-7.2.1.tar.gz", hash = "sha256:f7583aec590485b43ca601dd9cea0dcd65bd7bb21d30ef4ddbf4ea6b5ed1bdd3", size = 490253, upload-time = "2025-12-29T08:26:00.169Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/6d/26/955c07e16200d20de70b1e17b246e0574a517b76d6e6393d8ef7ce4f38cd/protobuf3-0.2.1.tar.gz", hash = "sha256:ddd878b3f991beff566ab384d3588cf8e89758e3a16a78f4099dbe70de3c41a2", size = 10788, upload-time = "2016-01-23T08:43:58.254Z" }
+
+[[package]]
+name = "psutil"
+version = "5.9.8"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/90/c7/6dc0a455d111f68ee43f27793971cf03fe29b6ef972042549db29eec39a2/psutil-5.9.8.tar.gz", hash = "sha256:6be126e3225486dff286a8fb9a06246a5253f4c7c53b475ea5f5ac934e64194c", size = 503247, upload-time = "2024-01-19T20:47:09.517Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/77/8e/f0c242053a368c2aa89584ecd1b054a18683f13d6e5a318fc9ec36582c94/psutil-7.2.1-cp313-cp313t-macosx_10_13_x86_64.whl", hash = "sha256:ba9f33bb525b14c3ea563b2fd521a84d2fa214ec59e3e6a2858f78d0844dd60d", size = 129624, upload-time = "2025-12-29T08:26:04.255Z" },
-    { url = "https://files.pythonhosted.org/packages/26/97/a58a4968f8990617decee234258a2b4fc7cd9e35668387646c1963e69f26/psutil-7.2.1-cp313-cp313t-macosx_11_0_arm64.whl", hash = "sha256:81442dac7abfc2f4f4385ea9e12ddf5a796721c0f6133260687fec5c3780fa49", size = 130132, upload-time = "2025-12-29T08:26:06.228Z" },
-    { url = "https://files.pythonhosted.org/packages/db/6d/ed44901e830739af5f72a85fa7ec5ff1edea7f81bfbf4875e409007149bd/psutil-7.2.1-cp313-cp313t-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:ea46c0d060491051d39f0d2cff4f98d5c72b288289f57a21556cc7d504db37fc", size = 180612, upload-time = "2025-12-29T08:26:08.276Z" },
-    { url = "https://files.pythonhosted.org/packages/c7/65/b628f8459bca4efbfae50d4bf3feaab803de9a160b9d5f3bd9295a33f0c2/psutil-7.2.1-cp313-cp313t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:35630d5af80d5d0d49cfc4d64c1c13838baf6717a13effb35869a5919b854cdf", size = 183201, upload-time = "2025-12-29T08:26:10.622Z" },
-    { url = "https://files.pythonhosted.org/packages/fb/23/851cadc9764edcc18f0effe7d0bf69f727d4cf2442deb4a9f78d4e4f30f2/psutil-7.2.1-cp313-cp313t-win_amd64.whl", hash = "sha256:923f8653416604e356073e6e0bccbe7c09990acef442def2f5640dd0faa9689f", size = 139081, upload-time = "2025-12-29T08:26:12.483Z" },
-    { url = "https://files.pythonhosted.org/packages/59/82/d63e8494ec5758029f31c6cb06d7d161175d8281e91d011a4a441c8a43b5/psutil-7.2.1-cp313-cp313t-win_arm64.whl", hash = "sha256:cfbe6b40ca48019a51827f20d830887b3107a74a79b01ceb8cc8de4ccb17b672", size = 134767, upload-time = "2025-12-29T08:26:14.528Z" },
-    { url = "https://files.pythonhosted.org/packages/05/c2/5fb764bd61e40e1fe756a44bd4c21827228394c17414ade348e28f83cd79/psutil-7.2.1-cp314-cp314t-macosx_10_15_x86_64.whl", hash = "sha256:494c513ccc53225ae23eec7fe6e1482f1b8a44674241b54561f755a898650679", size = 129716, upload-time = "2025-12-29T08:26:16.017Z" },
-    { url = "https://files.pythonhosted.org/packages/c9/d2/935039c20e06f615d9ca6ca0ab756cf8408a19d298ffaa08666bc18dc805/psutil-7.2.1-cp314-cp314t-macosx_11_0_arm64.whl", hash = "sha256:3fce5f92c22b00cdefd1645aa58ab4877a01679e901555067b1bd77039aa589f", size = 130133, upload-time = "2025-12-29T08:26:18.009Z" },
-    { url = "https://files.pythonhosted.org/packages/77/69/19f1eb0e01d24c2b3eacbc2f78d3b5add8a89bf0bb69465bc8d563cc33de/psutil-7.2.1-cp314-cp314t-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:93f3f7b0bb07711b49626e7940d6fe52aa9940ad86e8f7e74842e73189712129", size = 181518, upload-time = "2025-12-29T08:26:20.241Z" },
-    { url = "https://files.pythonhosted.org/packages/e1/6d/7e18b1b4fa13ad370787626c95887b027656ad4829c156bb6569d02f3262/psutil-7.2.1-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:d34d2ca888208eea2b5c68186841336a7f5e0b990edec929be909353a202768a", size = 184348, upload-time = "2025-12-29T08:26:22.215Z" },
-    { url = "https://files.pythonhosted.org/packages/98/60/1672114392dd879586d60dd97896325df47d9a130ac7401318005aab28ec/psutil-7.2.1-cp314-cp314t-win_amd64.whl", hash = "sha256:2ceae842a78d1603753561132d5ad1b2f8a7979cb0c283f5b52fb4e6e14b1a79", size = 140400, upload-time = "2025-12-29T08:26:23.993Z" },
-    { url = "https://files.pythonhosted.org/packages/fb/7b/d0e9d4513c46e46897b46bcfc410d51fc65735837ea57a25170f298326e6/psutil-7.2.1-cp314-cp314t-win_arm64.whl", hash = "sha256:08a2f175e48a898c8eb8eace45ce01777f4785bc744c90aa2cc7f2fa5462a266", size = 135430, upload-time = "2025-12-29T08:26:25.999Z" },
-    { url = "https://files.pythonhosted.org/packages/c5/cf/5180eb8c8bdf6a503c6919f1da28328bd1e6b3b1b5b9d5b01ae64f019616/psutil-7.2.1-cp36-abi3-macosx_10_9_x86_64.whl", hash = "sha256:b2e953fcfaedcfbc952b44744f22d16575d3aa78eb4f51ae74165b4e96e55f42", size = 128137, upload-time = "2025-12-29T08:26:27.759Z" },
-    { url = "https://files.pythonhosted.org/packages/c5/2c/78e4a789306a92ade5000da4f5de3255202c534acdadc3aac7b5458fadef/psutil-7.2.1-cp36-abi3-macosx_11_0_arm64.whl", hash = "sha256:05cc68dbb8c174828624062e73078e7e35406f4ca2d0866c272c2410d8ef06d1", size = 128947, upload-time = "2025-12-29T08:26:29.548Z" },
-    { url = "https://files.pythonhosted.org/packages/29/f8/40e01c350ad9a2b3cb4e6adbcc8a83b17ee50dd5792102b6142385937db5/psutil-7.2.1-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:5e38404ca2bb30ed7267a46c02f06ff842e92da3bb8c5bfdadbd35a5722314d8", size = 154694, upload-time = "2025-12-29T08:26:32.147Z" },
-    { url = "https://files.pythonhosted.org/packages/06/e4/b751cdf839c011a9714a783f120e6a86b7494eb70044d7d81a25a5cd295f/psutil-7.2.1-cp36-abi3-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:ab2b98c9fc19f13f59628d94df5cc4cc4844bc572467d113a8b517d634e362c6", size = 156136, upload-time = "2025-12-29T08:26:34.079Z" },
-    { url = "https://files.pythonhosted.org/packages/44/ad/bbf6595a8134ee1e94a4487af3f132cef7fce43aef4a93b49912a48c3af7/psutil-7.2.1-cp36-abi3-musllinux_1_2_aarch64.whl", hash = "sha256:f78baafb38436d5a128f837fab2d92c276dfb48af01a240b861ae02b2413ada8", size = 148108, upload-time = "2025-12-29T08:26:36.225Z" },
-    { url = "https://files.pythonhosted.org/packages/1c/15/dd6fd869753ce82ff64dcbc18356093471a5a5adf4f77ed1f805d473d859/psutil-7.2.1-cp36-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:99a4cd17a5fdd1f3d014396502daa70b5ec21bf4ffe38393e152f8e449757d67", size = 147402, upload-time = "2025-12-29T08:26:39.21Z" },
-    { url = "https://files.pythonhosted.org/packages/34/68/d9317542e3f2b180c4306e3f45d3c922d7e86d8ce39f941bb9e2e9d8599e/psutil-7.2.1-cp37-abi3-win_amd64.whl", hash = "sha256:b1b0671619343aa71c20ff9767eced0483e4fc9e1f489d50923738caf6a03c17", size = 136938, upload-time = "2025-12-29T08:26:41.036Z" },
-    { url = "https://files.pythonhosted.org/packages/3e/73/2ce007f4198c80fcf2cb24c169884f833fe93fbc03d55d302627b094ee91/psutil-7.2.1-cp37-abi3-win_arm64.whl", hash = "sha256:0d67c1822c355aa6f7314d92018fb4268a76668a536f133599b91edd48759442", size = 133836, upload-time = "2025-12-29T08:26:43.086Z" },
+    { url = "https://files.pythonhosted.org/packages/e7/e3/07ae864a636d70a8a6f58da27cb1179192f1140d5d1da10886ade9405797/psutil-5.9.8-cp36-abi3-macosx_10_9_x86_64.whl", hash = "sha256:aee678c8720623dc456fa20659af736241f575d79429a0e5e9cf88ae0605cc81", size = 248702, upload-time = "2024-01-19T20:47:36.303Z" },
+    { url = "https://files.pythonhosted.org/packages/b3/bd/28c5f553667116b2598b9cc55908ec435cb7f77a34f2bff3e3ca765b0f78/psutil-5.9.8-cp36-abi3-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:8cb6403ce6d8e047495a701dc7c5bd788add903f8986d523e3e20b98b733e421", size = 285242, upload-time = "2024-01-19T20:47:39.65Z" },
+    { url = "https://files.pythonhosted.org/packages/c5/4f/0e22aaa246f96d6ac87fe5ebb9c5a693fbe8877f537a1022527c47ca43c5/psutil-5.9.8-cp36-abi3-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d06016f7f8625a1825ba3732081d77c94589dca78b7a3fc072194851e88461a4", size = 288191, upload-time = "2024-01-19T20:47:43.078Z" },
+    { url = "https://files.pythonhosted.org/packages/6e/f5/2aa3a4acdc1e5940b59d421742356f133185667dd190b166dbcfcf5d7b43/psutil-5.9.8-cp37-abi3-win32.whl", hash = "sha256:bc56c2a1b0d15aa3eaa5a60c9f3f8e3e565303b465dbf57a1b730e7a2b9844e0", size = 251252, upload-time = "2024-01-19T20:47:52.88Z" },
+    { url = "https://files.pythonhosted.org/packages/93/52/3e39d26feae7df0aa0fd510b14012c3678b36ed068f7d78b8d8784d61f0e/psutil-5.9.8-cp37-abi3-win_amd64.whl", hash = "sha256:8db4c1b57507eef143a15a6884ca10f7c73876cdf5d51e713151c1236a0e68cf", size = 255090, upload-time = "2024-01-19T20:47:56.019Z" },
+    { url = "https://files.pythonhosted.org/packages/05/33/2d74d588408caedd065c2497bdb5ef83ce6082db01289a1e1147f6639802/psutil-5.9.8-cp38-abi3-macosx_11_0_arm64.whl", hash = "sha256:d16bbddf0693323b8c6123dd804100241da461e41d6e332fb0ba6058f630f8c8", size = 249898, upload-time = "2024-01-19T20:47:59.238Z" },
 ]
 
 [[package]]
@@ -1461,61 +1452,42 @@ wheels = [
 [[package]]
 name = "pyln-bolt7"
 version = "1.0.246"
-source = { editable = "lightning/contrib/pyln-spec/bolt7" }
-
-[package.metadata]
-
-[package.metadata.requires-dev]
-dev = [{ name = "pyln-proto", editable = "lightning/contrib/pyln-proto" }]
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/5e/3c/6d1d6643c6a501e998c17c25d40c3b68ab75be1d16d9055e6a9ffba30fe4/pyln-bolt7-1.0.246.tar.gz", hash = "sha256:2b53744fa21c1b12d2c9c9df153651b122e38fa65d4a5c3f2957317ee148e089", size = 17905, upload-time = "2022-08-31T17:28:20.093Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/35/f1/30b626e7cec279a2f84084898594c8e84537d6d9af9afbe9858f9a6d8e13/pyln_bolt7-1.0.246-py3-none-any.whl", hash = "sha256:54d48ec27fdc8751762cb068b0a9f2757a58fb57933c6d8f8255d02c27eb63c5", size = 18811, upload-time = "2022-08-31T17:28:22.137Z" },
+]
 
 [[package]]
 name = "pyln-client"
 version = "25.12"
-source = { editable = "lightning/contrib/pyln-client" }
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pyln-bolt7" },
     { name = "pyln-proto" },
 ]
-
-[package.metadata]
-requires-dist = [
-    { name = "pyln-bolt7", editable = "lightning/contrib/pyln-spec/bolt7" },
-    { name = "pyln-proto", editable = "lightning/contrib/pyln-proto" },
-]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "pyln-bolt7", editable = "lightning/contrib/pyln-spec/bolt7" },
-    { name = "pyln-proto", editable = "lightning/contrib/pyln-proto" },
-    { name = "pytest", specifier = ">=8.0.0" },
+sdist = { url = "https://files.pythonhosted.org/packages/35/c3/6375d73950df8cda594ca7ee1069f63a817190b08ea8cb57c9ce65019664/pyln_client-25.12.tar.gz", hash = "sha256:9a0435436dea7ce471e096aac9c4e3ede704c305b862b0a3b5e410279b54d8d6", size = 92109, upload-time = "2025-12-04T00:25:55.808Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/04/e7/76f13dc3174b58f91aecf7890efc174ef12721dc015601a200ac40044356/pyln_client-25.12-py3-none-any.whl", hash = "sha256:9e4ff323acb71cbc4522d160dd931599f59a4c167076db016ec5d63e6a002f86", size = 37618, upload-time = "2025-12-04T00:25:54.365Z" },
 ]
 
 [[package]]
 name = "pyln-grpc-proto"
-version = "25.9"
-source = { editable = "lightning/contrib/pyln-grpc-proto" }
+version = "0.1.3"
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "grpcio" },
-    { name = "protobuf" },
+    { name = "protobuf3" },
 ]
-
-[package.metadata]
-requires-dist = [
-    { name = "grpcio", specifier = "==1.75.1" },
-    { name = "protobuf", specifier = "==6.32.1" },
-]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "grpcio", specifier = "==1.75.1" },
-    { name = "grpcio-tools", specifier = "==1.75.1" },
-    { name = "mypy-protobuf", specifier = "<4" },
+sdist = { url = "https://files.pythonhosted.org/packages/04/bc/8c4954464e91d001d23449c947b4ed8778c9e53cefa201b06f5f45b22478/pyln_grpc_proto-0.1.3.tar.gz", hash = "sha256:a6a663284bd8c47622f67ccd0eec2200cbf9e922bb2de24309b38e830265bee3", size = 116709, upload-time = "2024-05-17T15:38:05.375Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/cb/57/d189be10ea7d0f9de636fbd212026ff69163221c3d740bd6bd77ffd72d46/pyln_grpc_proto-0.1.3-py3-none-any.whl", hash = "sha256:e61f0b49ad657a54eec459cdad15266578192dd9d4a5132c913d85e4fb232409", size = 119082, upload-time = "2024-05-17T15:38:03.475Z" },
 ]
 
 [[package]]
 name = "pyln-proto"
 version = "25.12"
-source = { editable = "lightning/contrib/pyln-proto" }
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "base58" },
     { name = "bitstring" },
@@ -1523,31 +1495,25 @@ dependencies = [
     { name = "cryptography" },
     { name = "pysocks" },
 ]
-
-[package.metadata]
-requires-dist = [
-    { name = "base58", specifier = ">=2.1.1" },
-    { name = "bitstring", specifier = ">=4.3.0" },
-    { name = "coincurve", specifier = "==20.0.0" },
-    { name = "cryptography", specifier = ">=46" },
-    { name = "pysocks", specifier = ">=1" },
+sdist = { url = "https://files.pythonhosted.org/packages/68/0f/f3cd0d81be57b7268e90e618bef33fec11255238613e81de188b52a4a39d/pyln_proto-25.12.tar.gz", hash = "sha256:b7bea173b923aa2cfc158b4a4901630bc04ba920048af4d9684624534b2c298d", size = 44860, upload-time = "2025-12-04T00:25:53.417Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/1a/66/e57f6024da268ae229b3bf9da3c2c7205ffb7a6bf34a4cc70f1edb598dd7/pyln_proto-25.12-py3-none-any.whl", hash = "sha256:8827e83835decb89f85efe3ca7e754fd918c1950615fa14526384b2156999b00", size = 31822, upload-time = "2025-12-04T00:25:52.358Z" },
 ]
-
-[package.metadata.requires-dev]
-dev = [{ name = "pytest", specifier = ">=8.0.0" }]
 
 [[package]]
 name = "pyln-testing"
-version = "25.12"
+version = "25.5"
 source = { editable = "lightning/contrib/pyln-testing" }
 dependencies = [
     { name = "cheroot" },
     { name = "ephemeral-port-reserve" },
     { name = "flask" },
+    { name = "grpcio" },
     { name = "jsonschema" },
     { name = "psutil" },
     { name = "psycopg2-binary" },
     { name = "pyln-client" },
+    { name = "pyln-grpc-proto" },
     { name = "pytest" },
     { name = "python-bitcoinlib" },
     { name = "requests" },
@@ -1559,34 +1525,24 @@ grpc = [
     { name = "pyln-grpc-proto" },
 ]
 
-[package.dev-dependencies]
-dev = [
-    { name = "pyln-client" },
-    { name = "pyln-grpc-proto" },
-]
-
 [package.metadata]
 requires-dist = [
     { name = "cheroot", specifier = ">=8,<=10" },
-    { name = "ephemeral-port-reserve", specifier = ">=1.1.4" },
-    { name = "flask", specifier = ">=3.0.0" },
-    { name = "grpcio", marker = "extra == 'grpc'", specifier = ">=1.75.0" },
-    { name = "jsonschema", specifier = ">=4.4.0" },
-    { name = "psutil", specifier = ">=5.9.0" },
-    { name = "psycopg2-binary", specifier = ">=2.9.0" },
-    { name = "pyln-client", editable = "lightning/contrib/pyln-client" },
-    { name = "pyln-grpc-proto", marker = "extra == 'grpc'", editable = "lightning/contrib/pyln-grpc-proto" },
-    { name = "pytest", specifier = ">=8.0.0" },
-    { name = "python-bitcoinlib", specifier = ">=0.11.0" },
-    { name = "requests", specifier = ">=2.32.0" },
+    { name = "ephemeral-port-reserve", specifier = ">=1.1.4,<2.0.0" },
+    { name = "flask", specifier = ">=2,<3.0.0" },
+    { name = "grpcio", specifier = ">=1,<2.0.0" },
+    { name = "grpcio", marker = "extra == 'grpc'" },
+    { name = "jsonschema", specifier = ">=4.4.0,<5.0.0" },
+    { name = "psutil", specifier = ">=5.9,<6.0.0" },
+    { name = "psycopg2-binary", specifier = ">=2.9,<3.0.0" },
+    { name = "pyln-client", specifier = ">=23" },
+    { name = "pyln-grpc-proto", specifier = ">=0.1,<1.0.0" },
+    { name = "pyln-grpc-proto", marker = "extra == 'grpc'" },
+    { name = "pytest", specifier = ">=7,<8.0.0" },
+    { name = "python-bitcoinlib", specifier = ">=0.11.0,<1.0.0" },
+    { name = "requests", specifier = ">=2.31.0,<3.0.0" },
 ]
 provides-extras = ["grpc"]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "pyln-client", editable = "lightning/contrib/pyln-client" },
-    { name = "pyln-grpc-proto", editable = "lightning/contrib/pyln-grpc-proto" },
-]
 
 [[package]]
 name = "pyproject-hooks"
@@ -1608,7 +1564,7 @@ wheels = [
 
 [[package]]
 name = "pytest"
-version = "9.0.2"
+version = "7.4.4"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "colorama", marker = "sys_platform == 'win32'" },
@@ -1616,12 +1572,11 @@ dependencies = [
     { name = "iniconfig" },
     { name = "packaging" },
     { name = "pluggy" },
-    { name = "pygments" },
     { name = "tomli", marker = "python_full_version < '3.11'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/d1/db/7ef3487e0fb0049ddb5ce41d3a49c235bf9ad299b6a25d5780a89f19230f/pytest-9.0.2.tar.gz", hash = "sha256:75186651a92bd89611d1d9fc20f0b4345fd827c41ccd5c299a868a05d70edf11", size = 1568901, upload-time = "2025-12-06T21:30:51.014Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/80/1f/9d8e98e4133ffb16c90f3b405c43e38d3abb715bb5d7a63a5a684f7e46a3/pytest-7.4.4.tar.gz", hash = "sha256:2cf0005922c6ace4a3e2ec8b4080eb0d9753fdc93107415332f50ce9e7994280", size = 1357116, upload-time = "2023-12-31T12:00:18.035Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/3b/ab/b3226f0bd7cdcf710fbede2b3548584366da3b19b5021e74f5bde2a8fa3f/pytest-9.0.2-py3-none-any.whl", hash = "sha256:711ffd45bf766d5264d487b917733b453d917afd2b0ad65223959f59089f875b", size = 374801, upload-time = "2025-12-06T21:30:49.154Z" },
+    { url = "https://files.pythonhosted.org/packages/51/ff/f6e8b8f39e08547faece4bd80f89d5a8de68a38b2d179cc1c4490ffa3286/pytest-7.4.4-py3-none-any.whl", hash = "sha256:b090cdf5ed60bf4c45261be03239c2c1c22df034fbffe691abe93cd80cea01d8", size = 325287, upload-time = "2023-12-31T12:00:13.963Z" },
 ]
 
 [[package]]

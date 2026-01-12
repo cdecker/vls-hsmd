@@ -35,10 +35,6 @@ from lightning.tests.test_clnrest import test_numeric_msat_notification as _test
 
 test_numeric_msat_notification = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_numeric_msat_notification)
 
-from lightning.tests.test_clnrest import test_old_params as _test_old_params
-
-test_old_params = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_old_params)
-
 from lightning.tests.test_clnrest import test_options as _test_options
 
 test_options = pytest.mark.skip("All tests disabled - initial import farm setup")(_test_options)
