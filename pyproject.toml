@@ -28,7 +28,7 @@ compat-test = "scripts.compat_test_runner:main"
 default-groups = ["dev"]
 
 [tool.uv.sources]
-pyln-client = { path = "lightning/contrib/pyln-client", editable = false }
+pyln-client = { path = "lightning/contrib/pyln-client", editable = true }
 pyln-testing = { path = "lightning/contrib/pyln-testing", editable = false }
 
 [dependency-groups]
