@@ -142,6 +142,7 @@ jobs:
             clang \
             gettext \
             git \
+            lowdown \
             libgmp-dev \
             libpq-dev \
             libsodium-dev \
