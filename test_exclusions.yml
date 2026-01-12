@@ -1,0 +1,57 @@
+config:
+  preamble: |
+    import pytest
+
+exclusions:
+  test_reckless.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_plugin.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_cln_rs.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_mkfunding.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_wallet.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_askrene.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_renepay.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_closing.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_xpay.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_splicing_insane.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_runes.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_restart.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_gossip.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_bookkeeper.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_db.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_misc.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_clnrest.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_invoices.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_splice.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_splicing_disconnect.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_pay.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_cln_lsps.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_splicing.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_onion.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_opening.py:
+    __all__: "All tests disabled - initial import farm setup"
+  test_connection.py:
+    __all__: "All tests disabled - initial import farm setup"
