@@ -119,6 +119,9 @@ def generate_wrapper_file_content(
         "",
         "# pylint: disable=unused-import,wildcard-import,unused-wildcard-import,invalid-name",
         "# flake8: noqa",
+        "",
+        "import pytest",
+        "from fixtures import *  # noqa: F401,F403",
         ""
     ]
     
