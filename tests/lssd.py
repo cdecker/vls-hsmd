@@ -2,6 +2,7 @@ import pytest
 from pyln.testing.utils import TailableProc, reserve_unused_port, TIMEOUT, drop_unused_port
 import logging
 import os
+from pathlib import Path
 
 class LssD(TailableProc):
     def __init__(self, directory, rpcport=None):
@@ -22,8 +23,14 @@ class LssD(TailableProc):
         if not os.path.exists(lss_dir):
             os.makedirs(lss_dir)
 
+        # Find lssd binary - look in target/debug relative to repo root
+        repo_root = Path(__file__).parent.parent
+        lssd_path = repo_root / 'target' / 'debug' / 'lssd'
+        if not lssd_path.exists():
+            raise FileNotFoundError(f"lssd binary not found at {lssd_path}")
+
         self.cmd_line = [
-            'lssd',
+            str(lssd_path),
             '--datadir={}'.format(lss_dir),
             '--port={}'.format(rpcport),
         ]
