@@ -22,14 +22,14 @@ else ifeq ("$(VLS_MODE)","cln:serial")
 	SUBDAEMON:="hsmd:$(CARGO_BINDIR)/remote_hsmd_serial,hsmd:$(CARGO_BINDIR)/lightning_hsmd"
 endif
 
-GITDESC:=$(shell git describe --tags --long --always --match='v*.*')
+GITDESC:=$(shell git describe --tags --long --always --match='VLS-v*.*')
 
 all: test
 
 test-all: test
 
 list-versions:
-	@echo "vls-hsmd ($(shell git describe --tags --long --always --match='v*.*' --dirty))"
+	@echo "vls-hsmd $(GITDESC)"
 	@git submodule status
 
 setup:	check-git-version .setup-complete
@@ -54,7 +54,7 @@ test:	build
 	./scripts/enable-githooks
 	./scripts/setup-remote-hsmd
 	mkdir -p $(PWD)/bin
-	(cd bin && ln -fs ../vls/target/debug/vlsd2)
+	(cd bin && ln -fs ../vls/target/debug/vlsd)
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_socket)
 	(cd bin && ln -fs ../vls/target/debug/remote_hsmd_serial)
 	(cd bin && ln -fs ../vls/lightning-storage-server/target/debug/lssd)
@@ -85,11 +85,11 @@ install:
 	(cd lightning && make install PREFIX=$(PREFIX))
 	cp vls/target/debug/remote_hsmd_serial $(PREFIX)/libexec/c-lightning/
 	cp vls/target/debug/remote_hsmd_socket $(PREFIX)/libexec/c-lightning/
-	cp vls/target/debug/vlsd2 $(PREFIX)/bin
+	cp vls/target/debug/vlsd $(PREFIX)/bin
 	@$(PREFIX)/bin/lightningd --version
 	@$(PREFIX)/libexec/c-lightning/remote_hsmd_serial --git-desc
 	@$(PREFIX)/libexec/c-lightning/remote_hsmd_socket --git-desc
-	@$(PREFIX)/bin/vlsd2 --git-desc
+	@$(PREFIX)/bin/vlsd --git-desc
 
 install-testnet: build
 	sudo ./scripts/install-version testnet

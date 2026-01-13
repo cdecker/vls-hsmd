@@ -4,7 +4,7 @@ set -e
 
 make_link()
 {
-    have=$(realpath --relative-to=$2 $1)
+    have=$(realpath $1)
     ln -sf $have $2
 }
 

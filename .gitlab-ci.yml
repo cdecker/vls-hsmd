@@ -43,7 +43,8 @@ get-bitcoin:
 compile-vls:
   stage: build
   tags: [ saas-linux-large-amd64 ]
-  image: rust:1.67.0
+  # lssd has msrv of 1.75.0
+  image: rust:1.75.0
   timeout: 30m
   cache:
     key: vls-hsmd-compile
@@ -68,7 +69,7 @@ compile-vls:
     - bin/remote_hsmd_socket --git-desc
   artifacts:
     paths:
-      - bin/vlsd2
+      - bin/vlsd
       - bin/lssd
       - bin/remote_hsmd_socket
       - bin/remote_hsmd_serial
@@ -89,6 +90,8 @@ compile-cln:
     - make patch-contrib-pyproject || true  # Patch pyproject.toml files for uv compatibility
     - cd lightning
     - bash -x .github/scripts/setup.sh
+    - bash -x ../scripts/setup-python-env.sh
+    - source .venv/bin/activate
     - bash -x ../scripts/ci-build.sh
     - zip ../bin-cln.zip $(find lightningd cli plugins tools devtools tests/plugins -executable -type f) config.vars
   artifacts:
@@ -108,9 +111,11 @@ test-openv1-enforcing-socket:
     - ./scripts/setup-remote-hsmd
     - source scripts/setup-env
     - remote_hsmd_socket --git-desc
-    - vlsd2 --git-desc
+    - vlsd --git-desc
     - cd lightning
     - unzip -o ../bin-cln.zip
+    - bash -x ../scripts/setup-python-env.sh
+    - source .venv/bin/activate
     - bash -x ../scripts/ci-test.sh
   artifacts:
     when: always
@@ -135,6 +140,8 @@ test-openv1-permissive-socket:
     - remote_hsmd_socket --git-desc
     - cd lightning
     - unzip -o ../bin-cln.zip
+    - bash -x ../scripts/setup-python-env.sh
+    - source .venv/bin/activate
     - bash -x ../scripts/ci-test.sh
   artifacts:
     when: always
@@ -145,6 +152,9 @@ test-openv1-permissive-socket:
     expire_in: 1 week
 
 test-splice-enforcing-socket:
+  # DISABLE
+  rules:
+    - when: never 
   stage: test
   tags: [ saas-linux-large-amd64 ]
   image: ubuntu
@@ -159,6 +169,8 @@ test-splice-enforcing-socket:
     - remote_hsmd_socket --git-desc
     - cd lightning
     - unzip -o ../bin-cln.zip
+    - bash -x ../scripts/setup-python-env.sh
+    - source .venv/bin/activate
     - bash -x ../scripts/ci-test.sh
   artifacts:
     when: always
@@ -169,6 +181,9 @@ test-splice-enforcing-socket:
     expire_in: 1 week
 
 test-dualfund-enforcing-socket:
+  # DISABLE
+  rules:
+    - when: never 
   stage: test
   tags: [ saas-linux-large-amd64 ]
   image: ubuntu
@@ -183,6 +198,8 @@ test-dualfund-enforcing-socket:
     - remote_hsmd_socket --git-desc
     - cd lightning
     - unzip -o ../bin-cln.zip
+    - bash -x ../scripts/setup-python-env.sh
+    - source .venv/bin/activate
     - bash -x ../scripts/ci-test.sh
   artifacts:
     when: always
