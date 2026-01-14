@@ -22,6 +22,29 @@ def pytest_configure(config):
     config.addinivalue_line("markers",
                             "openchannel: Limit this test to only run 'v1' or 'v2' openchannel protocol")
 
+
+def pytest_collection_modifyitems(session, config, items):
+    """
+    Filter out any tests collected from lightning/tests/* modules.
+    
+    When our wrapped tests import from lightning.tests.*, pytest also discovers
+    all the original test functions from those modules. We only want to run our
+    wrapped versions in tests/*, not the originals.
+    """
+    filtered_items = []
+    for item in items:
+        # Get the module path of the test item
+        fspath = str(item.fspath)
+        
+        # Skip tests that are in the lightning/tests directory
+        if '/lightning/tests/' in fspath or '\\lightning\\tests\\' in fspath:
+            continue
+            
+        filtered_items.append(item)
+    
+    # Update the items list in place
+    items[:] = filtered_items
+
 server = os.environ.get("CI_SERVER_URL", None)
 
 github_sha = (
