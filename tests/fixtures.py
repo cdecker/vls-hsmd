@@ -34,7 +34,7 @@ def signer_subdaemon():
 
     subdaemon = {
         "cln:native": None,
-        "cln:socket": f"hsmd:{root / 'target' / 'debug' / 'remote_hsmd_socket'}",
+        "cln:socket": f"hsmd:{root / 'scripts' / 'remote_hsmd_socket_wrapper.sh'}",
     }[mode]
 
     return subdaemon
