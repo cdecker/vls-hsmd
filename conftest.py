@@ -31,7 +31,10 @@ def pytest_collection_modifyitems(config, items):
     all the original test functions from those modules. We only want to run our
     wrapped versions in tests/*, not the originals.
     """
+    initial_count = len(items)
     filtered_items = []
+    filtered_count = 0
+    
     for item in items:
         # Get the module path of the test item
         # Try both .fspath (older pytest) and .path (newer pytest)
@@ -42,12 +45,16 @@ def pytest_collection_modifyitems(config, items):
         
         # Skip tests that are in the lightning/tests directory
         if '/lightning/tests/' in fspath or '\\lightning\\tests\\' in fspath:
+            filtered_count += 1
             continue
             
         filtered_items.append(item)
     
     # Update the items list in place
     items[:] = filtered_items
+    
+    if filtered_count > 0:
+        print(f"\n[pytest_collection_modifyitems] Filtered out {filtered_count} tests from lightning/tests/ (kept {len(filtered_items)} of {initial_count})")
 
 server = os.environ.get("CI_SERVER_URL", None)
 
