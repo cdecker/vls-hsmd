@@ -1,7 +1,5 @@
 version: '3'
 output: "prefixed"
-env:
-  CARGO_TARGET_DIR: "{{ .ROOT_DIR }}/target"
 
 tasks:
 
@@ -43,10 +41,13 @@ tasks:
      - 'lightningd/lightningd'
     deps:
       - configure-cln
+    env:
+      CARGO_TARGET_DIR: ./target
     cmds:
       - uv venv
-      - uv pip install contrib/pyln-testing contrib/pyln-client
-      - CARGO_TARGET_DIR=../target uv run ../scripts/build-lightning.sh make -j ${MAKE_JOBS:-$(nproc)}
+      - uv pip install contrib/pyln-testing contrib/pyln-client contrib/pyln-proto
+      - uv run cargo build --all
+      - uv run ../scripts/build-lightning.sh make -j 4
       - touch __init__.py tests/__init__.py  # Make lightning/ importable as a Python package
   build:
     deps:
@@ -102,7 +103,7 @@ tasks:
       - build
     cmds:
       - uv sync
-      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes -n 5 --timeout=180 {{ .CLI_ARGS }}
+      - PATH="$PATH:{{.ROOT_DIR}}/target/debug:{{.ROOT_DIR}}/lightning/lightningd" uv run pytest tests -vvv --color=yes -n 16 --timeout=180 {{ .CLI_ARGS }}
 
   test-vls-socket-single:
     env:

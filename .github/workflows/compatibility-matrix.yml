@@ -1,10 +1,17 @@
 name: VLS-CLN Compatibility Matrix
 
 on:
+  push:
+    branches:
+    - main
+    - 202601-gh-compat-matrix
   pull_request:
     branches:
     - main
     - 202601-gh-compat-matrix
+  schedule:
+    # Run weekly on Monday at 00:00 UTC
+    - cron: '0 0 * * 1'
   workflow_dispatch:
     inputs:
       cln_versions:
