@@ -23,7 +23,7 @@ def pytest_configure(config):
                             "openchannel: Limit this test to only run 'v1' or 'v2' openchannel protocol")
 
 
-def pytest_collection_modifyitems(session, config, items):
+def pytest_collection_modifyitems(config, items):
     """
     Filter out any tests collected from lightning/tests/* modules.
     
@@ -34,7 +34,11 @@ def pytest_collection_modifyitems(session, config, items):
     filtered_items = []
     for item in items:
         # Get the module path of the test item
-        fspath = str(item.fspath)
+        # Try both .fspath (older pytest) and .path (newer pytest)
+        if hasattr(item, 'path'):
+            fspath = str(item.path)
+        else:
+            fspath = str(item.fspath)
         
         # Skip tests that are in the lightning/tests directory
         if '/lightning/tests/' in fspath or '\\lightning\\tests\\' in fspath:
