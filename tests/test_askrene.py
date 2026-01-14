@@ -9,80 +9,45 @@
 
 # --- Preamble from config: Start ---
 import pytest
+from fixtures import *  # noqa: F401,F403
 # --- Preamble from config: End ---
 
-from lightning.tests.test_askrene import test_askrene_fake_channeld as _test_askrene_fake_channeld
+from lightning.tests import test_askrene as _test_module
 
-test_askrene_fake_channeld = pytest.mark.skip("Not yet configured for testing")(_test_askrene_fake_channeld)
+test_askrene_fake_channeld = pytest.mark.skip("Not yet configured for testing")(_test_module.test_askrene_fake_channeld)
 
-from lightning.tests.test_askrene import test_fees_dont_exceed_constraints as _test_fees_dont_exceed_constraints
+test_fees_dont_exceed_constraints = pytest.mark.skip("Not yet configured for testing")(_test_module.test_fees_dont_exceed_constraints)
 
-test_fees_dont_exceed_constraints = pytest.mark.skip("Not yet configured for testing")(_test_fees_dont_exceed_constraints)
+test_getroutes = pytest.mark.skip("Not yet configured for testing")(_test_module.test_getroutes)
 
-from lightning.tests.test_askrene import test_getroutes as _test_getroutes
+test_getroutes_auto_localchans = pytest.mark.skip("Not yet configured for testing")(_test_module.test_getroutes_auto_localchans)
 
-test_getroutes = pytest.mark.skip("Not yet configured for testing")(_test_getroutes)
+test_getroutes_auto_sourcefree = pytest.mark.skip("Not yet configured for testing")(_test_module.test_getroutes_auto_sourcefree)
 
-from lightning.tests.test_askrene import test_getroutes_auto_localchans as _test_getroutes_auto_localchans
+test_getroutes_fee_fallback = pytest.mark.skip("Not yet configured for testing")(_test_module.test_getroutes_fee_fallback)
 
-test_getroutes_auto_localchans = pytest.mark.skip("Not yet configured for testing")(_test_getroutes_auto_localchans)
+test_getroutes_maxdelay = pytest.mark.skip("Not yet configured for testing")(_test_module.test_getroutes_maxdelay)
 
-from lightning.tests.test_askrene import test_getroutes_auto_sourcefree as _test_getroutes_auto_sourcefree
+test_layer_persistence = pytest.mark.skip("Not yet configured for testing")(_test_module.test_layer_persistence)
 
-test_getroutes_auto_sourcefree = pytest.mark.skip("Not yet configured for testing")(_test_getroutes_auto_sourcefree)
+test_layers = pytest.mark.skip("Not yet configured for testing")(_test_module.test_layers)
 
-from lightning.tests.test_askrene import test_getroutes_fee_fallback as _test_getroutes_fee_fallback
+test_limits_fake_gossmap = pytest.mark.skip("Not yet configured for testing")(_test_module.test_limits_fake_gossmap)
 
-test_getroutes_fee_fallback = pytest.mark.skip("Not yet configured for testing")(_test_getroutes_fee_fallback)
+test_live_spendable = pytest.mark.skip("Not yet configured for testing")(_test_module.test_live_spendable)
 
-from lightning.tests.test_askrene import test_getroutes_maxdelay as _test_getroutes_maxdelay
+test_max_htlc = pytest.mark.skip("Not yet configured for testing")(_test_module.test_max_htlc)
 
-test_getroutes_maxdelay = pytest.mark.skip("Not yet configured for testing")(_test_getroutes_maxdelay)
+test_min_htlc = pytest.mark.skip("Not yet configured for testing")(_test_module.test_min_htlc)
 
-from lightning.tests.test_askrene import test_layer_persistence as _test_layer_persistence
+test_min_htlc_after_excess = pytest.mark.skip("Not yet configured for testing")(_test_module.test_min_htlc_after_excess)
 
-test_layer_persistence = pytest.mark.skip("Not yet configured for testing")(_test_layer_persistence)
+test_real_biases = pytest.mark.skip("Not yet configured for testing")(_test_module.test_real_biases)
 
-from lightning.tests.test_askrene import test_layers as _test_layers
+test_real_data = pytest.mark.skip("Not yet configured for testing")(_test_module.test_real_data)
 
-test_layers = pytest.mark.skip("Not yet configured for testing")(_test_layers)
+test_reserve = pytest.mark.skip("Not yet configured for testing")(_test_module.test_reserve)
 
-from lightning.tests.test_askrene import test_limits_fake_gossmap as _test_limits_fake_gossmap
+test_simple_dummy_channel = pytest.mark.skip("Not yet configured for testing")(_test_module.test_simple_dummy_channel)
 
-test_limits_fake_gossmap = pytest.mark.skip("Not yet configured for testing")(_test_limits_fake_gossmap)
-
-from lightning.tests.test_askrene import test_live_spendable as _test_live_spendable
-
-test_live_spendable = pytest.mark.skip("Not yet configured for testing")(_test_live_spendable)
-
-from lightning.tests.test_askrene import test_max_htlc as _test_max_htlc
-
-test_max_htlc = pytest.mark.skip("Not yet configured for testing")(_test_max_htlc)
-
-from lightning.tests.test_askrene import test_min_htlc as _test_min_htlc
-
-test_min_htlc = pytest.mark.skip("Not yet configured for testing")(_test_min_htlc)
-
-from lightning.tests.test_askrene import test_min_htlc_after_excess as _test_min_htlc_after_excess
-
-test_min_htlc_after_excess = pytest.mark.skip("Not yet configured for testing")(_test_min_htlc_after_excess)
-
-from lightning.tests.test_askrene import test_real_biases as _test_real_biases
-
-test_real_biases = pytest.mark.skip("Not yet configured for testing")(_test_real_biases)
-
-from lightning.tests.test_askrene import test_real_data as _test_real_data
-
-test_real_data = pytest.mark.skip("Not yet configured for testing")(_test_real_data)
-
-from lightning.tests.test_askrene import test_reserve as _test_reserve
-
-test_reserve = pytest.mark.skip("Not yet configured for testing")(_test_reserve)
-
-from lightning.tests.test_askrene import test_simple_dummy_channel as _test_simple_dummy_channel
-
-test_simple_dummy_channel = pytest.mark.skip("Not yet configured for testing")(_test_simple_dummy_channel)
-
-from lightning.tests.test_askrene import test_sourcefree_on_mods as _test_sourcefree_on_mods
-
-test_sourcefree_on_mods = pytest.mark.skip("Not yet configured for testing")(_test_sourcefree_on_mods)
+test_sourcefree_on_mods = pytest.mark.skip("Not yet configured for testing")(_test_module.test_sourcefree_on_mods)

@@ -9,40 +9,25 @@
 
 # --- Preamble from config: Start ---
 import pytest
+from fixtures import *  # noqa: F401,F403
 # --- Preamble from config: End ---
 
-from lightning.tests.test_mkfunding import test_mkfunding_bad_cantaffordfee as _test_mkfunding_bad_cantaffordfee
+from lightning.tests import test_mkfunding as _test_module
 
-test_mkfunding_bad_cantaffordfee = pytest.mark.skip("Not yet configured for testing")(_test_mkfunding_bad_cantaffordfee)
+test_mkfunding_bad_cantaffordfee = pytest.mark.skip("Not yet configured for testing")(_test_module.test_mkfunding_bad_cantaffordfee)
 
-from lightning.tests.test_mkfunding import test_mkfunding_bad_input_amount as _test_mkfunding_bad_input_amount
+test_mkfunding_bad_input_amount = pytest.mark.skip("Not yet configured for testing")(_test_module.test_mkfunding_bad_input_amount)
 
-test_mkfunding_bad_input_amount = pytest.mark.skip("Not yet configured for testing")(_test_mkfunding_bad_input_amount)
+test_mkfunding_bad_input_privkey = pytest.mark.skip("Not yet configured for testing")(_test_module.test_mkfunding_bad_input_privkey)
 
-from lightning.tests.test_mkfunding import test_mkfunding_bad_input_privkey as _test_mkfunding_bad_input_privkey
+test_mkfunding_bad_input_txid = pytest.mark.skip("Not yet configured for testing")(_test_module.test_mkfunding_bad_input_txid)
 
-test_mkfunding_bad_input_privkey = pytest.mark.skip("Not yet configured for testing")(_test_mkfunding_bad_input_privkey)
+test_mkfunding_bad_local_funding_privkey = pytest.mark.skip("Not yet configured for testing")(_test_module.test_mkfunding_bad_local_funding_privkey)
 
-from lightning.tests.test_mkfunding import test_mkfunding_bad_input_txid as _test_mkfunding_bad_input_txid
+test_mkfunding_bad_privkeys = pytest.mark.skip("Not yet configured for testing")(_test_module.test_mkfunding_bad_privkeys)
 
-test_mkfunding_bad_input_txid = pytest.mark.skip("Not yet configured for testing")(_test_mkfunding_bad_input_txid)
+test_mkfunding_bad_remote_funding_privkey = pytest.mark.skip("Not yet configured for testing")(_test_module.test_mkfunding_bad_remote_funding_privkey)
 
-from lightning.tests.test_mkfunding import test_mkfunding_bad_local_funding_privkey as _test_mkfunding_bad_local_funding_privkey
+test_mkfunding_bad_usage = pytest.mark.skip("Not yet configured for testing")(_test_module.test_mkfunding_bad_usage)
 
-test_mkfunding_bad_local_funding_privkey = pytest.mark.skip("Not yet configured for testing")(_test_mkfunding_bad_local_funding_privkey)
-
-from lightning.tests.test_mkfunding import test_mkfunding_bad_privkeys as _test_mkfunding_bad_privkeys
-
-test_mkfunding_bad_privkeys = pytest.mark.skip("Not yet configured for testing")(_test_mkfunding_bad_privkeys)
-
-from lightning.tests.test_mkfunding import test_mkfunding_bad_remote_funding_privkey as _test_mkfunding_bad_remote_funding_privkey
-
-test_mkfunding_bad_remote_funding_privkey = pytest.mark.skip("Not yet configured for testing")(_test_mkfunding_bad_remote_funding_privkey)
-
-from lightning.tests.test_mkfunding import test_mkfunding_bad_usage as _test_mkfunding_bad_usage
-
-test_mkfunding_bad_usage = pytest.mark.skip("Not yet configured for testing")(_test_mkfunding_bad_usage)
-
-from lightning.tests.test_mkfunding import test_mkfunding_good_noabort as _test_mkfunding_good_noabort
-
-test_mkfunding_good_noabort = pytest.mark.skip("Not yet configured for testing")(_test_mkfunding_good_noabort)
+test_mkfunding_good_noabort = pytest.mark.skip("Not yet configured for testing")(_test_module.test_mkfunding_good_noabort)

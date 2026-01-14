@@ -9,12 +9,11 @@
 
 # --- Preamble from config: Start ---
 import pytest
+from fixtures import *  # noqa: F401,F403
 # --- Preamble from config: End ---
 
-from lightning.tests.test_splicing_disconnect import test_splice_disconnect_commit as _test_splice_disconnect_commit
+from lightning.tests import test_splicing_disconnect as _test_module
 
-test_splice_disconnect_commit = pytest.mark.skip("Not yet configured for testing")(_test_splice_disconnect_commit)
+test_splice_disconnect_commit = pytest.mark.skip("Not yet configured for testing")(_test_module.test_splice_disconnect_commit)
 
-from lightning.tests.test_splicing_disconnect import test_splice_disconnect_sig as _test_splice_disconnect_sig
-
-test_splice_disconnect_sig = pytest.mark.skip("Not yet configured for testing")(_test_splice_disconnect_sig)
+test_splice_disconnect_sig = pytest.mark.skip("Not yet configured for testing")(_test_module.test_splice_disconnect_sig)

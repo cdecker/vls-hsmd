@@ -9,532 +9,271 @@
 
 # --- Preamble from config: Start ---
 import pytest
+from fixtures import *  # noqa: F401,F403
 # --- Preamble from config: End ---
 
-from lightning.tests.test_pay import test_blinded_reply_path_scid as _test_blinded_reply_path_scid
+from lightning.tests import test_pay as _test_module
 
-test_blinded_reply_path_scid = _test_blinded_reply_path_scid
+test_blinded_reply_path_scid = _test_module.test_blinded_reply_path_scid
 
-from lightning.tests.test_pay import test_blindedpath_noaddr as _test_blindedpath_noaddr
+test_blindedpath_noaddr = _test_module.test_blindedpath_noaddr
 
-test_blindedpath_noaddr = _test_blindedpath_noaddr
+test_blindedpath_privchan = _test_module.test_blindedpath_privchan
 
-from lightning.tests.test_pay import test_blindedpath_privchan as _test_blindedpath_privchan
+test_bolt11_null_after_pay = _test_module.test_bolt11_null_after_pay
 
-test_blindedpath_privchan = _test_blindedpath_privchan
+test_channel_receivable = _test_module.test_channel_receivable
 
-from lightning.tests.test_pay import test_bolt11_null_after_pay as _test_bolt11_null_after_pay
+test_channel_spendable = _test_module.test_channel_spendable
 
-test_bolt11_null_after_pay = _test_bolt11_null_after_pay
+test_channel_spendable_large = _test_module.test_channel_spendable_large
 
-from lightning.tests.test_pay import test_channel_receivable as _test_channel_receivable
+test_channel_spendable_receivable_capped = _test_module.test_channel_spendable_receivable_capped
 
-test_channel_receivable = _test_channel_receivable
+test_createonion_limits = _test_module.test_createonion_limits
 
-from lightning.tests.test_pay import test_channel_spendable as _test_channel_spendable
+test_createonion_rpc = _test_module.test_createonion_rpc
 
-test_channel_spendable = _test_channel_spendable
+test_decode = _test_module.test_decode
 
-from lightning.tests.test_pay import test_channel_spendable_large as _test_channel_spendable_large
+test_decode_expired_bolt12 = _test_module.test_decode_expired_bolt12
 
-test_channel_spendable_large = _test_channel_spendable_large
+test_decodepay = _test_module.test_decodepay
 
-from lightning.tests.test_pay import test_channel_spendable_receivable_capped as _test_channel_spendable_receivable_capped
+test_decryptencrypteddata = _test_module.test_decryptencrypteddata
 
-test_channel_spendable_receivable_capped = _test_channel_spendable_receivable_capped
+test_delpay_argument_invalid = _test_module.test_delpay_argument_invalid
 
-from lightning.tests.test_pay import test_createonion_limits as _test_createonion_limits
+test_delpay_mixed_status = _test_module.test_delpay_mixed_status
 
-test_createonion_limits = _test_createonion_limits
+test_delpay_works = _test_module.test_delpay_works
 
-from lightning.tests.test_pay import test_createonion_rpc as _test_createonion_rpc
+test_dev_rawrequest = _test_module.test_dev_rawrequest
 
-test_createonion_rpc = _test_createonion_rpc
+test_enableoffer = _test_module.test_enableoffer
 
-from lightning.tests.test_pay import test_decode as _test_decode
+test_error_returns_blockheight = _test_module.test_error_returns_blockheight
 
-test_decode = _test_decode
+test_excluded_adjacent_routehint = _test_module.test_excluded_adjacent_routehint
 
-from lightning.tests.test_pay import test_decode_expired_bolt12 as _test_decode_expired_bolt12
+test_fetch_no_description_offer = _test_module.test_fetch_no_description_offer
 
-test_decode_expired_bolt12 = _test_decode_expired_bolt12
+test_fetch_no_description_with_amount = _test_module.test_fetch_no_description_with_amount
 
-from lightning.tests.test_pay import test_decodepay as _test_decodepay
+test_fetchinvoice = _test_module.test_fetchinvoice
 
-test_decodepay = _test_decodepay
+test_fetchinvoice_3hop = _test_module.test_fetchinvoice_3hop
 
-from lightning.tests.test_pay import test_decryptencrypteddata as _test_decryptencrypteddata
+test_fetchinvoice_autoconnect = _test_module.test_fetchinvoice_autoconnect
 
-test_decryptencrypteddata = _test_decryptencrypteddata
+test_fetchinvoice_disconnected_reply = _test_module.test_fetchinvoice_disconnected_reply
 
-from lightning.tests.test_pay import test_delpay_argument_invalid as _test_delpay_argument_invalid
+test_fetchinvoice_recurrence = _test_module.test_fetchinvoice_recurrence
 
-test_delpay_argument_invalid = _test_delpay_argument_invalid
+test_fetchinvoice_with_no_quantity = _test_module.test_fetchinvoice_with_no_quantity
 
-from lightning.tests.test_pay import test_delpay_mixed_status as _test_delpay_mixed_status
+test_fetchinvoice_with_payer_metadata = _test_module.test_fetchinvoice_with_payer_metadata
 
-test_delpay_mixed_status = _test_delpay_mixed_status
+test_forward = _test_module.test_forward
 
-from lightning.tests.test_pay import test_delpay_works as _test_delpay_works
+test_forward_different_fees_and_cltv = _test_module.test_forward_different_fees_and_cltv
 
-test_delpay_works = _test_delpay_works
+test_forward_local_failed_stats = _test_module.test_forward_local_failed_stats
 
-from lightning.tests.test_pay import test_dev_rawrequest as _test_dev_rawrequest
+test_forward_pad_fees_and_cltv = _test_module.test_forward_pad_fees_and_cltv
 
-test_dev_rawrequest = _test_dev_rawrequest
+test_forward_stats = _test_module.test_forward_stats
 
-from lightning.tests.test_pay import test_enableoffer as _test_enableoffer
+test_htlc_too_dusty_incoming = _test_module.test_htlc_too_dusty_incoming
 
-test_enableoffer = _test_enableoffer
+test_htlc_too_dusty_outgoing = _test_module.test_htlc_too_dusty_outgoing
 
-from lightning.tests.test_pay import test_error_returns_blockheight as _test_error_returns_blockheight
+test_htlcs_cltv_only_difference = _test_module.test_htlcs_cltv_only_difference
 
-test_error_returns_blockheight = _test_error_returns_blockheight
+test_injectpaymentonion_3hop = _test_module.test_injectpaymentonion_3hop
 
-from lightning.tests.test_pay import test_excluded_adjacent_routehint as _test_excluded_adjacent_routehint
+test_injectpaymentonion_blindedpath = _test_module.test_injectpaymentonion_blindedpath
 
-test_excluded_adjacent_routehint = _test_excluded_adjacent_routehint
+test_injectpaymentonion_failures = _test_module.test_injectpaymentonion_failures
 
-from lightning.tests.test_pay import test_fetch_no_description_offer as _test_fetch_no_description_offer
+test_injectpaymentonion_mpp = _test_module.test_injectpaymentonion_mpp
 
-test_fetch_no_description_offer = _test_fetch_no_description_offer
+test_injectpaymentonion_selfpay = _test_module.test_injectpaymentonion_selfpay
 
-from lightning.tests.test_pay import test_fetch_no_description_with_amount as _test_fetch_no_description_with_amount
+test_injectpaymentonion_simple = _test_module.test_injectpaymentonion_simple
 
-test_fetch_no_description_with_amount = _test_fetch_no_description_with_amount
+test_invalid_onion_channel_update = _test_module.test_invalid_onion_channel_update
 
-from lightning.tests.test_pay import test_fetchinvoice as _test_fetchinvoice
+test_invoice_pay_desc_with_quotes = _test_module.test_invoice_pay_desc_with_quotes
 
-test_fetchinvoice = _test_fetchinvoice
+test_keysend = _test_module.test_keysend
 
-from lightning.tests.test_pay import test_fetchinvoice_3hop as _test_fetchinvoice_3hop
+test_keysend_maxfee = _test_module.test_keysend_maxfee
 
-test_fetchinvoice_3hop = _test_fetchinvoice_3hop
+test_keysend_routehint = _test_module.test_keysend_routehint
 
-from lightning.tests.test_pay import test_fetchinvoice_autoconnect as _test_fetchinvoice_autoconnect
+test_keysend_strip_tlvs = _test_module.test_keysend_strip_tlvs
 
-test_fetchinvoice_autoconnect = _test_fetchinvoice_autoconnect
+test_listpay_result_with_paymod = _test_module.test_listpay_result_with_paymod
 
-from lightning.tests.test_pay import test_fetchinvoice_disconnected_reply as _test_fetchinvoice_disconnected_reply
+test_listpays_with_filter_by_status = _test_module.test_listpays_with_filter_by_status
 
-test_fetchinvoice_disconnected_reply = _test_fetchinvoice_disconnected_reply
+test_listsendpays_and_listpays_order = _test_module.test_listsendpays_and_listpays_order
 
-from lightning.tests.test_pay import test_fetchinvoice_recurrence as _test_fetchinvoice_recurrence
+test_listsendpays_crash = _test_module.test_listsendpays_crash
 
-test_fetchinvoice_recurrence = _test_fetchinvoice_recurrence
+test_lockup_drain = _test_module.test_lockup_drain
 
-from lightning.tests.test_pay import test_fetchinvoice_with_no_quantity as _test_fetchinvoice_with_no_quantity
+test_mpp_adaptive = _test_module.test_mpp_adaptive
 
-test_fetchinvoice_with_no_quantity = _test_fetchinvoice_with_no_quantity
+test_mpp_interference_2 = _test_module.test_mpp_interference_2
 
-from lightning.tests.test_pay import test_fetchinvoice_with_payer_metadata as _test_fetchinvoice_with_payer_metadata
+test_mpp_overload_payee = _test_module.test_mpp_overload_payee
 
-test_fetchinvoice_with_payer_metadata = _test_fetchinvoice_with_payer_metadata
+test_mpp_waitblockheight_routehint_conflict = _test_module.test_mpp_waitblockheight_routehint_conflict
 
-from lightning.tests.test_pay import test_forward as _test_forward
+test_offer = _test_module.test_offer
 
-test_forward = _test_forward
+test_offer_deprecated_api = _test_module.test_offer_deprecated_api
 
-from lightning.tests.test_pay import test_forward_different_fees_and_cltv as _test_forward_different_fees_and_cltv
+test_offer_experimental_fields = _test_module.test_offer_experimental_fields
 
-test_forward_different_fees_and_cltv = _test_forward_different_fees_and_cltv
+test_offer_path_self = _test_module.test_offer_path_self
 
-from lightning.tests.test_pay import test_forward_local_failed_stats as _test_forward_local_failed_stats
+test_offer_paths = _test_module.test_offer_paths
 
-test_forward_local_failed_stats = _test_forward_local_failed_stats
+test_offer_selfpay = _test_module.test_offer_selfpay
 
-from lightning.tests.test_pay import test_forward_pad_fees_and_cltv as _test_forward_pad_fees_and_cltv
+test_offer_with_private_channels_multyhop2 = _test_module.test_offer_with_private_channels_multyhop2
 
-test_forward_pad_fees_and_cltv = _test_forward_pad_fees_and_cltv
+test_onionmessage_ratelimit = _test_module.test_onionmessage_ratelimit
 
-from lightning.tests.test_pay import test_forward_stats as _test_forward_stats
+test_parallel_channels_reserve = _test_module.test_parallel_channels_reserve
 
-test_forward_stats = _test_forward_stats
+test_partial_payment = _test_module.test_partial_payment
 
-from lightning.tests.test_pay import test_htlc_too_dusty_incoming as _test_htlc_too_dusty_incoming
+test_partial_payment_htlc_loss = _test_module.test_partial_payment_htlc_loss
 
-test_htlc_too_dusty_incoming = _test_htlc_too_dusty_incoming
+test_partial_payment_restart = _test_module.test_partial_payment_restart
 
-from lightning.tests.test_pay import test_htlc_too_dusty_outgoing as _test_htlc_too_dusty_outgoing
+test_partial_payment_timeout = _test_module.test_partial_payment_timeout
 
-test_htlc_too_dusty_outgoing = _test_htlc_too_dusty_outgoing
+test_pay = _test_module.test_pay
 
-from lightning.tests.test_pay import test_htlcs_cltv_only_difference as _test_htlcs_cltv_only_difference
+test_pay0 = _test_module.test_pay0
 
-test_htlcs_cltv_only_difference = _test_htlcs_cltv_only_difference
+test_pay_amounts = _test_module.test_pay_amounts
 
-from lightning.tests.test_pay import test_injectpaymentonion_3hop as _test_injectpaymentonion_3hop
+test_pay_avoid_low_fee_chan = _test_module.test_pay_avoid_low_fee_chan
 
-test_injectpaymentonion_3hop = _test_injectpaymentonion_3hop
+test_pay_blockheight_mismatch = _test_module.test_pay_blockheight_mismatch
 
-from lightning.tests.test_pay import test_injectpaymentonion_blindedpath as _test_injectpaymentonion_blindedpath
+test_pay_bolt11_metadata = _test_module.test_pay_bolt11_metadata
 
-test_injectpaymentonion_blindedpath = _test_injectpaymentonion_blindedpath
+test_pay_disconnect = _test_module.test_pay_disconnect
 
-from lightning.tests.test_pay import test_injectpaymentonion_failures as _test_injectpaymentonion_failures
+test_pay_error_update_fees = _test_module.test_pay_error_update_fees
 
-test_injectpaymentonion_failures = _test_injectpaymentonion_failures
+test_pay_exclude_node = _test_module.test_pay_exclude_node
 
-from lightning.tests.test_pay import test_injectpaymentonion_mpp as _test_injectpaymentonion_mpp
+test_pay_exemptfee = _test_module.test_pay_exemptfee
 
-test_injectpaymentonion_mpp = _test_injectpaymentonion_mpp
+test_pay_fail_unconfirmed_channel = _test_module.test_pay_fail_unconfirmed_channel
 
-from lightning.tests.test_pay import test_injectpaymentonion_selfpay as _test_injectpaymentonion_selfpay
+test_pay_get_error_with_update = _test_module.test_pay_get_error_with_update
 
-test_injectpaymentonion_selfpay = _test_injectpaymentonion_selfpay
+test_pay_legacy_forward = _test_module.test_pay_legacy_forward
 
-from lightning.tests.test_pay import test_injectpaymentonion_simple as _test_injectpaymentonion_simple
+test_pay_limits = _test_module.test_pay_limits
 
-test_injectpaymentonion_simple = _test_injectpaymentonion_simple
+test_pay_manual_exclude = _test_module.test_pay_manual_exclude
 
-from lightning.tests.test_pay import test_invalid_onion_channel_update as _test_invalid_onion_channel_update
+test_pay_maxfee_shadow = _test_module.test_pay_maxfee_shadow
 
-test_invalid_onion_channel_update = _test_invalid_onion_channel_update
+test_pay_middle_fail = _test_module.test_pay_middle_fail
 
-from lightning.tests.test_pay import test_invoice_pay_desc_with_quotes as _test_invoice_pay_desc_with_quotes
+test_pay_multichannel_use_zeroconf = _test_module.test_pay_multichannel_use_zeroconf
 
-test_invoice_pay_desc_with_quotes = _test_invoice_pay_desc_with_quotes
+test_pay_no_secret = _test_module.test_pay_no_secret
 
-from lightning.tests.test_pay import test_keysend as _test_keysend
+test_pay_optional_args = _test_module.test_pay_optional_args
 
-test_keysend = _test_keysend
+test_pay_partial_msat = _test_module.test_pay_partial_msat
 
-from lightning.tests.test_pay import test_keysend_maxfee as _test_keysend_maxfee
+test_pay_peer = _test_module.test_pay_peer
 
-test_keysend_maxfee = _test_keysend_maxfee
+test_pay_remember_hint = _test_module.test_pay_remember_hint
 
-from lightning.tests.test_pay import test_keysend_routehint as _test_keysend_routehint
+test_pay_retry = _test_module.test_pay_retry
 
-test_keysend_routehint = _test_keysend_routehint
+test_pay_routeboost = _test_module.test_pay_routeboost
 
-from lightning.tests.test_pay import test_keysend_strip_tlvs as _test_keysend_strip_tlvs
+test_pay_routehint_minhtlc = _test_module.test_pay_routehint_minhtlc
 
-test_keysend_strip_tlvs = _test_keysend_strip_tlvs
+test_pay_unannounced_routehint = _test_module.test_pay_unannounced_routehint
 
-from lightning.tests.test_pay import test_listpay_result_with_paymod as _test_listpay_result_with_paymod
+test_pay_variants = _test_module.test_pay_variants
 
-test_listpay_result_with_paymod = _test_listpay_result_with_paymod
+test_pay_waitblockheight_timeout = _test_module.test_pay_waitblockheight_timeout
 
-from lightning.tests.test_pay import test_listpays_with_filter_by_status as _test_listpays_with_filter_by_status
+test_pay_while_opening_channel = _test_module.test_pay_while_opening_channel
 
-test_listpays_with_filter_by_status = _test_listpays_with_filter_by_status
+test_payerkey = _test_module.test_payerkey
 
-from lightning.tests.test_pay import test_listsendpays_and_listpays_order as _test_listsendpays_and_listpays_order
+test_payment_duplicate_uncommitted = _test_module.test_payment_duplicate_uncommitted
 
-test_listsendpays_and_listpays_order = _test_listsendpays_and_listpays_order
+test_payment_failed_persistence = _test_module.test_payment_failed_persistence
 
-from lightning.tests.test_pay import test_listsendpays_crash as _test_listsendpays_crash
+test_payment_success_persistence = _test_module.test_payment_success_persistence
 
-test_listsendpays_crash = _test_listsendpays_crash
+test_reject_invalid_payload = _test_module.test_reject_invalid_payload
 
-from lightning.tests.test_pay import test_lockup_drain as _test_lockup_drain
+test_repay = _test_module.test_repay
 
-test_lockup_drain = _test_lockup_drain
+test_routehint_tous = _test_module.test_routehint_tous
 
-from lightning.tests.test_pay import test_mpp_adaptive as _test_mpp_adaptive
+test_self_pay = _test_module.test_self_pay
 
-test_mpp_adaptive = _test_mpp_adaptive
+test_self_sendpay = _test_module.test_self_sendpay
 
-from lightning.tests.test_pay import test_mpp_interference_2 as _test_mpp_interference_2
+test_sendinvoice = _test_module.test_sendinvoice
 
-test_mpp_interference_2 = _test_mpp_interference_2
+test_sendinvoice_blindedpath = _test_module.test_sendinvoice_blindedpath
 
-from lightning.tests.test_pay import test_mpp_overload_payee as _test_mpp_overload_payee
+test_sendonion_rpc = _test_module.test_sendonion_rpc
 
-test_mpp_overload_payee = _test_mpp_overload_payee
+test_sendonion_sendpay = _test_module.test_sendonion_sendpay
 
-from lightning.tests.test_pay import test_mpp_waitblockheight_routehint_conflict as _test_mpp_waitblockheight_routehint_conflict
+test_sendpay = _test_module.test_sendpay
 
-test_mpp_waitblockheight_routehint_conflict = _test_mpp_waitblockheight_routehint_conflict
+test_sendpay_cant_afford = _test_module.test_sendpay_cant_afford
 
-from lightning.tests.test_pay import test_offer as _test_offer
+test_sendpay_grouping = _test_module.test_sendpay_grouping
 
-test_offer = _test_offer
+test_sendpay_msatoshi_arg = _test_module.test_sendpay_msatoshi_arg
 
-from lightning.tests.test_pay import test_offer_deprecated_api as _test_offer_deprecated_api
+test_sendpays_wait = _test_module.test_sendpays_wait
 
-test_offer_deprecated_api = _test_offer_deprecated_api
+test_setchannel_all = _test_module.test_setchannel_all
 
-from lightning.tests.test_pay import test_offer_experimental_fields as _test_offer_experimental_fields
+test_setchannel_enforcement_delay = _test_module.test_setchannel_enforcement_delay
 
-test_offer_experimental_fields = _test_offer_experimental_fields
+test_setchannel_restart = _test_module.test_setchannel_restart
 
-from lightning.tests.test_pay import test_offer_path_self as _test_offer_path_self
+test_setchannel_routing = _test_module.test_setchannel_routing
 
-test_offer_path_self = _test_offer_path_self
+test_setchannel_startup_opts = _test_module.test_setchannel_startup_opts
 
-from lightning.tests.test_pay import test_offer_paths as _test_offer_paths
+test_setchannel_state = _test_module.test_setchannel_state
 
-test_offer_paths = _test_offer_paths
+test_setchannel_usage = _test_module.test_setchannel_usage
 
-from lightning.tests.test_pay import test_offer_selfpay as _test_offer_selfpay
+test_setchannel_zero = _test_module.test_setchannel_zero
 
-test_offer_selfpay = _test_offer_selfpay
+test_shadow_routing = _test_module.test_shadow_routing
 
-from lightning.tests.test_pay import test_offer_with_private_channels_multyhop2 as _test_offer_with_private_channels_multyhop2
+test_strip_lightning_suffix_from_inv = _test_module.test_strip_lightning_suffix_from_inv
 
-test_offer_with_private_channels_multyhop2 = _test_offer_with_private_channels_multyhop2
+test_unreachable_routehint = _test_module.test_unreachable_routehint
 
-from lightning.tests.test_pay import test_onionmessage_ratelimit as _test_onionmessage_ratelimit
-
-test_onionmessage_ratelimit = _test_onionmessage_ratelimit
-
-from lightning.tests.test_pay import test_parallel_channels_reserve as _test_parallel_channels_reserve
-
-test_parallel_channels_reserve = _test_parallel_channels_reserve
-
-from lightning.tests.test_pay import test_partial_payment as _test_partial_payment
-
-test_partial_payment = _test_partial_payment
-
-from lightning.tests.test_pay import test_partial_payment_htlc_loss as _test_partial_payment_htlc_loss
-
-test_partial_payment_htlc_loss = _test_partial_payment_htlc_loss
-
-from lightning.tests.test_pay import test_partial_payment_restart as _test_partial_payment_restart
-
-test_partial_payment_restart = _test_partial_payment_restart
-
-from lightning.tests.test_pay import test_partial_payment_timeout as _test_partial_payment_timeout
-
-test_partial_payment_timeout = _test_partial_payment_timeout
-
-from lightning.tests.test_pay import test_pay as _test_pay
-
-test_pay = _test_pay
-
-from lightning.tests.test_pay import test_pay0 as _test_pay0
-
-test_pay0 = _test_pay0
-
-from lightning.tests.test_pay import test_pay_amounts as _test_pay_amounts
-
-test_pay_amounts = _test_pay_amounts
-
-from lightning.tests.test_pay import test_pay_avoid_low_fee_chan as _test_pay_avoid_low_fee_chan
-
-test_pay_avoid_low_fee_chan = _test_pay_avoid_low_fee_chan
-
-from lightning.tests.test_pay import test_pay_blockheight_mismatch as _test_pay_blockheight_mismatch
-
-test_pay_blockheight_mismatch = _test_pay_blockheight_mismatch
-
-from lightning.tests.test_pay import test_pay_bolt11_metadata as _test_pay_bolt11_metadata
-
-test_pay_bolt11_metadata = _test_pay_bolt11_metadata
-
-from lightning.tests.test_pay import test_pay_disconnect as _test_pay_disconnect
-
-test_pay_disconnect = _test_pay_disconnect
-
-from lightning.tests.test_pay import test_pay_error_update_fees as _test_pay_error_update_fees
-
-test_pay_error_update_fees = _test_pay_error_update_fees
-
-from lightning.tests.test_pay import test_pay_exclude_node as _test_pay_exclude_node
-
-test_pay_exclude_node = _test_pay_exclude_node
-
-from lightning.tests.test_pay import test_pay_exemptfee as _test_pay_exemptfee
-
-test_pay_exemptfee = _test_pay_exemptfee
-
-from lightning.tests.test_pay import test_pay_fail_unconfirmed_channel as _test_pay_fail_unconfirmed_channel
-
-test_pay_fail_unconfirmed_channel = _test_pay_fail_unconfirmed_channel
-
-from lightning.tests.test_pay import test_pay_get_error_with_update as _test_pay_get_error_with_update
-
-test_pay_get_error_with_update = _test_pay_get_error_with_update
-
-from lightning.tests.test_pay import test_pay_legacy_forward as _test_pay_legacy_forward
-
-test_pay_legacy_forward = _test_pay_legacy_forward
-
-from lightning.tests.test_pay import test_pay_limits as _test_pay_limits
-
-test_pay_limits = _test_pay_limits
-
-from lightning.tests.test_pay import test_pay_manual_exclude as _test_pay_manual_exclude
-
-test_pay_manual_exclude = _test_pay_manual_exclude
-
-from lightning.tests.test_pay import test_pay_maxfee_shadow as _test_pay_maxfee_shadow
-
-test_pay_maxfee_shadow = _test_pay_maxfee_shadow
-
-from lightning.tests.test_pay import test_pay_middle_fail as _test_pay_middle_fail
-
-test_pay_middle_fail = _test_pay_middle_fail
-
-from lightning.tests.test_pay import test_pay_multichannel_use_zeroconf as _test_pay_multichannel_use_zeroconf
-
-test_pay_multichannel_use_zeroconf = _test_pay_multichannel_use_zeroconf
-
-from lightning.tests.test_pay import test_pay_no_secret as _test_pay_no_secret
-
-test_pay_no_secret = _test_pay_no_secret
-
-from lightning.tests.test_pay import test_pay_optional_args as _test_pay_optional_args
-
-test_pay_optional_args = _test_pay_optional_args
-
-from lightning.tests.test_pay import test_pay_partial_msat as _test_pay_partial_msat
-
-test_pay_partial_msat = _test_pay_partial_msat
-
-from lightning.tests.test_pay import test_pay_peer as _test_pay_peer
-
-test_pay_peer = _test_pay_peer
-
-from lightning.tests.test_pay import test_pay_remember_hint as _test_pay_remember_hint
-
-test_pay_remember_hint = _test_pay_remember_hint
-
-from lightning.tests.test_pay import test_pay_retry as _test_pay_retry
-
-test_pay_retry = _test_pay_retry
-
-from lightning.tests.test_pay import test_pay_routeboost as _test_pay_routeboost
-
-test_pay_routeboost = _test_pay_routeboost
-
-from lightning.tests.test_pay import test_pay_routehint_minhtlc as _test_pay_routehint_minhtlc
-
-test_pay_routehint_minhtlc = _test_pay_routehint_minhtlc
-
-from lightning.tests.test_pay import test_pay_unannounced_routehint as _test_pay_unannounced_routehint
-
-test_pay_unannounced_routehint = _test_pay_unannounced_routehint
-
-from lightning.tests.test_pay import test_pay_variants as _test_pay_variants
-
-test_pay_variants = _test_pay_variants
-
-from lightning.tests.test_pay import test_pay_waitblockheight_timeout as _test_pay_waitblockheight_timeout
-
-test_pay_waitblockheight_timeout = _test_pay_waitblockheight_timeout
-
-from lightning.tests.test_pay import test_pay_while_opening_channel as _test_pay_while_opening_channel
-
-test_pay_while_opening_channel = _test_pay_while_opening_channel
-
-from lightning.tests.test_pay import test_payerkey as _test_payerkey
-
-test_payerkey = _test_payerkey
-
-from lightning.tests.test_pay import test_payment_duplicate_uncommitted as _test_payment_duplicate_uncommitted
-
-test_payment_duplicate_uncommitted = _test_payment_duplicate_uncommitted
-
-from lightning.tests.test_pay import test_payment_failed_persistence as _test_payment_failed_persistence
-
-test_payment_failed_persistence = _test_payment_failed_persistence
-
-from lightning.tests.test_pay import test_payment_success_persistence as _test_payment_success_persistence
-
-test_payment_success_persistence = _test_payment_success_persistence
-
-from lightning.tests.test_pay import test_reject_invalid_payload as _test_reject_invalid_payload
-
-test_reject_invalid_payload = _test_reject_invalid_payload
-
-from lightning.tests.test_pay import test_repay as _test_repay
-
-test_repay = _test_repay
-
-from lightning.tests.test_pay import test_routehint_tous as _test_routehint_tous
-
-test_routehint_tous = _test_routehint_tous
-
-from lightning.tests.test_pay import test_self_pay as _test_self_pay
-
-test_self_pay = _test_self_pay
-
-from lightning.tests.test_pay import test_self_sendpay as _test_self_sendpay
-
-test_self_sendpay = _test_self_sendpay
-
-from lightning.tests.test_pay import test_sendinvoice as _test_sendinvoice
-
-test_sendinvoice = _test_sendinvoice
-
-from lightning.tests.test_pay import test_sendinvoice_blindedpath as _test_sendinvoice_blindedpath
-
-test_sendinvoice_blindedpath = _test_sendinvoice_blindedpath
-
-from lightning.tests.test_pay import test_sendonion_rpc as _test_sendonion_rpc
-
-test_sendonion_rpc = _test_sendonion_rpc
-
-from lightning.tests.test_pay import test_sendonion_sendpay as _test_sendonion_sendpay
-
-test_sendonion_sendpay = _test_sendonion_sendpay
-
-from lightning.tests.test_pay import test_sendpay as _test_sendpay
-
-test_sendpay = _test_sendpay
-
-from lightning.tests.test_pay import test_sendpay_cant_afford as _test_sendpay_cant_afford
-
-test_sendpay_cant_afford = _test_sendpay_cant_afford
-
-from lightning.tests.test_pay import test_sendpay_grouping as _test_sendpay_grouping
-
-test_sendpay_grouping = _test_sendpay_grouping
-
-from lightning.tests.test_pay import test_sendpay_msatoshi_arg as _test_sendpay_msatoshi_arg
-
-test_sendpay_msatoshi_arg = _test_sendpay_msatoshi_arg
-
-from lightning.tests.test_pay import test_sendpays_wait as _test_sendpays_wait
-
-test_sendpays_wait = _test_sendpays_wait
-
-from lightning.tests.test_pay import test_setchannel_all as _test_setchannel_all
-
-test_setchannel_all = _test_setchannel_all
-
-from lightning.tests.test_pay import test_setchannel_enforcement_delay as _test_setchannel_enforcement_delay
-
-test_setchannel_enforcement_delay = _test_setchannel_enforcement_delay
-
-from lightning.tests.test_pay import test_setchannel_restart as _test_setchannel_restart
-
-test_setchannel_restart = _test_setchannel_restart
-
-from lightning.tests.test_pay import test_setchannel_routing as _test_setchannel_routing
-
-test_setchannel_routing = _test_setchannel_routing
-
-from lightning.tests.test_pay import test_setchannel_startup_opts as _test_setchannel_startup_opts
-
-test_setchannel_startup_opts = _test_setchannel_startup_opts
-
-from lightning.tests.test_pay import test_setchannel_state as _test_setchannel_state
-
-test_setchannel_state = _test_setchannel_state
-
-from lightning.tests.test_pay import test_setchannel_usage as _test_setchannel_usage
-
-test_setchannel_usage = _test_setchannel_usage
-
-from lightning.tests.test_pay import test_setchannel_zero as _test_setchannel_zero
-
-test_setchannel_zero = _test_setchannel_zero
-
-from lightning.tests.test_pay import test_shadow_routing as _test_shadow_routing
-
-test_shadow_routing = _test_shadow_routing
-
-from lightning.tests.test_pay import test_strip_lightning_suffix_from_inv as _test_strip_lightning_suffix_from_inv
-
-test_strip_lightning_suffix_from_inv = _test_strip_lightning_suffix_from_inv
-
-from lightning.tests.test_pay import test_unreachable_routehint as _test_unreachable_routehint
-
-test_unreachable_routehint = _test_unreachable_routehint
-
-from lightning.tests.test_pay import test_wait_sendpay as _test_wait_sendpay
-
-test_wait_sendpay = _test_wait_sendpay
+test_wait_sendpay = _test_module.test_wait_sendpay

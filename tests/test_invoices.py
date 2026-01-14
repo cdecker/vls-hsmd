@@ -9,88 +9,49 @@
 
 # --- Preamble from config: Start ---
 import pytest
+from fixtures import *  # noqa: F401,F403
 # --- Preamble from config: End ---
 
-from lightning.tests.test_invoices import test_amountless_invoice as _test_amountless_invoice
+from lightning.tests import test_invoices as _test_module
 
-test_amountless_invoice = pytest.mark.skip("Not yet configured for testing")(_test_amountless_invoice)
+test_amountless_invoice = pytest.mark.skip("Not yet configured for testing")(_test_module.test_amountless_invoice)
 
-from lightning.tests.test_invoices import test_decode_unknown as _test_decode_unknown
+test_decode_unknown = pytest.mark.skip("Not yet configured for testing")(_test_module.test_decode_unknown)
 
-test_decode_unknown = pytest.mark.skip("Not yet configured for testing")(_test_decode_unknown)
+test_expiry_startup_crash = pytest.mark.skip("Not yet configured for testing")(_test_module.test_expiry_startup_crash)
 
-from lightning.tests.test_invoices import test_expiry_startup_crash as _test_expiry_startup_crash
+test_invoice = pytest.mark.skip("Not yet configured for testing")(_test_module.test_invoice)
 
-test_expiry_startup_crash = pytest.mark.skip("Not yet configured for testing")(_test_expiry_startup_crash)
+test_invoice_botched_migration = pytest.mark.skip("Not yet configured for testing")(_test_module.test_invoice_botched_migration)
 
-from lightning.tests.test_invoices import test_invoice as _test_invoice
+test_invoice_deschash = pytest.mark.skip("Not yet configured for testing")(_test_module.test_invoice_deschash)
 
-test_invoice = pytest.mark.skip("Not yet configured for testing")(_test_invoice)
+test_invoice_expiry = pytest.mark.skip("Not yet configured for testing")(_test_module.test_invoice_expiry)
 
-from lightning.tests.test_invoices import test_invoice_botched_migration as _test_invoice_botched_migration
+test_invoice_preimage = pytest.mark.skip("Not yet configured for testing")(_test_module.test_invoice_preimage)
 
-test_invoice_botched_migration = pytest.mark.skip("Not yet configured for testing")(_test_invoice_botched_migration)
+test_invoice_routeboost = pytest.mark.skip("Not yet configured for testing")(_test_module.test_invoice_routeboost)
 
-from lightning.tests.test_invoices import test_invoice_deschash as _test_invoice_deschash
+test_invoice_routeboost_private = pytest.mark.skip("Not yet configured for testing")(_test_module.test_invoice_routeboost_private)
 
-test_invoice_deschash = pytest.mark.skip("Not yet configured for testing")(_test_invoice_deschash)
+test_invoice_weirdstring = pytest.mark.skip("Not yet configured for testing")(_test_module.test_invoice_weirdstring)
 
-from lightning.tests.test_invoices import test_invoice_expiry as _test_invoice_expiry
+test_invoice_zeroval = pytest.mark.skip("Not yet configured for testing")(_test_module.test_invoice_zeroval)
 
-test_invoice_expiry = pytest.mark.skip("Not yet configured for testing")(_test_invoice_expiry)
+test_invoices_wait_db_migration = pytest.mark.skip("Not yet configured for testing")(_test_module.test_invoices_wait_db_migration)
 
-from lightning.tests.test_invoices import test_invoice_preimage as _test_invoice_preimage
+test_listinvoices_filter = pytest.mark.skip("Not yet configured for testing")(_test_module.test_listinvoices_filter)
 
-test_invoice_preimage = pytest.mark.skip("Not yet configured for testing")(_test_invoice_preimage)
+test_listinvoices_index = pytest.mark.skip("Not yet configured for testing")(_test_module.test_listinvoices_index)
 
-from lightning.tests.test_invoices import test_invoice_routeboost as _test_invoice_routeboost
+test_signinvoice = pytest.mark.skip("Not yet configured for testing")(_test_module.test_signinvoice)
 
-test_invoice_routeboost = pytest.mark.skip("Not yet configured for testing")(_test_invoice_routeboost)
+test_unified_invoices = pytest.mark.skip("Not yet configured for testing")(_test_module.test_unified_invoices)
 
-from lightning.tests.test_invoices import test_invoice_routeboost_private as _test_invoice_routeboost_private
+test_wait_invoices = pytest.mark.skip("Not yet configured for testing")(_test_module.test_wait_invoices)
 
-test_invoice_routeboost_private = pytest.mark.skip("Not yet configured for testing")(_test_invoice_routeboost_private)
+test_waitanyinvoice = pytest.mark.skip("Not yet configured for testing")(_test_module.test_waitanyinvoice)
 
-from lightning.tests.test_invoices import test_invoice_weirdstring as _test_invoice_weirdstring
+test_waitanyinvoice_reversed = pytest.mark.skip("Not yet configured for testing")(_test_module.test_waitanyinvoice_reversed)
 
-test_invoice_weirdstring = pytest.mark.skip("Not yet configured for testing")(_test_invoice_weirdstring)
-
-from lightning.tests.test_invoices import test_invoice_zeroval as _test_invoice_zeroval
-
-test_invoice_zeroval = pytest.mark.skip("Not yet configured for testing")(_test_invoice_zeroval)
-
-from lightning.tests.test_invoices import test_invoices_wait_db_migration as _test_invoices_wait_db_migration
-
-test_invoices_wait_db_migration = pytest.mark.skip("Not yet configured for testing")(_test_invoices_wait_db_migration)
-
-from lightning.tests.test_invoices import test_listinvoices_filter as _test_listinvoices_filter
-
-test_listinvoices_filter = pytest.mark.skip("Not yet configured for testing")(_test_listinvoices_filter)
-
-from lightning.tests.test_invoices import test_listinvoices_index as _test_listinvoices_index
-
-test_listinvoices_index = pytest.mark.skip("Not yet configured for testing")(_test_listinvoices_index)
-
-from lightning.tests.test_invoices import test_signinvoice as _test_signinvoice
-
-test_signinvoice = pytest.mark.skip("Not yet configured for testing")(_test_signinvoice)
-
-from lightning.tests.test_invoices import test_unified_invoices as _test_unified_invoices
-
-test_unified_invoices = pytest.mark.skip("Not yet configured for testing")(_test_unified_invoices)
-
-from lightning.tests.test_invoices import test_wait_invoices as _test_wait_invoices
-
-test_wait_invoices = pytest.mark.skip("Not yet configured for testing")(_test_wait_invoices)
-
-from lightning.tests.test_invoices import test_waitanyinvoice as _test_waitanyinvoice
-
-test_waitanyinvoice = pytest.mark.skip("Not yet configured for testing")(_test_waitanyinvoice)
-
-from lightning.tests.test_invoices import test_waitanyinvoice_reversed as _test_waitanyinvoice_reversed
-
-test_waitanyinvoice_reversed = pytest.mark.skip("Not yet configured for testing")(_test_waitanyinvoice_reversed)
-
-from lightning.tests.test_invoices import test_waitinvoice as _test_waitinvoice
-
-test_waitinvoice = pytest.mark.skip("Not yet configured for testing")(_test_waitinvoice)
+test_waitinvoice = pytest.mark.skip("Not yet configured for testing")(_test_module.test_waitinvoice)

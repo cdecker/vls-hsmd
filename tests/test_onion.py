@@ -9,12 +9,11 @@
 
 # --- Preamble from config: Start ---
 import pytest
+from fixtures import *  # noqa: F401,F403
 # --- Preamble from config: End ---
 
-from lightning.tests.test_onion import test_onion as _test_onion
+from lightning.tests import test_onion as _test_module
 
-test_onion = pytest.mark.skip("Not yet configured for testing")(_test_onion)
+test_onion = pytest.mark.skip("Not yet configured for testing")(_test_module.test_onion)
 
-from lightning.tests.test_onion import test_rendezvous_onion as _test_rendezvous_onion
-
-test_rendezvous_onion = pytest.mark.skip("Not yet configured for testing")(_test_rendezvous_onion)
+test_rendezvous_onion = pytest.mark.skip("Not yet configured for testing")(_test_module.test_rendezvous_onion)

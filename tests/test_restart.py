@@ -9,8 +9,9 @@
 
 # --- Preamble from config: Start ---
 import pytest
+from fixtures import *  # noqa: F401,F403
 # --- Preamble from config: End ---
 
-from lightning.tests.test_restart import test_agressive_restart as _test_agressive_restart
+from lightning.tests import test_restart as _test_module
 
-test_agressive_restart = pytest.mark.skip("Not yet configured for testing")(_test_agressive_restart)
+test_agressive_restart = pytest.mark.skip("Not yet configured for testing")(_test_module.test_agressive_restart)

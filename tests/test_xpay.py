@@ -9,76 +9,43 @@
 
 # --- Preamble from config: Start ---
 import pytest
+from fixtures import *  # noqa: F401,F403
 # --- Preamble from config: End ---
 
-from lightning.tests.test_xpay import test_fail_after_success as _test_fail_after_success
+from lightning.tests import test_xpay as _test_module
 
-test_fail_after_success = pytest.mark.skip("Not yet configured for testing")(_test_fail_after_success)
+test_fail_after_success = pytest.mark.skip("Not yet configured for testing")(_test_module.test_fail_after_success)
 
-from lightning.tests.test_xpay import test_pay_fakenet as _test_pay_fakenet
+test_pay_fakenet = pytest.mark.skip("Not yet configured for testing")(_test_module.test_pay_fakenet)
 
-test_pay_fakenet = pytest.mark.skip("Not yet configured for testing")(_test_pay_fakenet)
+test_xpay_bolt12_no_mpp = pytest.mark.skip("Not yet configured for testing")(_test_module.test_xpay_bolt12_no_mpp)
 
-from lightning.tests.test_xpay import test_xpay_bolt12_no_mpp as _test_xpay_bolt12_no_mpp
+test_xpay_fake_channeld = pytest.mark.skip("Not yet configured for testing")(_test_module.test_xpay_fake_channeld)
 
-test_xpay_bolt12_no_mpp = pytest.mark.skip("Not yet configured for testing")(_test_xpay_bolt12_no_mpp)
+test_xpay_maxdelay = pytest.mark.skip("Not yet configured for testing")(_test_module.test_xpay_maxdelay)
 
-from lightning.tests.test_xpay import test_xpay_fake_channeld as _test_xpay_fake_channeld
+test_xpay_maxfee = pytest.mark.skip("Not yet configured for testing")(_test_module.test_xpay_maxfee)
 
-test_xpay_fake_channeld = pytest.mark.skip("Not yet configured for testing")(_test_xpay_fake_channeld)
+test_xpay_no_mpp = pytest.mark.skip("Not yet configured for testing")(_test_module.test_xpay_no_mpp)
 
-from lightning.tests.test_xpay import test_xpay_maxdelay as _test_xpay_maxdelay
+test_xpay_partial_msat = pytest.mark.skip("Not yet configured for testing")(_test_module.test_xpay_partial_msat)
 
-test_xpay_maxdelay = pytest.mark.skip("Not yet configured for testing")(_test_xpay_maxdelay)
+test_xpay_preapprove = pytest.mark.skip("Not yet configured for testing")(_test_module.test_xpay_preapprove)
 
-from lightning.tests.test_xpay import test_xpay_maxfee as _test_xpay_maxfee
+test_xpay_selfpay = pytest.mark.skip("Not yet configured for testing")(_test_module.test_xpay_selfpay)
 
-test_xpay_maxfee = pytest.mark.skip("Not yet configured for testing")(_test_xpay_maxfee)
+test_xpay_simple = pytest.mark.skip("Not yet configured for testing")(_test_module.test_xpay_simple)
 
-from lightning.tests.test_xpay import test_xpay_no_mpp as _test_xpay_no_mpp
+test_xpay_slow_mode = pytest.mark.skip("Not yet configured for testing")(_test_module.test_xpay_slow_mode)
 
-test_xpay_no_mpp = pytest.mark.skip("Not yet configured for testing")(_test_xpay_no_mpp)
+test_xpay_takeover = pytest.mark.skip("Not yet configured for testing")(_test_module.test_xpay_takeover)
 
-from lightning.tests.test_xpay import test_xpay_partial_msat as _test_xpay_partial_msat
+test_xpay_takeover_null_parms = pytest.mark.skip("Not yet configured for testing")(_test_module.test_xpay_takeover_null_parms)
 
-test_xpay_partial_msat = pytest.mark.skip("Not yet configured for testing")(_test_xpay_partial_msat)
+test_xpay_timeout = pytest.mark.skip("Not yet configured for testing")(_test_module.test_xpay_timeout)
 
-from lightning.tests.test_xpay import test_xpay_preapprove as _test_xpay_preapprove
+test_xpay_twohop_bug = pytest.mark.skip("Not yet configured for testing")(_test_module.test_xpay_twohop_bug)
 
-test_xpay_preapprove = pytest.mark.skip("Not yet configured for testing")(_test_xpay_preapprove)
+test_xpay_unannounced = pytest.mark.skip("Not yet configured for testing")(_test_module.test_xpay_unannounced)
 
-from lightning.tests.test_xpay import test_xpay_selfpay as _test_xpay_selfpay
-
-test_xpay_selfpay = pytest.mark.skip("Not yet configured for testing")(_test_xpay_selfpay)
-
-from lightning.tests.test_xpay import test_xpay_simple as _test_xpay_simple
-
-test_xpay_simple = pytest.mark.skip("Not yet configured for testing")(_test_xpay_simple)
-
-from lightning.tests.test_xpay import test_xpay_slow_mode as _test_xpay_slow_mode
-
-test_xpay_slow_mode = pytest.mark.skip("Not yet configured for testing")(_test_xpay_slow_mode)
-
-from lightning.tests.test_xpay import test_xpay_takeover as _test_xpay_takeover
-
-test_xpay_takeover = pytest.mark.skip("Not yet configured for testing")(_test_xpay_takeover)
-
-from lightning.tests.test_xpay import test_xpay_takeover_null_parms as _test_xpay_takeover_null_parms
-
-test_xpay_takeover_null_parms = pytest.mark.skip("Not yet configured for testing")(_test_xpay_takeover_null_parms)
-
-from lightning.tests.test_xpay import test_xpay_timeout as _test_xpay_timeout
-
-test_xpay_timeout = pytest.mark.skip("Not yet configured for testing")(_test_xpay_timeout)
-
-from lightning.tests.test_xpay import test_xpay_twohop_bug as _test_xpay_twohop_bug
-
-test_xpay_twohop_bug = pytest.mark.skip("Not yet configured for testing")(_test_xpay_twohop_bug)
-
-from lightning.tests.test_xpay import test_xpay_unannounced as _test_xpay_unannounced
-
-test_xpay_unannounced = pytest.mark.skip("Not yet configured for testing")(_test_xpay_unannounced)
-
-from lightning.tests.test_xpay import test_xpay_zeroconf as _test_xpay_zeroconf
-
-test_xpay_zeroconf = pytest.mark.skip("Not yet configured for testing")(_test_xpay_zeroconf)
+test_xpay_zeroconf = pytest.mark.skip("Not yet configured for testing")(_test_module.test_xpay_zeroconf)

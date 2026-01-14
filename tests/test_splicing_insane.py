@@ -9,8 +9,9 @@
 
 # --- Preamble from config: Start ---
 import pytest
+from fixtures import *  # noqa: F401,F403
 # --- Preamble from config: End ---
 
-from lightning.tests.test_splicing_insane import test_splice_insane as _test_splice_insane
+from lightning.tests import test_splicing_insane as _test_module
 
-test_splice_insane = pytest.mark.skip("Not yet configured for testing")(_test_splice_insane)
+test_splice_insane = pytest.mark.skip("Not yet configured for testing")(_test_module.test_splice_insane)

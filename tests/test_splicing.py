@@ -9,40 +9,25 @@
 
 # --- Preamble from config: Start ---
 import pytest
+from fixtures import *  # noqa: F401,F403
 # --- Preamble from config: End ---
 
-from lightning.tests.test_splicing import test_commit_crash_splice as _test_commit_crash_splice
+from lightning.tests import test_splicing as _test_module
 
-test_commit_crash_splice = pytest.mark.skip("Not yet configured for testing")(_test_commit_crash_splice)
+test_commit_crash_splice = pytest.mark.skip("Not yet configured for testing")(_test_module.test_commit_crash_splice)
 
-from lightning.tests.test_splicing import test_invalid_splice as _test_invalid_splice
+test_invalid_splice = pytest.mark.skip("Not yet configured for testing")(_test_module.test_invalid_splice)
 
-test_invalid_splice = pytest.mark.skip("Not yet configured for testing")(_test_invalid_splice)
+test_splice = pytest.mark.skip("Not yet configured for testing")(_test_module.test_splice)
 
-from lightning.tests.test_splicing import test_splice as _test_splice
+test_splice_gossip = pytest.mark.skip("Not yet configured for testing")(_test_module.test_splice_gossip)
 
-test_splice = pytest.mark.skip("Not yet configured for testing")(_test_splice)
+test_splice_listnodes = pytest.mark.skip("Not yet configured for testing")(_test_module.test_splice_listnodes)
 
-from lightning.tests.test_splicing import test_splice_gossip as _test_splice_gossip
+test_splice_nosign = pytest.mark.skip("Not yet configured for testing")(_test_module.test_splice_nosign)
 
-test_splice_gossip = pytest.mark.skip("Not yet configured for testing")(_test_splice_gossip)
+test_splice_out = pytest.mark.skip("Not yet configured for testing")(_test_module.test_splice_out)
 
-from lightning.tests.test_splicing import test_splice_listnodes as _test_splice_listnodes
+test_splice_rbf = pytest.mark.skip("Not yet configured for testing")(_test_module.test_splice_rbf)
 
-test_splice_listnodes = pytest.mark.skip("Not yet configured for testing")(_test_splice_listnodes)
-
-from lightning.tests.test_splicing import test_splice_nosign as _test_splice_nosign
-
-test_splice_nosign = pytest.mark.skip("Not yet configured for testing")(_test_splice_nosign)
-
-from lightning.tests.test_splicing import test_splice_out as _test_splice_out
-
-test_splice_out = pytest.mark.skip("Not yet configured for testing")(_test_splice_out)
-
-from lightning.tests.test_splicing import test_splice_rbf as _test_splice_rbf
-
-test_splice_rbf = pytest.mark.skip("Not yet configured for testing")(_test_splice_rbf)
-
-from lightning.tests.test_splicing import test_splice_stuck_htlc as _test_splice_stuck_htlc
-
-test_splice_stuck_htlc = pytest.mark.skip("Not yet configured for testing")(_test_splice_stuck_htlc)
+test_splice_stuck_htlc = pytest.mark.skip("Not yet configured for testing")(_test_module.test_splice_stuck_htlc)

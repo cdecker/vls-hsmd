@@ -9,472 +9,241 @@
 
 # --- Preamble from config: Start ---
 import pytest
+from fixtures import *  # noqa: F401,F403
 # --- Preamble from config: End ---
 
-from lightning.tests.test_connection import test_bad_opening as _test_bad_opening
+from lightning.tests import test_connection as _test_module
 
-test_bad_opening = pytest.mark.skip("Not yet configured for testing")(_test_bad_opening)
+test_bad_opening = pytest.mark.skip("Not yet configured for testing")(_test_module.test_bad_opening)
 
-from lightning.tests.test_connection import test_balance as _test_balance
+test_balance = pytest.mark.skip("Not yet configured for testing")(_test_module.test_balance)
 
-test_balance = pytest.mark.skip("Not yet configured for testing")(_test_balance)
+test_bench = pytest.mark.skip("Not yet configured for testing")(_test_module.test_bench)
 
-from lightning.tests.test_connection import test_bench as _test_bench
+test_change_chaining = pytest.mark.skip("Not yet configured for testing")(_test_module.test_change_chaining)
 
-test_bench = pytest.mark.skip("Not yet configured for testing")(_test_bench)
+test_channel_abandon = pytest.mark.skip("Not yet configured for testing")(_test_module.test_channel_abandon)
 
-from lightning.tests.test_connection import test_change_chaining as _test_change_chaining
+test_channel_features = pytest.mark.skip("Not yet configured for testing")(_test_module.test_channel_features)
 
-test_change_chaining = pytest.mark.skip("Not yet configured for testing")(_test_change_chaining)
+test_channel_persistence = pytest.mark.skip("Not yet configured for testing")(_test_module.test_channel_persistence)
 
-from lightning.tests.test_connection import test_channel_abandon as _test_channel_abandon
+test_channel_reenable = pytest.mark.skip("Not yet configured for testing")(_test_module.test_channel_reenable)
 
-test_channel_abandon = pytest.mark.skip("Not yet configured for testing")(_test_channel_abandon)
+test_connect_basic = pytest.mark.skip("Not yet configured for testing")(_test_module.test_connect_basic)
 
-from lightning.tests.test_connection import test_channel_features as _test_channel_features
+test_connect_ratelimit = pytest.mark.skip("Not yet configured for testing")(_test_module.test_connect_ratelimit)
 
-test_channel_features = pytest.mark.skip("Not yet configured for testing")(_test_channel_features)
+test_connect_standard_addr = pytest.mark.skip("Not yet configured for testing")(_test_module.test_connect_standard_addr)
 
-from lightning.tests.test_connection import test_channel_persistence as _test_channel_persistence
+test_connect_transient = pytest.mark.skip("Not yet configured for testing")(_test_module.test_connect_transient)
 
-test_channel_persistence = pytest.mark.skip("Not yet configured for testing")(_test_channel_persistence)
+test_connect_transient_pending = pytest.mark.skip("Not yet configured for testing")(_test_module.test_connect_transient_pending)
 
-from lightning.tests.test_connection import test_channel_reenable as _test_channel_reenable
+test_connection_moved = pytest.mark.skip("Not yet configured for testing")(_test_module.test_connection_moved)
 
-test_channel_reenable = pytest.mark.skip("Not yet configured for testing")(_test_channel_reenable)
+test_connection_timeout = pytest.mark.skip("Not yet configured for testing")(_test_module.test_connection_timeout)
 
-from lightning.tests.test_connection import test_connect_basic as _test_connect_basic
+test_dataloss_protection = pytest.mark.skip("Not yet configured for testing")(_test_module.test_dataloss_protection)
 
-test_connect_basic = pytest.mark.skip("Not yet configured for testing")(_test_connect_basic)
+test_dataloss_protection_no_broadcast = pytest.mark.skip("Not yet configured for testing")(_test_module.test_dataloss_protection_no_broadcast)
 
-from lightning.tests.test_connection import test_connect_ratelimit as _test_connect_ratelimit
+test_disconnect = pytest.mark.skip("Not yet configured for testing")(_test_module.test_disconnect)
 
-test_connect_ratelimit = pytest.mark.skip("Not yet configured for testing")(_test_connect_ratelimit)
+test_disconnect_fundee = pytest.mark.skip("Not yet configured for testing")(_test_module.test_disconnect_fundee)
 
-from lightning.tests.test_connection import test_connect_standard_addr as _test_connect_standard_addr
+test_disconnect_fundee_v2 = pytest.mark.skip("Not yet configured for testing")(_test_module.test_disconnect_fundee_v2)
 
-test_connect_standard_addr = pytest.mark.skip("Not yet configured for testing")(_test_connect_standard_addr)
+test_disconnect_half_signed = pytest.mark.skip("Not yet configured for testing")(_test_module.test_disconnect_half_signed)
 
-from lightning.tests.test_connection import test_connect_transient as _test_connect_transient
+test_disconnect_half_signed_v2 = pytest.mark.skip("Not yet configured for testing")(_test_module.test_disconnect_half_signed_v2)
 
-test_connect_transient = pytest.mark.skip("Not yet configured for testing")(_test_connect_transient)
+test_disconnect_opener = pytest.mark.skip("Not yet configured for testing")(_test_module.test_disconnect_opener)
 
-from lightning.tests.test_connection import test_connect_transient_pending as _test_connect_transient_pending
+test_disconnectpeer = pytest.mark.skip("Not yet configured for testing")(_test_module.test_disconnectpeer)
 
-test_connect_transient_pending = pytest.mark.skip("Not yet configured for testing")(_test_connect_transient_pending)
+test_fail_unconfirmed = pytest.mark.skip("Not yet configured for testing")(_test_module.test_fail_unconfirmed)
 
-from lightning.tests.test_connection import test_connection_moved as _test_connection_moved
+test_fail_unconfirmed_openchannel2 = pytest.mark.skip("Not yet configured for testing")(_test_module.test_fail_unconfirmed_openchannel2)
 
-test_connection_moved = pytest.mark.skip("Not yet configured for testing")(_test_connection_moved)
+test_fee_limits = pytest.mark.skip("Not yet configured for testing")(_test_module.test_fee_limits)
 
-from lightning.tests.test_connection import test_connection_timeout as _test_connection_timeout
+test_feerate_spam = pytest.mark.skip("Not yet configured for testing")(_test_module.test_feerate_spam)
 
-test_connection_timeout = pytest.mark.skip("Not yet configured for testing")(_test_connection_timeout)
+test_feerate_stress = pytest.mark.skip("Not yet configured for testing")(_test_module.test_feerate_stress)
 
-from lightning.tests.test_connection import test_dataloss_protection as _test_dataloss_protection
+test_forget_channel = pytest.mark.skip("Not yet configured for testing")(_test_module.test_forget_channel)
 
-test_dataloss_protection = pytest.mark.skip("Not yet configured for testing")(_test_dataloss_protection)
+test_fulfill_incoming_first = pytest.mark.skip("Not yet configured for testing")(_test_module.test_fulfill_incoming_first)
 
-from lightning.tests.test_connection import test_dataloss_protection_no_broadcast as _test_dataloss_protection_no_broadcast
+test_fundchannel_start_alternate = pytest.mark.skip("Not yet configured for testing")(_test_module.test_fundchannel_start_alternate)
 
-test_dataloss_protection_no_broadcast = pytest.mark.skip("Not yet configured for testing")(_test_dataloss_protection_no_broadcast)
+test_fundee_forget_funding_tx_unconfirmed = pytest.mark.skip("Not yet configured for testing")(_test_module.test_fundee_forget_funding_tx_unconfirmed)
 
-from lightning.tests.test_connection import test_disconnect as _test_disconnect
+test_fundee_node_unconfirmed = pytest.mark.skip("Not yet configured for testing")(_test_module.test_fundee_node_unconfirmed)
 
-test_disconnect = pytest.mark.skip("Not yet configured for testing")(_test_disconnect)
+test_funding_all = pytest.mark.skip("Not yet configured for testing")(_test_module.test_funding_all)
 
-from lightning.tests.test_connection import test_disconnect_fundee as _test_disconnect_fundee
+test_funding_all_too_much = pytest.mark.skip("Not yet configured for testing")(_test_module.test_funding_all_too_much)
 
-test_disconnect_fundee = pytest.mark.skip("Not yet configured for testing")(_test_disconnect_fundee)
+test_funding_by_utxos = pytest.mark.skip("Not yet configured for testing")(_test_module.test_funding_by_utxos)
 
-from lightning.tests.test_connection import test_disconnect_fundee_v2 as _test_disconnect_fundee_v2
+test_funding_cancel_race = pytest.mark.skip("Not yet configured for testing")(_test_module.test_funding_cancel_race)
 
-test_disconnect_fundee_v2 = pytest.mark.skip("Not yet configured for testing")(_test_disconnect_fundee_v2)
+test_funding_change = pytest.mark.skip("Not yet configured for testing")(_test_module.test_funding_change)
 
-from lightning.tests.test_connection import test_disconnect_half_signed as _test_disconnect_half_signed
+test_funding_close_upfront = pytest.mark.skip("Not yet configured for testing")(_test_module.test_funding_close_upfront)
 
-test_disconnect_half_signed = pytest.mark.skip("Not yet configured for testing")(_test_disconnect_half_signed)
+test_funding_external_wallet = pytest.mark.skip("Not yet configured for testing")(_test_module.test_funding_external_wallet)
 
-from lightning.tests.test_connection import test_disconnect_half_signed_v2 as _test_disconnect_half_signed_v2
+test_funding_external_wallet_corners = pytest.mark.skip("Not yet configured for testing")(_test_module.test_funding_external_wallet_corners)
 
-test_disconnect_half_signed_v2 = pytest.mark.skip("Not yet configured for testing")(_test_disconnect_half_signed_v2)
+test_funding_fail = pytest.mark.skip("Not yet configured for testing")(_test_module.test_funding_fail)
 
-from lightning.tests.test_connection import test_disconnect_opener as _test_disconnect_opener
+test_funding_push = pytest.mark.skip("Not yet configured for testing")(_test_module.test_funding_push)
 
-test_disconnect_opener = pytest.mark.skip("Not yet configured for testing")(_test_disconnect_opener)
+test_funding_toolarge = pytest.mark.skip("Not yet configured for testing")(_test_module.test_funding_toolarge)
 
-from lightning.tests.test_connection import test_disconnectpeer as _test_disconnectpeer
+test_funding_v2_cancel_race = pytest.mark.skip("Not yet configured for testing")(_test_module.test_funding_v2_cancel_race)
 
-test_disconnectpeer = pytest.mark.skip("Not yet configured for testing")(_test_disconnectpeer)
+test_funding_v2_corners = pytest.mark.skip("Not yet configured for testing")(_test_module.test_funding_v2_corners)
 
-from lightning.tests.test_connection import test_fail_unconfirmed as _test_fail_unconfirmed
+test_funding_while_offline = pytest.mark.skip("Not yet configured for testing")(_test_module.test_funding_while_offline)
 
-test_fail_unconfirmed = pytest.mark.skip("Not yet configured for testing")(_test_fail_unconfirmed)
+test_htlc_failed_noclose = pytest.mark.skip("Not yet configured for testing")(_test_module.test_htlc_failed_noclose)
 
-from lightning.tests.test_connection import test_fail_unconfirmed_openchannel2 as _test_fail_unconfirmed_openchannel2
+test_htlc_retransmit_order = pytest.mark.skip("Not yet configured for testing")(_test_module.test_htlc_retransmit_order)
 
-test_fail_unconfirmed_openchannel2 = pytest.mark.skip("Not yet configured for testing")(_test_fail_unconfirmed_openchannel2)
+test_injectonionmessage = pytest.mark.skip("Not yet configured for testing")(_test_module.test_injectonionmessage)
 
-from lightning.tests.test_connection import test_fee_limits as _test_fee_limits
+test_last_stable_connection = pytest.mark.skip("Not yet configured for testing")(_test_module.test_last_stable_connection)
 
-test_fee_limits = pytest.mark.skip("Not yet configured for testing")(_test_fee_limits)
+test_listpeerchannels_by_scid = pytest.mark.skip("Not yet configured for testing")(_test_module.test_listpeerchannels_by_scid)
 
-from lightning.tests.test_connection import test_feerate_spam as _test_feerate_spam
+test_listpeers_crash = pytest.mark.skip("Not yet configured for testing")(_test_module.test_listpeers_crash)
 
-test_feerate_spam = pytest.mark.skip("Not yet configured for testing")(_test_feerate_spam)
+test_lockin_between_restart = pytest.mark.skip("Not yet configured for testing")(_test_module.test_lockin_between_restart)
 
-from lightning.tests.test_connection import test_feerate_stress as _test_feerate_stress
+test_multichan = pytest.mark.skip("Not yet configured for testing")(_test_module.test_multichan)
 
-test_feerate_stress = pytest.mark.skip("Not yet configured for testing")(_test_feerate_stress)
+test_multichan_stress = pytest.mark.skip("Not yet configured for testing")(_test_module.test_multichan_stress)
 
-from lightning.tests.test_connection import test_forget_channel as _test_forget_channel
+test_multifunding_best_effort = pytest.mark.skip("Not yet configured for testing")(_test_module.test_multifunding_best_effort)
 
-test_forget_channel = pytest.mark.skip("Not yet configured for testing")(_test_forget_channel)
+test_multifunding_disconnect = pytest.mark.skip("Not yet configured for testing")(_test_module.test_multifunding_disconnect)
 
-from lightning.tests.test_connection import test_fulfill_incoming_first as _test_fulfill_incoming_first
+test_multifunding_feerates = pytest.mark.skip("Not yet configured for testing")(_test_module.test_multifunding_feerates)
 
-test_fulfill_incoming_first = pytest.mark.skip("Not yet configured for testing")(_test_fulfill_incoming_first)
+test_multifunding_one = pytest.mark.skip("Not yet configured for testing")(_test_module.test_multifunding_one)
 
-from lightning.tests.test_connection import test_fundchannel_start_alternate as _test_fundchannel_start_alternate
+test_multifunding_param_failures = pytest.mark.skip("Not yet configured for testing")(_test_module.test_multifunding_param_failures)
 
-test_fundchannel_start_alternate = pytest.mark.skip("Not yet configured for testing")(_test_fundchannel_start_alternate)
+test_multifunding_simple = pytest.mark.skip("Not yet configured for testing")(_test_module.test_multifunding_simple)
 
-from lightning.tests.test_connection import test_fundee_forget_funding_tx_unconfirmed as _test_fundee_forget_funding_tx_unconfirmed
+test_multifunding_v1_v2_mixed = pytest.mark.skip("Not yet configured for testing")(_test_module.test_multifunding_v1_v2_mixed)
 
-test_fundee_forget_funding_tx_unconfirmed = pytest.mark.skip("Not yet configured for testing")(_test_fundee_forget_funding_tx_unconfirmed)
+test_multifunding_v2_exclusive = pytest.mark.skip("Not yet configured for testing")(_test_module.test_multifunding_v2_exclusive)
 
-from lightning.tests.test_connection import test_fundee_node_unconfirmed as _test_fundee_node_unconfirmed
+test_multifunding_wumbo = pytest.mark.skip("Not yet configured for testing")(_test_module.test_multifunding_wumbo)
 
-test_fundee_node_unconfirmed = pytest.mark.skip("Not yet configured for testing")(_test_fundee_node_unconfirmed)
+test_multiple_channels = pytest.mark.skip("Not yet configured for testing")(_test_module.test_multiple_channels)
 
-from lightning.tests.test_connection import test_funding_all as _test_funding_all
+test_mutual_reconnect_race = pytest.mark.skip("Not yet configured for testing")(_test_module.test_mutual_reconnect_race)
 
-test_funding_all = pytest.mark.skip("Not yet configured for testing")(_test_funding_all)
+test_no_delay = pytest.mark.skip("Not yet configured for testing")(_test_module.test_no_delay)
 
-from lightning.tests.test_connection import test_funding_all_too_much as _test_funding_all_too_much
+test_no_fee_estimate = pytest.mark.skip("Not yet configured for testing")(_test_module.test_no_fee_estimate)
 
-test_funding_all_too_much = pytest.mark.skip("Not yet configured for testing")(_test_funding_all_too_much)
+test_no_reconnect_awating_unilateral = pytest.mark.skip("Not yet configured for testing")(_test_module.test_no_reconnect_awating_unilateral)
 
-from lightning.tests.test_connection import test_funding_by_utxos as _test_funding_by_utxos
+test_nonstatic_channel = pytest.mark.skip("Not yet configured for testing")(_test_module.test_nonstatic_channel)
 
-test_funding_by_utxos = pytest.mark.skip("Not yet configured for testing")(_test_funding_by_utxos)
+test_offline = pytest.mark.skip("Not yet configured for testing")(_test_module.test_offline)
 
-from lightning.tests.test_connection import test_funding_cancel_race as _test_funding_cancel_race
+test_old_feerate = pytest.mark.skip("Not yet configured for testing")(_test_module.test_old_feerate)
 
-test_funding_cancel_race = pytest.mark.skip("Not yet configured for testing")(_test_funding_cancel_race)
+test_onionmessage_forward_fail = pytest.mark.skip("Not yet configured for testing")(_test_module.test_onionmessage_forward_fail)
 
-from lightning.tests.test_connection import test_funding_change as _test_funding_change
+test_openchannel_init_alternate = pytest.mark.skip("Not yet configured for testing")(_test_module.test_openchannel_init_alternate)
 
-test_funding_change = pytest.mark.skip("Not yet configured for testing")(_test_funding_change)
+test_opener_feerate_reconnect = pytest.mark.skip("Not yet configured for testing")(_test_module.test_opener_feerate_reconnect)
 
-from lightning.tests.test_connection import test_funding_close_upfront as _test_funding_close_upfront
+test_opener_simple_reconnect = pytest.mark.skip("Not yet configured for testing")(_test_module.test_opener_simple_reconnect)
 
-test_funding_close_upfront = pytest.mark.skip("Not yet configured for testing")(_test_funding_close_upfront)
+test_opening_tiny_channel = pytest.mark.skip("Not yet configured for testing")(_test_module.test_opening_tiny_channel)
 
-from lightning.tests.test_connection import test_funding_external_wallet as _test_funding_external_wallet
+test_pay_disconnect_stress = pytest.mark.skip("Not yet configured for testing")(_test_module.test_pay_disconnect_stress)
 
-test_funding_external_wallet = pytest.mark.skip("Not yet configured for testing")(_test_funding_external_wallet)
+test_peer_disconnected_has_featurebits = pytest.mark.skip("Not yet configured for testing")(_test_module.test_peer_disconnected_has_featurebits)
 
-from lightning.tests.test_connection import test_funding_external_wallet_corners as _test_funding_external_wallet_corners
+test_peer_disconnected_reflected_in_channel_state = pytest.mark.skip("Not yet configured for testing")(_test_module.test_peer_disconnected_reflected_in_channel_state)
 
-test_funding_external_wallet_corners = pytest.mark.skip("Not yet configured for testing")(_test_funding_external_wallet_corners)
+test_peerinfo = pytest.mark.skip("Not yet configured for testing")(_test_module.test_peerinfo)
 
-from lightning.tests.test_connection import test_funding_fail as _test_funding_fail
+test_ping_timeout = pytest.mark.skip("Not yet configured for testing")(_test_module.test_ping_timeout)
 
-test_funding_fail = pytest.mark.skip("Not yet configured for testing")(_test_funding_fail)
+test_private_channel = pytest.mark.skip("Not yet configured for testing")(_test_module.test_private_channel)
 
-from lightning.tests.test_connection import test_funding_push as _test_funding_push
+test_private_channel_no_reconnect = pytest.mark.skip("Not yet configured for testing")(_test_module.test_private_channel_no_reconnect)
 
-test_funding_push = pytest.mark.skip("Not yet configured for testing")(_test_funding_push)
+test_quiescence = pytest.mark.skip("Not yet configured for testing")(_test_module.test_quiescence)
 
-from lightning.tests.test_connection import test_funding_toolarge as _test_funding_toolarge
+test_reconnect_channel_peers = pytest.mark.skip("Not yet configured for testing")(_test_module.test_reconnect_channel_peers)
 
-test_funding_toolarge = pytest.mark.skip("Not yet configured for testing")(_test_funding_toolarge)
+test_reconnect_gossiping = pytest.mark.skip("Not yet configured for testing")(_test_module.test_reconnect_gossiping)
 
-from lightning.tests.test_connection import test_funding_v2_cancel_race as _test_funding_v2_cancel_race
+test_reconnect_no_additional_transient_failure = pytest.mark.skip("Not yet configured for testing")(_test_module.test_reconnect_no_additional_transient_failure)
 
-test_funding_v2_cancel_race = pytest.mark.skip("Not yet configured for testing")(_test_funding_v2_cancel_race)
+test_reconnect_no_update = pytest.mark.skip("Not yet configured for testing")(_test_module.test_reconnect_no_update)
 
-from lightning.tests.test_connection import test_funding_v2_corners as _test_funding_v2_corners
+test_reconnect_normal = pytest.mark.skip("Not yet configured for testing")(_test_module.test_reconnect_normal)
 
-test_funding_v2_corners = pytest.mark.skip("Not yet configured for testing")(_test_funding_v2_corners)
+test_reconnect_openingd = pytest.mark.skip("Not yet configured for testing")(_test_module.test_reconnect_openingd)
 
-from lightning.tests.test_connection import test_funding_while_offline as _test_funding_while_offline
+test_reconnect_receiver_add = pytest.mark.skip("Not yet configured for testing")(_test_module.test_reconnect_receiver_add)
 
-test_funding_while_offline = pytest.mark.skip("Not yet configured for testing")(_test_funding_while_offline)
+test_reconnect_receiver_fulfill = pytest.mark.skip("Not yet configured for testing")(_test_module.test_reconnect_receiver_fulfill)
 
-from lightning.tests.test_connection import test_htlc_failed_noclose as _test_htlc_failed_noclose
+test_reconnect_remote_sends_no_sigs = pytest.mark.skip("Not yet configured for testing")(_test_module.test_reconnect_remote_sends_no_sigs)
 
-test_htlc_failed_noclose = pytest.mark.skip("Not yet configured for testing")(_test_htlc_failed_noclose)
+test_reconnect_sender_add = pytest.mark.skip("Not yet configured for testing")(_test_module.test_reconnect_sender_add)
 
-from lightning.tests.test_connection import test_htlc_retransmit_order as _test_htlc_retransmit_order
+test_reconnect_sender_add1 = pytest.mark.skip("Not yet configured for testing")(_test_module.test_reconnect_sender_add1)
 
-test_htlc_retransmit_order = pytest.mark.skip("Not yet configured for testing")(_test_htlc_retransmit_order)
+test_reconnect_signed = pytest.mark.skip("Not yet configured for testing")(_test_module.test_reconnect_signed)
 
-from lightning.tests.test_connection import test_injectonionmessage as _test_injectonionmessage
+test_remote_addr = pytest.mark.skip("Not yet configured for testing")(_test_module.test_remote_addr)
 
-test_injectonionmessage = pytest.mark.skip("Not yet configured for testing")(_test_injectonionmessage)
+test_remote_addr_disabled = pytest.mark.skip("Not yet configured for testing")(_test_module.test_remote_addr_disabled)
 
-from lightning.tests.test_connection import test_last_stable_connection as _test_last_stable_connection
+test_remote_addr_port = pytest.mark.skip("Not yet configured for testing")(_test_module.test_remote_addr_port)
 
-test_last_stable_connection = pytest.mark.skip("Not yet configured for testing")(_test_last_stable_connection)
+test_remote_disconnect = pytest.mark.skip("Not yet configured for testing")(_test_module.test_remote_disconnect)
 
-from lightning.tests.test_connection import test_listpeerchannels_by_scid as _test_listpeerchannels_by_scid
+test_restart_multi_htlc_rexmit = pytest.mark.skip("Not yet configured for testing")(_test_module.test_restart_multi_htlc_rexmit)
 
-test_listpeerchannels_by_scid = pytest.mark.skip("Not yet configured for testing")(_test_listpeerchannels_by_scid)
+test_second_channel = pytest.mark.skip("Not yet configured for testing")(_test_module.test_second_channel)
 
-from lightning.tests.test_connection import test_listpeers_crash as _test_listpeers_crash
+test_shutdown_awaiting_lockin = pytest.mark.skip("Not yet configured for testing")(_test_module.test_shutdown_awaiting_lockin)
 
-test_listpeers_crash = pytest.mark.skip("Not yet configured for testing")(_test_listpeers_crash)
+test_shutdown_reconnect = pytest.mark.skip("Not yet configured for testing")(_test_module.test_shutdown_reconnect)
 
-from lightning.tests.test_connection import test_lockin_between_restart as _test_lockin_between_restart
+test_update_fee = pytest.mark.skip("Not yet configured for testing")(_test_module.test_update_fee)
 
-test_lockin_between_restart = pytest.mark.skip("Not yet configured for testing")(_test_lockin_between_restart)
+test_update_fee_dynamic = pytest.mark.skip("Not yet configured for testing")(_test_module.test_update_fee_dynamic)
 
-from lightning.tests.test_connection import test_multichan as _test_multichan
+test_update_fee_reconnect = pytest.mark.skip("Not yet configured for testing")(_test_module.test_update_fee_reconnect)
 
-test_multichan = pytest.mark.skip("Not yet configured for testing")(_test_multichan)
+test_upgrade_statickey = pytest.mark.skip("Not yet configured for testing")(_test_module.test_upgrade_statickey)
 
-from lightning.tests.test_connection import test_multichan_stress as _test_multichan_stress
+test_upgrade_statickey_fail = pytest.mark.skip("Not yet configured for testing")(_test_module.test_upgrade_statickey_fail)
 
-test_multichan_stress = pytest.mark.skip("Not yet configured for testing")(_test_multichan_stress)
+test_upgrade_statickey_onchaind = pytest.mark.skip("Not yet configured for testing")(_test_module.test_upgrade_statickey_onchaind)
 
-from lightning.tests.test_connection import test_multifunding_best_effort as _test_multifunding_best_effort
+test_v2_open = pytest.mark.skip("Not yet configured for testing")(_test_module.test_v2_open)
 
-test_multifunding_best_effort = pytest.mark.skip("Not yet configured for testing")(_test_multifunding_best_effort)
+test_websocket = pytest.mark.skip("Not yet configured for testing")(_test_module.test_websocket)
 
-from lightning.tests.test_connection import test_multifunding_disconnect as _test_multifunding_disconnect
+test_wss_proxy = pytest.mark.skip("Not yet configured for testing")(_test_module.test_wss_proxy)
 
-test_multifunding_disconnect = pytest.mark.skip("Not yet configured for testing")(_test_multifunding_disconnect)
-
-from lightning.tests.test_connection import test_multifunding_feerates as _test_multifunding_feerates
-
-test_multifunding_feerates = pytest.mark.skip("Not yet configured for testing")(_test_multifunding_feerates)
-
-from lightning.tests.test_connection import test_multifunding_one as _test_multifunding_one
-
-test_multifunding_one = pytest.mark.skip("Not yet configured for testing")(_test_multifunding_one)
-
-from lightning.tests.test_connection import test_multifunding_param_failures as _test_multifunding_param_failures
-
-test_multifunding_param_failures = pytest.mark.skip("Not yet configured for testing")(_test_multifunding_param_failures)
-
-from lightning.tests.test_connection import test_multifunding_simple as _test_multifunding_simple
-
-test_multifunding_simple = pytest.mark.skip("Not yet configured for testing")(_test_multifunding_simple)
-
-from lightning.tests.test_connection import test_multifunding_v1_v2_mixed as _test_multifunding_v1_v2_mixed
-
-test_multifunding_v1_v2_mixed = pytest.mark.skip("Not yet configured for testing")(_test_multifunding_v1_v2_mixed)
-
-from lightning.tests.test_connection import test_multifunding_v2_exclusive as _test_multifunding_v2_exclusive
-
-test_multifunding_v2_exclusive = pytest.mark.skip("Not yet configured for testing")(_test_multifunding_v2_exclusive)
-
-from lightning.tests.test_connection import test_multifunding_wumbo as _test_multifunding_wumbo
-
-test_multifunding_wumbo = pytest.mark.skip("Not yet configured for testing")(_test_multifunding_wumbo)
-
-from lightning.tests.test_connection import test_multiple_channels as _test_multiple_channels
-
-test_multiple_channels = pytest.mark.skip("Not yet configured for testing")(_test_multiple_channels)
-
-from lightning.tests.test_connection import test_mutual_reconnect_race as _test_mutual_reconnect_race
-
-test_mutual_reconnect_race = pytest.mark.skip("Not yet configured for testing")(_test_mutual_reconnect_race)
-
-from lightning.tests.test_connection import test_no_delay as _test_no_delay
-
-test_no_delay = pytest.mark.skip("Not yet configured for testing")(_test_no_delay)
-
-from lightning.tests.test_connection import test_no_fee_estimate as _test_no_fee_estimate
-
-test_no_fee_estimate = pytest.mark.skip("Not yet configured for testing")(_test_no_fee_estimate)
-
-from lightning.tests.test_connection import test_no_reconnect_awating_unilateral as _test_no_reconnect_awating_unilateral
-
-test_no_reconnect_awating_unilateral = pytest.mark.skip("Not yet configured for testing")(_test_no_reconnect_awating_unilateral)
-
-from lightning.tests.test_connection import test_nonstatic_channel as _test_nonstatic_channel
-
-test_nonstatic_channel = pytest.mark.skip("Not yet configured for testing")(_test_nonstatic_channel)
-
-from lightning.tests.test_connection import test_offline as _test_offline
-
-test_offline = pytest.mark.skip("Not yet configured for testing")(_test_offline)
-
-from lightning.tests.test_connection import test_old_feerate as _test_old_feerate
-
-test_old_feerate = pytest.mark.skip("Not yet configured for testing")(_test_old_feerate)
-
-from lightning.tests.test_connection import test_onionmessage_forward_fail as _test_onionmessage_forward_fail
-
-test_onionmessage_forward_fail = pytest.mark.skip("Not yet configured for testing")(_test_onionmessage_forward_fail)
-
-from lightning.tests.test_connection import test_openchannel_init_alternate as _test_openchannel_init_alternate
-
-test_openchannel_init_alternate = pytest.mark.skip("Not yet configured for testing")(_test_openchannel_init_alternate)
-
-from lightning.tests.test_connection import test_opener_feerate_reconnect as _test_opener_feerate_reconnect
-
-test_opener_feerate_reconnect = pytest.mark.skip("Not yet configured for testing")(_test_opener_feerate_reconnect)
-
-from lightning.tests.test_connection import test_opener_simple_reconnect as _test_opener_simple_reconnect
-
-test_opener_simple_reconnect = pytest.mark.skip("Not yet configured for testing")(_test_opener_simple_reconnect)
-
-from lightning.tests.test_connection import test_opening_tiny_channel as _test_opening_tiny_channel
-
-test_opening_tiny_channel = pytest.mark.skip("Not yet configured for testing")(_test_opening_tiny_channel)
-
-from lightning.tests.test_connection import test_pay_disconnect_stress as _test_pay_disconnect_stress
-
-test_pay_disconnect_stress = pytest.mark.skip("Not yet configured for testing")(_test_pay_disconnect_stress)
-
-from lightning.tests.test_connection import test_peer_disconnected_has_featurebits as _test_peer_disconnected_has_featurebits
-
-test_peer_disconnected_has_featurebits = pytest.mark.skip("Not yet configured for testing")(_test_peer_disconnected_has_featurebits)
-
-from lightning.tests.test_connection import test_peer_disconnected_reflected_in_channel_state as _test_peer_disconnected_reflected_in_channel_state
-
-test_peer_disconnected_reflected_in_channel_state = pytest.mark.skip("Not yet configured for testing")(_test_peer_disconnected_reflected_in_channel_state)
-
-from lightning.tests.test_connection import test_peerinfo as _test_peerinfo
-
-test_peerinfo = pytest.mark.skip("Not yet configured for testing")(_test_peerinfo)
-
-from lightning.tests.test_connection import test_ping_timeout as _test_ping_timeout
-
-test_ping_timeout = pytest.mark.skip("Not yet configured for testing")(_test_ping_timeout)
-
-from lightning.tests.test_connection import test_private_channel as _test_private_channel
-
-test_private_channel = pytest.mark.skip("Not yet configured for testing")(_test_private_channel)
-
-from lightning.tests.test_connection import test_private_channel_no_reconnect as _test_private_channel_no_reconnect
-
-test_private_channel_no_reconnect = pytest.mark.skip("Not yet configured for testing")(_test_private_channel_no_reconnect)
-
-from lightning.tests.test_connection import test_quiescence as _test_quiescence
-
-test_quiescence = pytest.mark.skip("Not yet configured for testing")(_test_quiescence)
-
-from lightning.tests.test_connection import test_reconnect_channel_peers as _test_reconnect_channel_peers
-
-test_reconnect_channel_peers = pytest.mark.skip("Not yet configured for testing")(_test_reconnect_channel_peers)
-
-from lightning.tests.test_connection import test_reconnect_gossiping as _test_reconnect_gossiping
-
-test_reconnect_gossiping = pytest.mark.skip("Not yet configured for testing")(_test_reconnect_gossiping)
-
-from lightning.tests.test_connection import test_reconnect_no_additional_transient_failure as _test_reconnect_no_additional_transient_failure
-
-test_reconnect_no_additional_transient_failure = pytest.mark.skip("Not yet configured for testing")(_test_reconnect_no_additional_transient_failure)
-
-from lightning.tests.test_connection import test_reconnect_no_update as _test_reconnect_no_update
-
-test_reconnect_no_update = pytest.mark.skip("Not yet configured for testing")(_test_reconnect_no_update)
-
-from lightning.tests.test_connection import test_reconnect_normal as _test_reconnect_normal
-
-test_reconnect_normal = pytest.mark.skip("Not yet configured for testing")(_test_reconnect_normal)
-
-from lightning.tests.test_connection import test_reconnect_openingd as _test_reconnect_openingd
-
-test_reconnect_openingd = pytest.mark.skip("Not yet configured for testing")(_test_reconnect_openingd)
-
-from lightning.tests.test_connection import test_reconnect_receiver_add as _test_reconnect_receiver_add
-
-test_reconnect_receiver_add = pytest.mark.skip("Not yet configured for testing")(_test_reconnect_receiver_add)
-
-from lightning.tests.test_connection import test_reconnect_receiver_fulfill as _test_reconnect_receiver_fulfill
-
-test_reconnect_receiver_fulfill = pytest.mark.skip("Not yet configured for testing")(_test_reconnect_receiver_fulfill)
-
-from lightning.tests.test_connection import test_reconnect_remote_sends_no_sigs as _test_reconnect_remote_sends_no_sigs
-
-test_reconnect_remote_sends_no_sigs = pytest.mark.skip("Not yet configured for testing")(_test_reconnect_remote_sends_no_sigs)
-
-from lightning.tests.test_connection import test_reconnect_sender_add as _test_reconnect_sender_add
-
-test_reconnect_sender_add = pytest.mark.skip("Not yet configured for testing")(_test_reconnect_sender_add)
-
-from lightning.tests.test_connection import test_reconnect_sender_add1 as _test_reconnect_sender_add1
-
-test_reconnect_sender_add1 = pytest.mark.skip("Not yet configured for testing")(_test_reconnect_sender_add1)
-
-from lightning.tests.test_connection import test_reconnect_signed as _test_reconnect_signed
-
-test_reconnect_signed = pytest.mark.skip("Not yet configured for testing")(_test_reconnect_signed)
-
-from lightning.tests.test_connection import test_remote_addr as _test_remote_addr
-
-test_remote_addr = pytest.mark.skip("Not yet configured for testing")(_test_remote_addr)
-
-from lightning.tests.test_connection import test_remote_addr_disabled as _test_remote_addr_disabled
-
-test_remote_addr_disabled = pytest.mark.skip("Not yet configured for testing")(_test_remote_addr_disabled)
-
-from lightning.tests.test_connection import test_remote_addr_port as _test_remote_addr_port
-
-test_remote_addr_port = pytest.mark.skip("Not yet configured for testing")(_test_remote_addr_port)
-
-from lightning.tests.test_connection import test_remote_disconnect as _test_remote_disconnect
-
-test_remote_disconnect = pytest.mark.skip("Not yet configured for testing")(_test_remote_disconnect)
-
-from lightning.tests.test_connection import test_restart_multi_htlc_rexmit as _test_restart_multi_htlc_rexmit
-
-test_restart_multi_htlc_rexmit = pytest.mark.skip("Not yet configured for testing")(_test_restart_multi_htlc_rexmit)
-
-from lightning.tests.test_connection import test_second_channel as _test_second_channel
-
-test_second_channel = pytest.mark.skip("Not yet configured for testing")(_test_second_channel)
-
-from lightning.tests.test_connection import test_shutdown_awaiting_lockin as _test_shutdown_awaiting_lockin
-
-test_shutdown_awaiting_lockin = pytest.mark.skip("Not yet configured for testing")(_test_shutdown_awaiting_lockin)
-
-from lightning.tests.test_connection import test_shutdown_reconnect as _test_shutdown_reconnect
-
-test_shutdown_reconnect = pytest.mark.skip("Not yet configured for testing")(_test_shutdown_reconnect)
-
-from lightning.tests.test_connection import test_update_fee as _test_update_fee
-
-test_update_fee = pytest.mark.skip("Not yet configured for testing")(_test_update_fee)
-
-from lightning.tests.test_connection import test_update_fee_dynamic as _test_update_fee_dynamic
-
-test_update_fee_dynamic = pytest.mark.skip("Not yet configured for testing")(_test_update_fee_dynamic)
-
-from lightning.tests.test_connection import test_update_fee_reconnect as _test_update_fee_reconnect
-
-test_update_fee_reconnect = pytest.mark.skip("Not yet configured for testing")(_test_update_fee_reconnect)
-
-from lightning.tests.test_connection import test_upgrade_statickey as _test_upgrade_statickey
-
-test_upgrade_statickey = pytest.mark.skip("Not yet configured for testing")(_test_upgrade_statickey)
-
-from lightning.tests.test_connection import test_upgrade_statickey_fail as _test_upgrade_statickey_fail
-
-test_upgrade_statickey_fail = pytest.mark.skip("Not yet configured for testing")(_test_upgrade_statickey_fail)
-
-from lightning.tests.test_connection import test_upgrade_statickey_onchaind as _test_upgrade_statickey_onchaind
-
-test_upgrade_statickey_onchaind = pytest.mark.skip("Not yet configured for testing")(_test_upgrade_statickey_onchaind)
-
-from lightning.tests.test_connection import test_v2_open as _test_v2_open
-
-test_v2_open = pytest.mark.skip("Not yet configured for testing")(_test_v2_open)
-
-from lightning.tests.test_connection import test_websocket as _test_websocket
-
-test_websocket = pytest.mark.skip("Not yet configured for testing")(_test_websocket)
-
-from lightning.tests.test_connection import test_wss_proxy as _test_wss_proxy
-
-test_wss_proxy = pytest.mark.skip("Not yet configured for testing")(_test_wss_proxy)
-
-from lightning.tests.test_connection import test_wumbo_channels as _test_wumbo_channels
-
-test_wumbo_channels = pytest.mark.skip("Not yet configured for testing")(_test_wumbo_channels)
+test_wumbo_channels = pytest.mark.skip("Not yet configured for testing")(_test_module.test_wumbo_channels)

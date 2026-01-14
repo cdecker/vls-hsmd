@@ -9,40 +9,25 @@
 
 # --- Preamble from config: Start ---
 import pytest
+from fixtures import *  # noqa: F401,F403
 # --- Preamble from config: End ---
 
-from lightning.tests.test_reckless import test_basic_help as _test_basic_help
+from lightning.tests import test_reckless as _test_module
 
-test_basic_help = pytest.mark.skip("Not yet configured for testing")(_test_basic_help)
+test_basic_help = pytest.mark.skip("Not yet configured for testing")(_test_module.test_basic_help)
 
-from lightning.tests.test_reckless import test_contextual_help as _test_contextual_help
+test_contextual_help = pytest.mark.skip("Not yet configured for testing")(_test_module.test_contextual_help)
 
-test_contextual_help = pytest.mark.skip("Not yet configured for testing")(_test_contextual_help)
+test_disable_enable = pytest.mark.skip("Not yet configured for testing")(_test_module.test_disable_enable)
 
-from lightning.tests.test_reckless import test_disable_enable as _test_disable_enable
+test_install = pytest.mark.skip("Not yet configured for testing")(_test_module.test_install)
 
-test_disable_enable = pytest.mark.skip("Not yet configured for testing")(_test_disable_enable)
+test_local_dir_install = pytest.mark.skip("Not yet configured for testing")(_test_module.test_local_dir_install)
 
-from lightning.tests.test_reckless import test_install as _test_install
+test_poetry_install = pytest.mark.skip("Not yet configured for testing")(_test_module.test_poetry_install)
 
-test_install = pytest.mark.skip("Not yet configured for testing")(_test_install)
+test_search = pytest.mark.skip("Not yet configured for testing")(_test_module.test_search)
 
-from lightning.tests.test_reckless import test_local_dir_install as _test_local_dir_install
+test_sources = pytest.mark.skip("Not yet configured for testing")(_test_module.test_sources)
 
-test_local_dir_install = pytest.mark.skip("Not yet configured for testing")(_test_local_dir_install)
-
-from lightning.tests.test_reckless import test_poetry_install as _test_poetry_install
-
-test_poetry_install = pytest.mark.skip("Not yet configured for testing")(_test_poetry_install)
-
-from lightning.tests.test_reckless import test_search as _test_search
-
-test_search = pytest.mark.skip("Not yet configured for testing")(_test_search)
-
-from lightning.tests.test_reckless import test_sources as _test_sources
-
-test_sources = pytest.mark.skip("Not yet configured for testing")(_test_sources)
-
-from lightning.tests.test_reckless import test_tag_install as _test_tag_install
-
-test_tag_install = pytest.mark.skip("Not yet configured for testing")(_test_tag_install)
+test_tag_install = pytest.mark.skip("Not yet configured for testing")(_test_module.test_tag_install)

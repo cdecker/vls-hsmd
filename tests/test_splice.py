@@ -9,12 +9,11 @@
 
 # --- Preamble from config: Start ---
 import pytest
+from fixtures import *  # noqa: F401,F403
 # --- Preamble from config: End ---
 
-from lightning.tests.test_splice import test_script_splice_in as _test_script_splice_in
+from lightning.tests import test_splice as _test_module
 
-test_script_splice_in = pytest.mark.skip("Not yet configured for testing")(_test_script_splice_in)
+test_script_splice_in = pytest.mark.skip("Not yet configured for testing")(_test_module.test_script_splice_in)
 
-from lightning.tests.test_splice import test_script_splice_out as _test_script_splice_out
-
-test_script_splice_out = pytest.mark.skip("Not yet configured for testing")(_test_script_splice_out)
+test_script_splice_out = pytest.mark.skip("Not yet configured for testing")(_test_module.test_script_splice_out)

@@ -9,12 +9,11 @@
 
 # --- Preamble from config: Start ---
 import pytest
+from fixtures import *  # noqa: F401,F403
 # --- Preamble from config: End ---
 
-from lightning.tests.test_cln_lsps import test_lsps0_listprotocols as _test_lsps0_listprotocols
+from lightning.tests import test_cln_lsps as _test_module
 
-test_lsps0_listprotocols = pytest.mark.skip("Not yet configured for testing")(_test_lsps0_listprotocols)
+test_lsps0_listprotocols = pytest.mark.skip("Not yet configured for testing")(_test_module.test_lsps0_listprotocols)
 
-from lightning.tests.test_cln_lsps import test_lsps_service_disabled as _test_lsps_service_disabled
-
-test_lsps_service_disabled = pytest.mark.skip("Not yet configured for testing")(_test_lsps_service_disabled)
+test_lsps_service_disabled = pytest.mark.skip("Not yet configured for testing")(_test_module.test_lsps_service_disabled)

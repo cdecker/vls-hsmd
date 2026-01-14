@@ -9,96 +9,53 @@
 
 # --- Preamble from config: Start ---
 import pytest
+from fixtures import *  # noqa: F401,F403
 # --- Preamble from config: End ---
 
-from lightning.tests.test_renepay import test_amounts as _test_amounts
+from lightning.tests import test_renepay as _test_module
 
-test_amounts = pytest.mark.skip("Not yet configured for testing")(_test_amounts)
+test_amounts = pytest.mark.skip("Not yet configured for testing")(_test_module.test_amounts)
 
-from lightning.tests.test_renepay import test_concurrency as _test_concurrency
+test_concurrency = pytest.mark.skip("Not yet configured for testing")(_test_module.test_concurrency)
 
-test_concurrency = pytest.mark.skip("Not yet configured for testing")(_test_concurrency)
+test_description = pytest.mark.skip("Not yet configured for testing")(_test_module.test_description)
 
-from lightning.tests.test_renepay import test_description as _test_description
+test_direction_matters = pytest.mark.skip("Not yet configured for testing")(_test_module.test_direction_matters)
 
-test_description = pytest.mark.skip("Not yet configured for testing")(_test_description)
+test_errors = pytest.mark.skip("Not yet configured for testing")(_test_module.test_errors)
 
-from lightning.tests.test_renepay import test_direction_matters as _test_direction_matters
+test_fee_allocation = pytest.mark.skip("Not yet configured for testing")(_test_module.test_fee_allocation)
 
-test_direction_matters = pytest.mark.skip("Not yet configured for testing")(_test_direction_matters)
+test_fees = pytest.mark.skip("Not yet configured for testing")(_test_module.test_fees)
 
-from lightning.tests.test_renepay import test_errors as _test_errors
+test_hardmpp = pytest.mark.skip("Not yet configured for testing")(_test_module.test_hardmpp)
 
-test_errors = pytest.mark.skip("Not yet configured for testing")(_test_errors)
+test_hardmpp2 = pytest.mark.skip("Not yet configured for testing")(_test_module.test_hardmpp2)
 
-from lightning.tests.test_renepay import test_fee_allocation as _test_fee_allocation
+test_htlc_max = pytest.mark.skip("Not yet configured for testing")(_test_module.test_htlc_max)
 
-test_fee_allocation = pytest.mark.skip("Not yet configured for testing")(_test_fee_allocation)
+test_htlcmax0 = pytest.mark.skip("Not yet configured for testing")(_test_module.test_htlcmax0)
 
-from lightning.tests.test_renepay import test_fees as _test_fees
+test_limits = pytest.mark.skip("Not yet configured for testing")(_test_module.test_limits)
 
-test_fees = pytest.mark.skip("Not yet configured for testing")(_test_fees)
+test_local_htlcmax0 = pytest.mark.skip("Not yet configured for testing")(_test_module.test_local_htlcmax0)
 
-from lightning.tests.test_renepay import test_hardmpp as _test_hardmpp
+test_mpp = pytest.mark.skip("Not yet configured for testing")(_test_module.test_mpp)
 
-test_hardmpp = pytest.mark.skip("Not yet configured for testing")(_test_hardmpp)
+test_offer_selfpay = pytest.mark.skip("Not yet configured for testing")(_test_module.test_offer_selfpay)
 
-from lightning.tests.test_renepay import test_hardmpp2 as _test_hardmpp2
+test_offers = pytest.mark.skip("Not yet configured for testing")(_test_module.test_offers)
 
-test_hardmpp2 = pytest.mark.skip("Not yet configured for testing")(_test_hardmpp2)
+test_pay = pytest.mark.skip("Not yet configured for testing")(_test_module.test_pay)
 
-from lightning.tests.test_renepay import test_htlc_max as _test_htlc_max
+test_previous_sendpays = pytest.mark.skip("Not yet configured for testing")(_test_module.test_previous_sendpays)
 
-test_htlc_max = pytest.mark.skip("Not yet configured for testing")(_test_htlc_max)
+test_privatechan = pytest.mark.skip("Not yet configured for testing")(_test_module.test_privatechan)
 
-from lightning.tests.test_renepay import test_htlcmax0 as _test_htlcmax0
+test_self_pay = pytest.mark.skip("Not yet configured for testing")(_test_module.test_self_pay)
 
-test_htlcmax0 = pytest.mark.skip("Not yet configured for testing")(_test_htlcmax0)
+test_shadow_routing = pytest.mark.skip("Not yet configured for testing")(_test_module.test_shadow_routing)
 
-from lightning.tests.test_renepay import test_limits as _test_limits
+test_simple = pytest.mark.skip("Not yet configured for testing")(_test_module.test_simple)
 
-test_limits = pytest.mark.skip("Not yet configured for testing")(_test_limits)
-
-from lightning.tests.test_renepay import test_local_htlcmax0 as _test_local_htlcmax0
-
-test_local_htlcmax0 = pytest.mark.skip("Not yet configured for testing")(_test_local_htlcmax0)
-
-from lightning.tests.test_renepay import test_mpp as _test_mpp
-
-test_mpp = pytest.mark.skip("Not yet configured for testing")(_test_mpp)
-
-from lightning.tests.test_renepay import test_offer_selfpay as _test_offer_selfpay
-
-test_offer_selfpay = pytest.mark.skip("Not yet configured for testing")(_test_offer_selfpay)
-
-from lightning.tests.test_renepay import test_offers as _test_offers
-
-test_offers = pytest.mark.skip("Not yet configured for testing")(_test_offers)
-
-from lightning.tests.test_renepay import test_pay as _test_pay
-
-test_pay = pytest.mark.skip("Not yet configured for testing")(_test_pay)
-
-from lightning.tests.test_renepay import test_previous_sendpays as _test_previous_sendpays
-
-test_previous_sendpays = pytest.mark.skip("Not yet configured for testing")(_test_previous_sendpays)
-
-from lightning.tests.test_renepay import test_privatechan as _test_privatechan
-
-test_privatechan = pytest.mark.skip("Not yet configured for testing")(_test_privatechan)
-
-from lightning.tests.test_renepay import test_self_pay as _test_self_pay
-
-test_self_pay = pytest.mark.skip("Not yet configured for testing")(_test_self_pay)
-
-from lightning.tests.test_renepay import test_shadow_routing as _test_shadow_routing
-
-test_shadow_routing = pytest.mark.skip("Not yet configured for testing")(_test_shadow_routing)
-
-from lightning.tests.test_renepay import test_simple as _test_simple
-
-test_simple = pytest.mark.skip("Not yet configured for testing")(_test_simple)
-
-from lightning.tests.test_renepay import test_unannounced as _test_unannounced
-
-test_unannounced = pytest.mark.skip("Not yet configured for testing")(_test_unannounced)
+test_unannounced = pytest.mark.skip("Not yet configured for testing")(_test_module.test_unannounced)

@@ -9,376 +9,193 @@
 
 # --- Preamble from config: Start ---
 import pytest
+from fixtures import *  # noqa: F401,F403
 # --- Preamble from config: End ---
 
-from lightning.tests.test_plugin import test_all_subscription as _test_all_subscription
+from lightning.tests import test_plugin as _test_module
 
-test_all_subscription = pytest.mark.skip("Not yet configured for testing")(_test_all_subscription)
+test_all_subscription = pytest.mark.skip("Not yet configured for testing")(_test_module.test_all_subscription)
 
-from lightning.tests.test_plugin import test_async_rpcmethod as _test_async_rpcmethod
+test_async_rpcmethod = pytest.mark.skip("Not yet configured for testing")(_test_module.test_async_rpcmethod)
 
-test_async_rpcmethod = pytest.mark.skip("Not yet configured for testing")(_test_async_rpcmethod)
+test_autoclean = pytest.mark.skip("Not yet configured for testing")(_test_module.test_autoclean)
 
-from lightning.tests.test_plugin import test_autoclean as _test_autoclean
+test_autoclean_batch = pytest.mark.skip("Not yet configured for testing")(_test_module.test_autoclean_batch)
 
-test_autoclean = pytest.mark.skip("Not yet configured for testing")(_test_autoclean)
+test_autoclean_once = pytest.mark.skip("Not yet configured for testing")(_test_module.test_autoclean_once)
 
-from lightning.tests.test_plugin import test_autoclean_batch as _test_autoclean_batch
+test_autoclean_timer_crash = pytest.mark.skip("Not yet configured for testing")(_test_module.test_autoclean_timer_crash)
 
-test_autoclean_batch = pytest.mark.skip("Not yet configured for testing")(_test_autoclean_batch)
+test_bcli = pytest.mark.skip("Not yet configured for testing")(_test_module.test_bcli)
 
-from lightning.tests.test_plugin import test_autoclean_once as _test_autoclean_once
+test_bitcoin_backend = pytest.mark.skip("Not yet configured for testing")(_test_module.test_bitcoin_backend)
 
-test_autoclean_once = pytest.mark.skip("Not yet configured for testing")(_test_autoclean_once)
+test_bitcoin_bad_estimatefee = pytest.mark.skip("Not yet configured for testing")(_test_module.test_bitcoin_bad_estimatefee)
 
-from lightning.tests.test_plugin import test_autoclean_timer_crash as _test_autoclean_timer_crash
+test_block_added_notifications = pytest.mark.skip("Not yet configured for testing")(_test_module.test_block_added_notifications)
 
-test_autoclean_timer_crash = pytest.mark.skip("Not yet configured for testing")(_test_autoclean_timer_crash)
+test_channel_opened_notification = pytest.mark.skip("Not yet configured for testing")(_test_module.test_channel_opened_notification)
 
-from lightning.tests.test_plugin import test_bcli as _test_bcli
+test_channel_state_change_history = pytest.mark.skip("Not yet configured for testing")(_test_module.test_channel_state_change_history)
 
-test_bcli = pytest.mark.skip("Not yet configured for testing")(_test_bcli)
+test_channel_state_changed_bilateral = pytest.mark.skip("Not yet configured for testing")(_test_module.test_channel_state_changed_bilateral)
 
-from lightning.tests.test_plugin import test_bitcoin_backend as _test_bitcoin_backend
+test_channel_state_changed_unilateral = pytest.mark.skip("Not yet configured for testing")(_test_module.test_channel_state_changed_unilateral)
 
-test_bitcoin_backend = pytest.mark.skip("Not yet configured for testing")(_test_bitcoin_backend)
+test_coin_movement_notices = pytest.mark.skip("Not yet configured for testing")(_test_module.test_coin_movement_notices)
 
-from lightning.tests.test_plugin import test_bitcoin_bad_estimatefee as _test_bitcoin_bad_estimatefee
+test_commando = pytest.mark.skip("Not yet configured for testing")(_test_module.test_commando)
 
-test_bitcoin_bad_estimatefee = pytest.mark.skip("Not yet configured for testing")(_test_bitcoin_bad_estimatefee)
+test_commando_badrune = pytest.mark.skip("Not yet configured for testing")(_test_module.test_commando_badrune)
 
-from lightning.tests.test_plugin import test_block_added_notifications as _test_block_added_notifications
+test_commando_blacklist = pytest.mark.skip("Not yet configured for testing")(_test_module.test_commando_blacklist)
 
-test_block_added_notifications = pytest.mark.skip("Not yet configured for testing")(_test_block_added_notifications)
+test_commando_listrunes = pytest.mark.skip("Not yet configured for testing")(_test_module.test_commando_listrunes)
 
-from lightning.tests.test_plugin import test_channel_opened_notification as _test_channel_opened_notification
+test_commando_rune = pytest.mark.skip("Not yet configured for testing")(_test_module.test_commando_rune)
 
-test_channel_opened_notification = pytest.mark.skip("Not yet configured for testing")(_test_channel_opened_notification)
+test_commando_rune_pay_amount = pytest.mark.skip("Not yet configured for testing")(_test_module.test_commando_rune_pay_amount)
 
-from lightning.tests.test_plugin import test_channel_state_change_history as _test_channel_state_change_history
+test_commando_stress = pytest.mark.skip("Not yet configured for testing")(_test_module.test_commando_stress)
 
-test_channel_state_change_history = pytest.mark.skip("Not yet configured for testing")(_test_channel_state_change_history)
+test_custom_notification_topics = pytest.mark.skip("Not yet configured for testing")(_test_module.test_custom_notification_topics)
 
-from lightning.tests.test_plugin import test_channel_state_changed_bilateral as _test_channel_state_changed_bilateral
+test_db_hook = pytest.mark.skip("Not yet configured for testing")(_test_module.test_db_hook)
 
-test_channel_state_changed_bilateral = pytest.mark.skip("Not yet configured for testing")(_test_channel_state_changed_bilateral)
+test_db_hook_multiple = pytest.mark.skip("Not yet configured for testing")(_test_module.test_db_hook_multiple)
 
-from lightning.tests.test_plugin import test_channel_state_changed_unilateral as _test_channel_state_changed_unilateral
+test_dev_builtin_plugins_unimportant = pytest.mark.skip("Not yet configured for testing")(_test_module.test_dev_builtin_plugins_unimportant)
 
-test_channel_state_changed_unilateral = pytest.mark.skip("Not yet configured for testing")(_test_channel_state_changed_unilateral)
+test_dynamic_args = pytest.mark.skip("Not yet configured for testing")(_test_module.test_dynamic_args)
 
-from lightning.tests.test_plugin import test_coin_movement_notices as _test_coin_movement_notices
+test_dynamic_option_python_plugin = pytest.mark.skip("Not yet configured for testing")(_test_module.test_dynamic_option_python_plugin)
 
-test_coin_movement_notices = pytest.mark.skip("Not yet configured for testing")(_test_coin_movement_notices)
+test_exposesecret = pytest.mark.skip("Not yet configured for testing")(_test_module.test_exposesecret)
 
-from lightning.tests.test_plugin import test_commando as _test_commando
+test_failing_plugins = pytest.mark.skip("Not yet configured for testing")(_test_module.test_failing_plugins)
 
-test_commando = pytest.mark.skip("Not yet configured for testing")(_test_commando)
+test_feature_set = pytest.mark.skip("Not yet configured for testing")(_test_module.test_feature_set)
 
-from lightning.tests.test_plugin import test_commando_badrune as _test_commando_badrune
+test_forward_event_notification = pytest.mark.skip("Not yet configured for testing")(_test_module.test_forward_event_notification)
 
-test_commando_badrune = pytest.mark.skip("Not yet configured for testing")(_test_commando_badrune)
+test_hook_chaining = pytest.mark.skip("Not yet configured for testing")(_test_module.test_hook_chaining)
 
-from lightning.tests.test_plugin import test_commando_blacklist as _test_commando_blacklist
+test_hook_crash = pytest.mark.skip("Not yet configured for testing")(_test_module.test_hook_crash)
 
-test_commando_blacklist = pytest.mark.skip("Not yet configured for testing")(_test_commando_blacklist)
+test_hook_dep = pytest.mark.skip("Not yet configured for testing")(_test_module.test_hook_dep)
 
-from lightning.tests.test_plugin import test_commando_listrunes as _test_commando_listrunes
+test_hook_dep_stable = pytest.mark.skip("Not yet configured for testing")(_test_module.test_hook_dep_stable)
 
-test_commando_listrunes = pytest.mark.skip("Not yet configured for testing")(_test_commando_listrunes)
+test_htlc_accepted_hook_crash = pytest.mark.skip("Not yet configured for testing")(_test_module.test_htlc_accepted_hook_crash)
 
-from lightning.tests.test_plugin import test_commando_rune as _test_commando_rune
+test_htlc_accepted_hook_direct_restart = pytest.mark.skip("Not yet configured for testing")(_test_module.test_htlc_accepted_hook_direct_restart)
 
-test_commando_rune = pytest.mark.skip("Not yet configured for testing")(_test_commando_rune)
+test_htlc_accepted_hook_fail = pytest.mark.skip("Not yet configured for testing")(_test_module.test_htlc_accepted_hook_fail)
 
-from lightning.tests.test_plugin import test_commando_rune_pay_amount as _test_commando_rune_pay_amount
+test_htlc_accepted_hook_failmsg = pytest.mark.skip("Not yet configured for testing")(_test_module.test_htlc_accepted_hook_failmsg)
 
-test_commando_rune_pay_amount = pytest.mark.skip("Not yet configured for testing")(_test_commando_rune_pay_amount)
+test_htlc_accepted_hook_failonion = pytest.mark.skip("Not yet configured for testing")(_test_module.test_htlc_accepted_hook_failonion)
 
-from lightning.tests.test_plugin import test_commando_stress as _test_commando_stress
+test_htlc_accepted_hook_forward_restart = pytest.mark.skip("Not yet configured for testing")(_test_module.test_htlc_accepted_hook_forward_restart)
 
-test_commando_stress = pytest.mark.skip("Not yet configured for testing")(_test_commando_stress)
+test_htlc_accepted_hook_fwdto = pytest.mark.skip("Not yet configured for testing")(_test_module.test_htlc_accepted_hook_fwdto)
 
-from lightning.tests.test_plugin import test_custom_notification_topics as _test_custom_notification_topics
+test_htlc_accepted_hook_resolve = pytest.mark.skip("Not yet configured for testing")(_test_module.test_htlc_accepted_hook_resolve)
 
-test_custom_notification_topics = pytest.mark.skip("Not yet configured for testing")(_test_custom_notification_topics)
+test_important_plugin = pytest.mark.skip("Not yet configured for testing")(_test_module.test_important_plugin)
 
-from lightning.tests.test_plugin import test_db_hook as _test_db_hook
+test_important_plugin_shutdown = pytest.mark.skip("Not yet configured for testing")(_test_module.test_important_plugin_shutdown)
 
-test_db_hook = pytest.mark.skip("Not yet configured for testing")(_test_db_hook)
+test_invoice_creation_notification = pytest.mark.skip("Not yet configured for testing")(_test_module.test_invoice_creation_notification)
 
-from lightning.tests.test_plugin import test_db_hook_multiple as _test_db_hook_multiple
+test_invoice_payment_hook = pytest.mark.skip("Not yet configured for testing")(_test_module.test_invoice_payment_hook)
 
-test_db_hook_multiple = pytest.mark.skip("Not yet configured for testing")(_test_db_hook_multiple)
+test_invoice_payment_hook_hold = pytest.mark.skip("Not yet configured for testing")(_test_module.test_invoice_payment_hook_hold)
 
-from lightning.tests.test_plugin import test_dev_builtin_plugins_unimportant as _test_dev_builtin_plugins_unimportant
+test_invoice_payment_notification = pytest.mark.skip("Not yet configured for testing")(_test_module.test_invoice_payment_notification)
 
-test_dev_builtin_plugins_unimportant = pytest.mark.skip("Not yet configured for testing")(_test_dev_builtin_plugins_unimportant)
+test_keysend_plugin = pytest.mark.skip("Not yet configured for testing")(_test_module.test_keysend_plugin)
 
-from lightning.tests.test_plugin import test_dynamic_args as _test_dynamic_args
+test_libplugin = pytest.mark.skip("Not yet configured for testing")(_test_module.test_libplugin)
 
-test_dynamic_args = pytest.mark.skip("Not yet configured for testing")(_test_dynamic_args)
+test_libplugin_deprecated = pytest.mark.skip("Not yet configured for testing")(_test_module.test_libplugin_deprecated)
 
-from lightning.tests.test_plugin import test_dynamic_option_python_plugin as _test_dynamic_option_python_plugin
+test_listchannels_broken_message = pytest.mark.skip("Not yet configured for testing")(_test_module.test_listchannels_broken_message)
 
-test_dynamic_option_python_plugin = pytest.mark.skip("Not yet configured for testing")(_test_dynamic_option_python_plugin)
+test_millisatoshi_passthrough = pytest.mark.skip("Not yet configured for testing")(_test_module.test_millisatoshi_passthrough)
 
-from lightning.tests.test_plugin import test_exposesecret as _test_exposesecret
+test_notify = pytest.mark.skip("Not yet configured for testing")(_test_module.test_notify)
 
-test_exposesecret = pytest.mark.skip("Not yet configured for testing")(_test_exposesecret)
+test_openchannel_hook = pytest.mark.skip("Not yet configured for testing")(_test_module.test_openchannel_hook)
 
-from lightning.tests.test_plugin import test_failing_plugins as _test_failing_plugins
+test_openchannel_hook_chaining = pytest.mark.skip("Not yet configured for testing")(_test_module.test_openchannel_hook_chaining)
 
-test_failing_plugins = pytest.mark.skip("Not yet configured for testing")(_test_failing_plugins)
+test_openchannel_hook_error_handling = pytest.mark.skip("Not yet configured for testing")(_test_module.test_openchannel_hook_error_handling)
 
-from lightning.tests.test_plugin import test_feature_set as _test_feature_set
+test_option_passthrough = pytest.mark.skip("Not yet configured for testing")(_test_module.test_option_passthrough)
 
-test_feature_set = pytest.mark.skip("Not yet configured for testing")(_test_feature_set)
+test_option_types = pytest.mark.skip("Not yet configured for testing")(_test_module.test_option_types)
 
-from lightning.tests.test_plugin import test_forward_event_notification as _test_forward_event_notification
+test_pay_plugin = pytest.mark.skip("Not yet configured for testing")(_test_module.test_pay_plugin)
 
-test_forward_event_notification = pytest.mark.skip("Not yet configured for testing")(_test_forward_event_notification)
+test_peer_connected_remote_addr = pytest.mark.skip("Not yet configured for testing")(_test_module.test_peer_connected_remote_addr)
 
-from lightning.tests.test_plugin import test_hook_chaining as _test_hook_chaining
+test_peer_storage = pytest.mark.skip("Not yet configured for testing")(_test_module.test_peer_storage)
 
-test_hook_chaining = pytest.mark.skip("Not yet configured for testing")(_test_hook_chaining)
+test_plugin_command = pytest.mark.skip("Not yet configured for testing")(_test_module.test_plugin_command)
 
-from lightning.tests.test_plugin import test_hook_crash as _test_hook_crash
+test_plugin_connect_notifications = pytest.mark.skip("Not yet configured for testing")(_test_module.test_plugin_connect_notifications)
 
-test_hook_crash = pytest.mark.skip("Not yet configured for testing")(_test_hook_crash)
+test_plugin_connected_hook_chaining = pytest.mark.skip("Not yet configured for testing")(_test_module.test_plugin_connected_hook_chaining)
 
-from lightning.tests.test_plugin import test_hook_dep as _test_hook_dep
+test_plugin_dir = pytest.mark.skip("Not yet configured for testing")(_test_module.test_plugin_dir)
 
-test_hook_dep = pytest.mark.skip("Not yet configured for testing")(_test_hook_dep)
+test_plugin_disable = pytest.mark.skip("Not yet configured for testing")(_test_module.test_plugin_disable)
 
-from lightning.tests.test_plugin import test_hook_dep_stable as _test_hook_dep_stable
+test_plugin_fail = pytest.mark.skip("Not yet configured for testing")(_test_module.test_plugin_fail)
 
-test_hook_dep_stable = pytest.mark.skip("Not yet configured for testing")(_test_hook_dep_stable)
+test_plugin_fail_on_startup = pytest.mark.skip("Not yet configured for testing")(_test_module.test_plugin_fail_on_startup)
 
-from lightning.tests.test_plugin import test_htlc_accepted_hook_crash as _test_htlc_accepted_hook_crash
+test_plugin_feature_announce = pytest.mark.skip("Not yet configured for testing")(_test_module.test_plugin_feature_announce)
 
-test_htlc_accepted_hook_crash = pytest.mark.skip("Not yet configured for testing")(_test_htlc_accepted_hook_crash)
+test_plugin_hook = pytest.mark.skip("Not yet configured for testing")(_test_module.test_plugin_hook)
 
-from lightning.tests.test_plugin import test_htlc_accepted_hook_direct_restart as _test_htlc_accepted_hook_direct_restart
+test_plugin_nostart = pytest.mark.skip("Not yet configured for testing")(_test_module.test_plugin_nostart)
 
-test_htlc_accepted_hook_direct_restart = pytest.mark.skip("Not yet configured for testing")(_test_htlc_accepted_hook_direct_restart)
+test_plugin_persist_option = pytest.mark.skip("Not yet configured for testing")(_test_module.test_plugin_persist_option)
 
-from lightning.tests.test_plugin import test_htlc_accepted_hook_fail as _test_htlc_accepted_hook_fail
+test_plugin_shutdown = pytest.mark.skip("Not yet configured for testing")(_test_module.test_plugin_shutdown)
 
-test_htlc_accepted_hook_fail = pytest.mark.skip("Not yet configured for testing")(_test_htlc_accepted_hook_fail)
+test_plugin_slowinit = pytest.mark.skip("Not yet configured for testing")(_test_module.test_plugin_slowinit)
 
-from lightning.tests.test_plugin import test_htlc_accepted_hook_failmsg as _test_htlc_accepted_hook_failmsg
+test_plugin_startdir_lol = pytest.mark.skip("Not yet configured for testing")(_test_module.test_plugin_startdir_lol)
 
-test_htlc_accepted_hook_failmsg = pytest.mark.skip("Not yet configured for testing")(_test_htlc_accepted_hook_failmsg)
+test_pyln_request_notify = pytest.mark.skip("Not yet configured for testing")(_test_module.test_pyln_request_notify)
 
-from lightning.tests.test_plugin import test_htlc_accepted_hook_failonion as _test_htlc_accepted_hook_failonion
+test_renepay_not_important = pytest.mark.skip("Not yet configured for testing")(_test_module.test_renepay_not_important)
 
-test_htlc_accepted_hook_failonion = pytest.mark.skip("Not yet configured for testing")(_test_htlc_accepted_hook_failonion)
+test_replacement_payload = pytest.mark.skip("Not yet configured for testing")(_test_module.test_replacement_payload)
 
-from lightning.tests.test_plugin import test_htlc_accepted_hook_forward_restart as _test_htlc_accepted_hook_forward_restart
+test_restart_on_update = pytest.mark.skip("Not yet configured for testing")(_test_module.test_restart_on_update)
 
-test_htlc_accepted_hook_forward_restart = pytest.mark.skip("Not yet configured for testing")(_test_htlc_accepted_hook_forward_restart)
+test_rpc_command_hook = pytest.mark.skip("Not yet configured for testing")(_test_module.test_rpc_command_hook)
 
-from lightning.tests.test_plugin import test_htlc_accepted_hook_fwdto as _test_htlc_accepted_hook_fwdto
+test_rpc_passthrough = pytest.mark.skip("Not yet configured for testing")(_test_module.test_rpc_passthrough)
 
-test_htlc_accepted_hook_fwdto = pytest.mark.skip("Not yet configured for testing")(_test_htlc_accepted_hook_fwdto)
+test_self_disable = pytest.mark.skip("Not yet configured for testing")(_test_module.test_self_disable)
 
-from lightning.tests.test_plugin import test_htlc_accepted_hook_resolve as _test_htlc_accepted_hook_resolve
+test_sendpay_notifications = pytest.mark.skip("Not yet configured for testing")(_test_module.test_sendpay_notifications)
 
-test_htlc_accepted_hook_resolve = pytest.mark.skip("Not yet configured for testing")(_test_htlc_accepted_hook_resolve)
+test_sendpay_notifications_nowaiter = pytest.mark.skip("Not yet configured for testing")(_test_module.test_sendpay_notifications_nowaiter)
 
-from lightning.tests.test_plugin import test_important_plugin as _test_important_plugin
+test_sql = pytest.mark.skip("Not yet configured for testing")(_test_module.test_sql)
 
-test_important_plugin = pytest.mark.skip("Not yet configured for testing")(_test_important_plugin)
+test_sql_crash = pytest.mark.skip("Not yet configured for testing")(_test_module.test_sql_crash)
 
-from lightning.tests.test_plugin import test_important_plugin_shutdown as _test_important_plugin_shutdown
+test_sql_deprecated = pytest.mark.skip("Not yet configured for testing")(_test_module.test_sql_deprecated)
 
-test_important_plugin_shutdown = pytest.mark.skip("Not yet configured for testing")(_test_important_plugin_shutdown)
+test_utf8_passthrough = pytest.mark.skip("Not yet configured for testing")(_test_module.test_utf8_passthrough)
 
-from lightning.tests.test_plugin import test_invoice_creation_notification as _test_invoice_creation_notification
+test_warning_notification = pytest.mark.skip("Not yet configured for testing")(_test_module.test_warning_notification)
 
-test_invoice_creation_notification = pytest.mark.skip("Not yet configured for testing")(_test_invoice_creation_notification)
-
-from lightning.tests.test_plugin import test_invoice_payment_hook as _test_invoice_payment_hook
-
-test_invoice_payment_hook = pytest.mark.skip("Not yet configured for testing")(_test_invoice_payment_hook)
-
-from lightning.tests.test_plugin import test_invoice_payment_hook_hold as _test_invoice_payment_hook_hold
-
-test_invoice_payment_hook_hold = pytest.mark.skip("Not yet configured for testing")(_test_invoice_payment_hook_hold)
-
-from lightning.tests.test_plugin import test_invoice_payment_notification as _test_invoice_payment_notification
-
-test_invoice_payment_notification = pytest.mark.skip("Not yet configured for testing")(_test_invoice_payment_notification)
-
-from lightning.tests.test_plugin import test_keysend_plugin as _test_keysend_plugin
-
-test_keysend_plugin = pytest.mark.skip("Not yet configured for testing")(_test_keysend_plugin)
-
-from lightning.tests.test_plugin import test_libplugin as _test_libplugin
-
-test_libplugin = pytest.mark.skip("Not yet configured for testing")(_test_libplugin)
-
-from lightning.tests.test_plugin import test_libplugin_deprecated as _test_libplugin_deprecated
-
-test_libplugin_deprecated = pytest.mark.skip("Not yet configured for testing")(_test_libplugin_deprecated)
-
-from lightning.tests.test_plugin import test_listchannels_broken_message as _test_listchannels_broken_message
-
-test_listchannels_broken_message = pytest.mark.skip("Not yet configured for testing")(_test_listchannels_broken_message)
-
-from lightning.tests.test_plugin import test_millisatoshi_passthrough as _test_millisatoshi_passthrough
-
-test_millisatoshi_passthrough = pytest.mark.skip("Not yet configured for testing")(_test_millisatoshi_passthrough)
-
-from lightning.tests.test_plugin import test_notify as _test_notify
-
-test_notify = pytest.mark.skip("Not yet configured for testing")(_test_notify)
-
-from lightning.tests.test_plugin import test_openchannel_hook as _test_openchannel_hook
-
-test_openchannel_hook = pytest.mark.skip("Not yet configured for testing")(_test_openchannel_hook)
-
-from lightning.tests.test_plugin import test_openchannel_hook_chaining as _test_openchannel_hook_chaining
-
-test_openchannel_hook_chaining = pytest.mark.skip("Not yet configured for testing")(_test_openchannel_hook_chaining)
-
-from lightning.tests.test_plugin import test_openchannel_hook_error_handling as _test_openchannel_hook_error_handling
-
-test_openchannel_hook_error_handling = pytest.mark.skip("Not yet configured for testing")(_test_openchannel_hook_error_handling)
-
-from lightning.tests.test_plugin import test_option_passthrough as _test_option_passthrough
-
-test_option_passthrough = pytest.mark.skip("Not yet configured for testing")(_test_option_passthrough)
-
-from lightning.tests.test_plugin import test_option_types as _test_option_types
-
-test_option_types = pytest.mark.skip("Not yet configured for testing")(_test_option_types)
-
-from lightning.tests.test_plugin import test_pay_plugin as _test_pay_plugin
-
-test_pay_plugin = pytest.mark.skip("Not yet configured for testing")(_test_pay_plugin)
-
-from lightning.tests.test_plugin import test_peer_connected_remote_addr as _test_peer_connected_remote_addr
-
-test_peer_connected_remote_addr = pytest.mark.skip("Not yet configured for testing")(_test_peer_connected_remote_addr)
-
-from lightning.tests.test_plugin import test_peer_storage as _test_peer_storage
-
-test_peer_storage = pytest.mark.skip("Not yet configured for testing")(_test_peer_storage)
-
-from lightning.tests.test_plugin import test_plugin_command as _test_plugin_command
-
-test_plugin_command = pytest.mark.skip("Not yet configured for testing")(_test_plugin_command)
-
-from lightning.tests.test_plugin import test_plugin_connect_notifications as _test_plugin_connect_notifications
-
-test_plugin_connect_notifications = pytest.mark.skip("Not yet configured for testing")(_test_plugin_connect_notifications)
-
-from lightning.tests.test_plugin import test_plugin_connected_hook_chaining as _test_plugin_connected_hook_chaining
-
-test_plugin_connected_hook_chaining = pytest.mark.skip("Not yet configured for testing")(_test_plugin_connected_hook_chaining)
-
-from lightning.tests.test_plugin import test_plugin_dir as _test_plugin_dir
-
-test_plugin_dir = pytest.mark.skip("Not yet configured for testing")(_test_plugin_dir)
-
-from lightning.tests.test_plugin import test_plugin_disable as _test_plugin_disable
-
-test_plugin_disable = pytest.mark.skip("Not yet configured for testing")(_test_plugin_disable)
-
-from lightning.tests.test_plugin import test_plugin_fail as _test_plugin_fail
-
-test_plugin_fail = pytest.mark.skip("Not yet configured for testing")(_test_plugin_fail)
-
-from lightning.tests.test_plugin import test_plugin_fail_on_startup as _test_plugin_fail_on_startup
-
-test_plugin_fail_on_startup = pytest.mark.skip("Not yet configured for testing")(_test_plugin_fail_on_startup)
-
-from lightning.tests.test_plugin import test_plugin_feature_announce as _test_plugin_feature_announce
-
-test_plugin_feature_announce = pytest.mark.skip("Not yet configured for testing")(_test_plugin_feature_announce)
-
-from lightning.tests.test_plugin import test_plugin_hook as _test_plugin_hook
-
-test_plugin_hook = pytest.mark.skip("Not yet configured for testing")(_test_plugin_hook)
-
-from lightning.tests.test_plugin import test_plugin_nostart as _test_plugin_nostart
-
-test_plugin_nostart = pytest.mark.skip("Not yet configured for testing")(_test_plugin_nostart)
-
-from lightning.tests.test_plugin import test_plugin_persist_option as _test_plugin_persist_option
-
-test_plugin_persist_option = pytest.mark.skip("Not yet configured for testing")(_test_plugin_persist_option)
-
-from lightning.tests.test_plugin import test_plugin_shutdown as _test_plugin_shutdown
-
-test_plugin_shutdown = pytest.mark.skip("Not yet configured for testing")(_test_plugin_shutdown)
-
-from lightning.tests.test_plugin import test_plugin_slowinit as _test_plugin_slowinit
-
-test_plugin_slowinit = pytest.mark.skip("Not yet configured for testing")(_test_plugin_slowinit)
-
-from lightning.tests.test_plugin import test_plugin_startdir_lol as _test_plugin_startdir_lol
-
-test_plugin_startdir_lol = pytest.mark.skip("Not yet configured for testing")(_test_plugin_startdir_lol)
-
-from lightning.tests.test_plugin import test_pyln_request_notify as _test_pyln_request_notify
-
-test_pyln_request_notify = pytest.mark.skip("Not yet configured for testing")(_test_pyln_request_notify)
-
-from lightning.tests.test_plugin import test_renepay_not_important as _test_renepay_not_important
-
-test_renepay_not_important = pytest.mark.skip("Not yet configured for testing")(_test_renepay_not_important)
-
-from lightning.tests.test_plugin import test_replacement_payload as _test_replacement_payload
-
-test_replacement_payload = pytest.mark.skip("Not yet configured for testing")(_test_replacement_payload)
-
-from lightning.tests.test_plugin import test_restart_on_update as _test_restart_on_update
-
-test_restart_on_update = pytest.mark.skip("Not yet configured for testing")(_test_restart_on_update)
-
-from lightning.tests.test_plugin import test_rpc_command_hook as _test_rpc_command_hook
-
-test_rpc_command_hook = pytest.mark.skip("Not yet configured for testing")(_test_rpc_command_hook)
-
-from lightning.tests.test_plugin import test_rpc_passthrough as _test_rpc_passthrough
-
-test_rpc_passthrough = pytest.mark.skip("Not yet configured for testing")(_test_rpc_passthrough)
-
-from lightning.tests.test_plugin import test_self_disable as _test_self_disable
-
-test_self_disable = pytest.mark.skip("Not yet configured for testing")(_test_self_disable)
-
-from lightning.tests.test_plugin import test_sendpay_notifications as _test_sendpay_notifications
-
-test_sendpay_notifications = pytest.mark.skip("Not yet configured for testing")(_test_sendpay_notifications)
-
-from lightning.tests.test_plugin import test_sendpay_notifications_nowaiter as _test_sendpay_notifications_nowaiter
-
-test_sendpay_notifications_nowaiter = pytest.mark.skip("Not yet configured for testing")(_test_sendpay_notifications_nowaiter)
-
-from lightning.tests.test_plugin import test_sql as _test_sql
-
-test_sql = pytest.mark.skip("Not yet configured for testing")(_test_sql)
-
-from lightning.tests.test_plugin import test_sql_crash as _test_sql_crash
-
-test_sql_crash = pytest.mark.skip("Not yet configured for testing")(_test_sql_crash)
-
-from lightning.tests.test_plugin import test_sql_deprecated as _test_sql_deprecated
-
-test_sql_deprecated = pytest.mark.skip("Not yet configured for testing")(_test_sql_deprecated)
-
-from lightning.tests.test_plugin import test_utf8_passthrough as _test_utf8_passthrough
-
-test_utf8_passthrough = pytest.mark.skip("Not yet configured for testing")(_test_utf8_passthrough)
-
-from lightning.tests.test_plugin import test_warning_notification as _test_warning_notification
-
-test_warning_notification = pytest.mark.skip("Not yet configured for testing")(_test_warning_notification)
-
-from lightning.tests.test_plugin import test_watchtower as _test_watchtower
-
-test_watchtower = pytest.mark.skip("Not yet configured for testing")(_test_watchtower)
+test_watchtower = pytest.mark.skip("Not yet configured for testing")(_test_module.test_watchtower)

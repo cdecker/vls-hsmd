@@ -9,68 +9,39 @@
 
 # --- Preamble from config: Start ---
 import pytest
+from fixtures import *  # noqa: F401,F403
 # --- Preamble from config: End ---
 
-from lightning.tests.test_cln_rs import test_cln_plugin_reentrant as _test_cln_plugin_reentrant
+from lightning.tests import test_cln_rs as _test_module
 
-test_cln_plugin_reentrant = pytest.mark.skip("Not yet configured for testing")(_test_cln_plugin_reentrant)
+test_cln_plugin_reentrant = pytest.mark.skip("Not yet configured for testing")(_test_module.test_cln_plugin_reentrant)
 
-from lightning.tests.test_cln_rs import test_grpc_block_added_notifications as _test_grpc_block_added_notifications
+test_grpc_block_added_notifications = pytest.mark.skip("Not yet configured for testing")(_test_module.test_grpc_block_added_notifications)
 
-test_grpc_block_added_notifications = pytest.mark.skip("Not yet configured for testing")(_test_grpc_block_added_notifications)
+test_grpc_connect = pytest.mark.skip("Not yet configured for testing")(_test_module.test_grpc_connect)
 
-from lightning.tests.test_cln_rs import test_grpc_connect as _test_grpc_connect
+test_grpc_connect_notification = pytest.mark.skip("Not yet configured for testing")(_test_module.test_grpc_connect_notification)
 
-test_grpc_connect = pytest.mark.skip("Not yet configured for testing")(_test_grpc_connect)
+test_grpc_custommsg_notification = pytest.mark.skip("Not yet configured for testing")(_test_module.test_grpc_custommsg_notification)
 
-from lightning.tests.test_cln_rs import test_grpc_connect_notification as _test_grpc_connect_notification
+test_grpc_decode = pytest.mark.skip("Not yet configured for testing")(_test_module.test_grpc_decode)
 
-test_grpc_connect_notification = pytest.mark.skip("Not yet configured for testing")(_test_grpc_connect_notification)
+test_grpc_default_port_auto_starts = pytest.mark.skip("Not yet configured for testing")(_test_module.test_grpc_default_port_auto_starts)
 
-from lightning.tests.test_cln_rs import test_grpc_custommsg_notification as _test_grpc_custommsg_notification
+test_grpc_generate_certificate = pytest.mark.skip("Not yet configured for testing")(_test_module.test_grpc_generate_certificate)
 
-test_grpc_custommsg_notification = pytest.mark.skip("Not yet configured for testing")(_test_grpc_custommsg_notification)
+test_grpc_keysend_routehint = pytest.mark.skip("Not yet configured for testing")(_test_module.test_grpc_keysend_routehint)
 
-from lightning.tests.test_cln_rs import test_grpc_decode as _test_grpc_decode
+test_grpc_listpeerchannels = pytest.mark.skip("Not yet configured for testing")(_test_module.test_grpc_listpeerchannels)
 
-test_grpc_decode = pytest.mark.skip("Not yet configured for testing")(_test_grpc_decode)
+test_grpc_wrong_auth = pytest.mark.skip("Not yet configured for testing")(_test_module.test_grpc_wrong_auth)
 
-from lightning.tests.test_cln_rs import test_grpc_default_port_auto_starts as _test_grpc_default_port_auto_starts
+test_plugin_log_levels = pytest.mark.skip("Not yet configured for testing")(_test_module.test_plugin_log_levels)
 
-test_grpc_default_port_auto_starts = pytest.mark.skip("Not yet configured for testing")(_test_grpc_default_port_auto_starts)
+test_plugin_options_handle_defaults = pytest.mark.skip("Not yet configured for testing")(_test_module.test_plugin_options_handle_defaults)
 
-from lightning.tests.test_cln_rs import test_grpc_generate_certificate as _test_grpc_generate_certificate
+test_plugin_start = pytest.mark.skip("Not yet configured for testing")(_test_module.test_plugin_start)
 
-test_grpc_generate_certificate = pytest.mark.skip("Not yet configured for testing")(_test_grpc_generate_certificate)
+test_rpc_client = pytest.mark.skip("Not yet configured for testing")(_test_module.test_rpc_client)
 
-from lightning.tests.test_cln_rs import test_grpc_keysend_routehint as _test_grpc_keysend_routehint
-
-test_grpc_keysend_routehint = pytest.mark.skip("Not yet configured for testing")(_test_grpc_keysend_routehint)
-
-from lightning.tests.test_cln_rs import test_grpc_listpeerchannels as _test_grpc_listpeerchannels
-
-test_grpc_listpeerchannels = pytest.mark.skip("Not yet configured for testing")(_test_grpc_listpeerchannels)
-
-from lightning.tests.test_cln_rs import test_grpc_wrong_auth as _test_grpc_wrong_auth
-
-test_grpc_wrong_auth = pytest.mark.skip("Not yet configured for testing")(_test_grpc_wrong_auth)
-
-from lightning.tests.test_cln_rs import test_plugin_log_levels as _test_plugin_log_levels
-
-test_plugin_log_levels = pytest.mark.skip("Not yet configured for testing")(_test_plugin_log_levels)
-
-from lightning.tests.test_cln_rs import test_plugin_options_handle_defaults as _test_plugin_options_handle_defaults
-
-test_plugin_options_handle_defaults = pytest.mark.skip("Not yet configured for testing")(_test_plugin_options_handle_defaults)
-
-from lightning.tests.test_cln_rs import test_plugin_start as _test_plugin_start
-
-test_plugin_start = pytest.mark.skip("Not yet configured for testing")(_test_plugin_start)
-
-from lightning.tests.test_cln_rs import test_rpc_client as _test_rpc_client
-
-test_rpc_client = pytest.mark.skip("Not yet configured for testing")(_test_rpc_client)
-
-from lightning.tests.test_cln_rs import test_rust_plugin_subscribe_wildcard as _test_rust_plugin_subscribe_wildcard
-
-test_rust_plugin_subscribe_wildcard = pytest.mark.skip("Not yet configured for testing")(_test_rust_plugin_subscribe_wildcard)
+test_rust_plugin_subscribe_wildcard = pytest.mark.skip("Not yet configured for testing")(_test_module.test_rust_plugin_subscribe_wildcard)

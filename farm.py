@@ -135,30 +135,26 @@ def generate_wrapper_file_content(
         header.append("# No tests are configured for inclusion or skipping in this file.")
         return "\n".join(header)
 
-    # Generate imports for included tests (not skipped)
-    imports = []
-    for test in sorted(included_tests):
-        imports.append(f"from {module_path} import {test} as _{test}")
-        imports.append("")
-        imports.append(f"{test} = _{test}")
-        imports.append("")
+    # Import the module itself, not individual test functions
+    # This prevents pytest from discovering all tests in the module
+    module_import = f"from {'.'.join(module_path.split('.')[:-1])} import {module_path.split('.')[-1]} as _test_module"
     
-    # Generate imports and wrappers for skipped tests
-    skipped_imports = []
-    for test in sorted(skipped_tests.keys()):
-        reason = skipped_tests[test]
-        skipped_imports.extend([
-            f"from {module_path} import {test} as _{test}",
-            "",
-            f'{test} = pytest.mark.skip("{reason}")(_{test})',
+    content_parts = header + [module_import, ""]
+    
+    # Generate assignments for included tests
+    for test in sorted(included_tests):
+        content_parts.extend([
+            f"{test} = _test_module.{test}",
             ""
         ])
     
-    content_parts = header
-    if imports:
-        content_parts.extend(imports)
-    if skipped_imports:
-        content_parts.extend(skipped_imports)
+    # Generate assignments with skip decorators for skipped tests
+    for test in sorted(skipped_tests.keys()):
+        reason = skipped_tests[test]
+        content_parts.extend([
+            f'{test} = pytest.mark.skip("{reason}")(_test_module.{test})',
+            ""
+        ])
     
     return "\n".join(content_parts)
 

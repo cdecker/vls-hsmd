@@ -9,212 +9,111 @@
 
 # --- Preamble from config: Start ---
 import pytest
+from fixtures import *  # noqa: F401,F403
 # --- Preamble from config: End ---
 
-from lightning.tests.test_gossip import test_addgossip as _test_addgossip
+from lightning.tests import test_gossip as _test_module
 
-test_addgossip = pytest.mark.skip("Not yet configured for testing")(_test_addgossip)
+test_addgossip = pytest.mark.skip("Not yet configured for testing")(_test_module.test_addgossip)
 
-from lightning.tests.test_gossip import test_announce_address as _test_announce_address
+test_announce_address = pytest.mark.skip("Not yet configured for testing")(_test_module.test_announce_address)
 
-test_announce_address = pytest.mark.skip("Not yet configured for testing")(_test_announce_address)
+test_announce_and_connect_via_dns = pytest.mark.skip("Not yet configured for testing")(_test_module.test_announce_and_connect_via_dns)
 
-from lightning.tests.test_gossip import test_announce_and_connect_via_dns as _test_announce_and_connect_via_dns
+test_announce_dns_suppressed = pytest.mark.skip("Not yet configured for testing")(_test_module.test_announce_dns_suppressed)
 
-test_announce_and_connect_via_dns = pytest.mark.skip("Not yet configured for testing")(_test_announce_and_connect_via_dns)
+test_announce_dns_without_port = pytest.mark.skip("Not yet configured for testing")(_test_module.test_announce_dns_without_port)
 
-from lightning.tests.test_gossip import test_announce_dns_suppressed as _test_announce_dns_suppressed
+test_close_12_block_delay = pytest.mark.skip("Not yet configured for testing")(_test_module.test_close_12_block_delay)
 
-test_announce_dns_suppressed = pytest.mark.skip("Not yet configured for testing")(_test_announce_dns_suppressed)
+test_connect_by_gossip = pytest.mark.skip("Not yet configured for testing")(_test_module.test_connect_by_gossip)
 
-from lightning.tests.test_gossip import test_announce_dns_without_port as _test_announce_dns_without_port
+test_dump_own_gossip = pytest.mark.skip("Not yet configured for testing")(_test_module.test_dump_own_gossip)
 
-test_announce_dns_without_port = pytest.mark.skip("Not yet configured for testing")(_test_announce_dns_without_port)
+test_generate_gossip_store = pytest.mark.skip("Not yet configured for testing")(_test_module.test_generate_gossip_store)
 
-from lightning.tests.test_gossip import test_close_12_block_delay as _test_close_12_block_delay
+test_getroute_exclude = pytest.mark.skip("Not yet configured for testing")(_test_module.test_getroute_exclude)
 
-test_close_12_block_delay = pytest.mark.skip("Not yet configured for testing")(_test_close_12_block_delay)
+test_getroute_exclude_duplicate = pytest.mark.skip("Not yet configured for testing")(_test_module.test_getroute_exclude_duplicate)
 
-from lightning.tests.test_gossip import test_connect_by_gossip as _test_connect_by_gossip
+test_gossip_addresses = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_addresses)
 
-test_connect_by_gossip = pytest.mark.skip("Not yet configured for testing")(_test_connect_by_gossip)
+test_gossip_announce_invalid_block = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_announce_invalid_block)
 
-from lightning.tests.test_gossip import test_dump_own_gossip as _test_dump_own_gossip
+test_gossip_announce_unknown_block = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_announce_unknown_block)
 
-test_dump_own_gossip = pytest.mark.skip("Not yet configured for testing")(_test_dump_own_gossip)
+test_gossip_badsig = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_badsig)
 
-from lightning.tests.test_gossip import test_generate_gossip_store as _test_generate_gossip_store
+test_gossip_disable_channels = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_disable_channels)
 
-test_generate_gossip_store = pytest.mark.skip("Not yet configured for testing")(_test_generate_gossip_store)
+test_gossip_force_broadcast_channel_msgs = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_force_broadcast_channel_msgs)
 
-from lightning.tests.test_gossip import test_getroute_exclude as _test_getroute_exclude
+test_gossip_jsonrpc = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_jsonrpc)
 
-test_getroute_exclude = pytest.mark.skip("Not yet configured for testing")(_test_getroute_exclude)
+test_gossip_lease_rates = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_lease_rates)
 
-from lightning.tests.test_gossip import test_getroute_exclude_duplicate as _test_getroute_exclude_duplicate
+test_gossip_no_backtalk = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_no_backtalk)
 
-test_getroute_exclude_duplicate = pytest.mark.skip("Not yet configured for testing")(_test_getroute_exclude_duplicate)
+test_gossip_no_empty_announcements = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_no_empty_announcements)
 
-from lightning.tests.test_gossip import test_gossip_addresses as _test_gossip_addresses
+test_gossip_not_dying = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_not_dying)
 
-test_gossip_addresses = pytest.mark.skip("Not yet configured for testing")(_test_gossip_addresses)
+test_gossip_notices_close = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_notices_close)
 
-from lightning.tests.test_gossip import test_gossip_announce_invalid_block as _test_gossip_announce_invalid_block
+test_gossip_persistence = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_persistence)
 
-test_gossip_announce_invalid_block = pytest.mark.skip("Not yet configured for testing")(_test_gossip_announce_invalid_block)
+test_gossip_pruning = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_pruning)
 
-from lightning.tests.test_gossip import test_gossip_announce_unknown_block as _test_gossip_announce_unknown_block
+test_gossip_query_channel_range = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_query_channel_range)
 
-test_gossip_announce_unknown_block = pytest.mark.skip("Not yet configured for testing")(_test_gossip_announce_unknown_block)
+test_gossip_seeker_autoconnect = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_seeker_autoconnect)
 
-from lightning.tests.test_gossip import test_gossip_badsig as _test_gossip_badsig
+test_gossip_store_compact_noappend = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_store_compact_noappend)
 
-test_gossip_badsig = pytest.mark.skip("Not yet configured for testing")(_test_gossip_badsig)
+test_gossip_store_compact_on_load = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_store_compact_on_load)
 
-from lightning.tests.test_gossip import test_gossip_disable_channels as _test_gossip_disable_channels
+test_gossip_store_load = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_store_load)
 
-test_gossip_disable_channels = pytest.mark.skip("Not yet configured for testing")(_test_gossip_disable_channels)
+test_gossip_store_load_amount_truncated = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_store_load_amount_truncated)
 
-from lightning.tests.test_gossip import test_gossip_force_broadcast_channel_msgs as _test_gossip_force_broadcast_channel_msgs
+test_gossip_store_load_announce_before_update = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_store_load_announce_before_update)
 
-test_gossip_force_broadcast_channel_msgs = pytest.mark.skip("Not yet configured for testing")(_test_gossip_force_broadcast_channel_msgs)
+test_gossip_store_load_complex = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_store_load_complex)
 
-from lightning.tests.test_gossip import test_gossip_jsonrpc as _test_gossip_jsonrpc
+test_gossip_store_load_no_channel_update = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_store_load_no_channel_update)
 
-test_gossip_jsonrpc = pytest.mark.skip("Not yet configured for testing")(_test_gossip_jsonrpc)
+test_gossip_store_v10_upgrade = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_store_v10_upgrade)
 
-from lightning.tests.test_gossip import test_gossip_lease_rates as _test_gossip_lease_rates
+test_gossip_throttle = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_throttle)
 
-test_gossip_lease_rates = pytest.mark.skip("Not yet configured for testing")(_test_gossip_lease_rates)
+test_gossip_timestamp_filter = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_timestamp_filter)
 
-from lightning.tests.test_gossip import test_gossip_no_backtalk as _test_gossip_no_backtalk
+test_gossip_weirdalias = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossip_weirdalias)
 
-test_gossip_no_backtalk = pytest.mark.skip("Not yet configured for testing")(_test_gossip_no_backtalk)
+test_gossipwith = pytest.mark.skip("Not yet configured for testing")(_test_module.test_gossipwith)
 
-from lightning.tests.test_gossip import test_gossip_no_empty_announcements as _test_gossip_no_empty_announcements
+test_incoming_unreasonable = pytest.mark.skip("Not yet configured for testing")(_test_module.test_incoming_unreasonable)
 
-test_gossip_no_empty_announcements = pytest.mark.skip("Not yet configured for testing")(_test_gossip_no_empty_announcements)
+test_node_reannounce = pytest.mark.skip("Not yet configured for testing")(_test_module.test_node_reannounce)
 
-from lightning.tests.test_gossip import test_gossip_not_dying as _test_gossip_not_dying
+test_only_announce_one_dns = pytest.mark.skip("Not yet configured for testing")(_test_module.test_only_announce_one_dns)
 
-test_gossip_not_dying = pytest.mark.skip("Not yet configured for testing")(_test_gossip_not_dying)
+test_parms_listforwards = pytest.mark.skip("Not yet configured for testing")(_test_module.test_parms_listforwards)
 
-from lightning.tests.test_gossip import test_gossip_notices_close as _test_gossip_notices_close
+test_query_short_channel_id = pytest.mark.skip("Not yet configured for testing")(_test_module.test_query_short_channel_id)
 
-test_gossip_notices_close = pytest.mark.skip("Not yet configured for testing")(_test_gossip_notices_close)
+test_report_routing_failure = pytest.mark.skip("Not yet configured for testing")(_test_module.test_report_routing_failure)
 
-from lightning.tests.test_gossip import test_gossip_persistence as _test_gossip_persistence
+test_routetool = pytest.mark.skip("Not yet configured for testing")(_test_module.test_routetool)
 
-test_gossip_persistence = pytest.mark.skip("Not yet configured for testing")(_test_gossip_persistence)
+test_routing_gossip = pytest.mark.skip("Not yet configured for testing")(_test_module.test_routing_gossip)
 
-from lightning.tests.test_gossip import test_gossip_pruning as _test_gossip_pruning
+test_routing_gossip_reconnect = pytest.mark.skip("Not yet configured for testing")(_test_module.test_routing_gossip_reconnect)
 
-test_gossip_pruning = pytest.mark.skip("Not yet configured for testing")(_test_gossip_pruning)
+test_seeker_first_peer = pytest.mark.skip("Not yet configured for testing")(_test_module.test_seeker_first_peer)
 
-from lightning.tests.test_gossip import test_gossip_query_channel_range as _test_gossip_query_channel_range
+test_static_tor_onions = pytest.mark.skip("Not yet configured for testing")(_test_module.test_static_tor_onions)
 
-test_gossip_query_channel_range = pytest.mark.skip("Not yet configured for testing")(_test_gossip_query_channel_range)
+test_topology_leak = pytest.mark.skip("Not yet configured for testing")(_test_module.test_topology_leak)
 
-from lightning.tests.test_gossip import test_gossip_seeker_autoconnect as _test_gossip_seeker_autoconnect
-
-test_gossip_seeker_autoconnect = pytest.mark.skip("Not yet configured for testing")(_test_gossip_seeker_autoconnect)
-
-from lightning.tests.test_gossip import test_gossip_store_compact_noappend as _test_gossip_store_compact_noappend
-
-test_gossip_store_compact_noappend = pytest.mark.skip("Not yet configured for testing")(_test_gossip_store_compact_noappend)
-
-from lightning.tests.test_gossip import test_gossip_store_compact_on_load as _test_gossip_store_compact_on_load
-
-test_gossip_store_compact_on_load = pytest.mark.skip("Not yet configured for testing")(_test_gossip_store_compact_on_load)
-
-from lightning.tests.test_gossip import test_gossip_store_load as _test_gossip_store_load
-
-test_gossip_store_load = pytest.mark.skip("Not yet configured for testing")(_test_gossip_store_load)
-
-from lightning.tests.test_gossip import test_gossip_store_load_amount_truncated as _test_gossip_store_load_amount_truncated
-
-test_gossip_store_load_amount_truncated = pytest.mark.skip("Not yet configured for testing")(_test_gossip_store_load_amount_truncated)
-
-from lightning.tests.test_gossip import test_gossip_store_load_announce_before_update as _test_gossip_store_load_announce_before_update
-
-test_gossip_store_load_announce_before_update = pytest.mark.skip("Not yet configured for testing")(_test_gossip_store_load_announce_before_update)
-
-from lightning.tests.test_gossip import test_gossip_store_load_complex as _test_gossip_store_load_complex
-
-test_gossip_store_load_complex = pytest.mark.skip("Not yet configured for testing")(_test_gossip_store_load_complex)
-
-from lightning.tests.test_gossip import test_gossip_store_load_no_channel_update as _test_gossip_store_load_no_channel_update
-
-test_gossip_store_load_no_channel_update = pytest.mark.skip("Not yet configured for testing")(_test_gossip_store_load_no_channel_update)
-
-from lightning.tests.test_gossip import test_gossip_store_v10_upgrade as _test_gossip_store_v10_upgrade
-
-test_gossip_store_v10_upgrade = pytest.mark.skip("Not yet configured for testing")(_test_gossip_store_v10_upgrade)
-
-from lightning.tests.test_gossip import test_gossip_throttle as _test_gossip_throttle
-
-test_gossip_throttle = pytest.mark.skip("Not yet configured for testing")(_test_gossip_throttle)
-
-from lightning.tests.test_gossip import test_gossip_timestamp_filter as _test_gossip_timestamp_filter
-
-test_gossip_timestamp_filter = pytest.mark.skip("Not yet configured for testing")(_test_gossip_timestamp_filter)
-
-from lightning.tests.test_gossip import test_gossip_weirdalias as _test_gossip_weirdalias
-
-test_gossip_weirdalias = pytest.mark.skip("Not yet configured for testing")(_test_gossip_weirdalias)
-
-from lightning.tests.test_gossip import test_gossipwith as _test_gossipwith
-
-test_gossipwith = pytest.mark.skip("Not yet configured for testing")(_test_gossipwith)
-
-from lightning.tests.test_gossip import test_incoming_unreasonable as _test_incoming_unreasonable
-
-test_incoming_unreasonable = pytest.mark.skip("Not yet configured for testing")(_test_incoming_unreasonable)
-
-from lightning.tests.test_gossip import test_node_reannounce as _test_node_reannounce
-
-test_node_reannounce = pytest.mark.skip("Not yet configured for testing")(_test_node_reannounce)
-
-from lightning.tests.test_gossip import test_only_announce_one_dns as _test_only_announce_one_dns
-
-test_only_announce_one_dns = pytest.mark.skip("Not yet configured for testing")(_test_only_announce_one_dns)
-
-from lightning.tests.test_gossip import test_parms_listforwards as _test_parms_listforwards
-
-test_parms_listforwards = pytest.mark.skip("Not yet configured for testing")(_test_parms_listforwards)
-
-from lightning.tests.test_gossip import test_query_short_channel_id as _test_query_short_channel_id
-
-test_query_short_channel_id = pytest.mark.skip("Not yet configured for testing")(_test_query_short_channel_id)
-
-from lightning.tests.test_gossip import test_report_routing_failure as _test_report_routing_failure
-
-test_report_routing_failure = pytest.mark.skip("Not yet configured for testing")(_test_report_routing_failure)
-
-from lightning.tests.test_gossip import test_routetool as _test_routetool
-
-test_routetool = pytest.mark.skip("Not yet configured for testing")(_test_routetool)
-
-from lightning.tests.test_gossip import test_routing_gossip as _test_routing_gossip
-
-test_routing_gossip = pytest.mark.skip("Not yet configured for testing")(_test_routing_gossip)
-
-from lightning.tests.test_gossip import test_routing_gossip_reconnect as _test_routing_gossip_reconnect
-
-test_routing_gossip_reconnect = pytest.mark.skip("Not yet configured for testing")(_test_routing_gossip_reconnect)
-
-from lightning.tests.test_gossip import test_seeker_first_peer as _test_seeker_first_peer
-
-test_seeker_first_peer = pytest.mark.skip("Not yet configured for testing")(_test_seeker_first_peer)
-
-from lightning.tests.test_gossip import test_static_tor_onions as _test_static_tor_onions
-
-test_static_tor_onions = pytest.mark.skip("Not yet configured for testing")(_test_static_tor_onions)
-
-from lightning.tests.test_gossip import test_topology_leak as _test_topology_leak
-
-test_topology_leak = pytest.mark.skip("Not yet configured for testing")(_test_topology_leak)
-
-from lightning.tests.test_gossip import test_tor_port_onions as _test_tor_port_onions
-
-test_tor_port_onions = pytest.mark.skip("Not yet configured for testing")(_test_tor_port_onions)
+test_tor_port_onions = pytest.mark.skip("Not yet configured for testing")(_test_module.test_tor_port_onions)

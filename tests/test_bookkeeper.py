@@ -9,72 +9,41 @@
 
 # --- Preamble from config: Start ---
 import pytest
+from fixtures import *  # noqa: F401,F403
 # --- Preamble from config: End ---
 
-from lightning.tests.test_bookkeeper import test_bookkeeper_bad_migration as _test_bookkeeper_bad_migration
+from lightning.tests import test_bookkeeper as _test_module
 
-test_bookkeeper_bad_migration = pytest.mark.skip("Not yet configured for testing")(_test_bookkeeper_bad_migration)
+test_bookkeeper_bad_migration = pytest.mark.skip("Not yet configured for testing")(_test_module.test_bookkeeper_bad_migration)
 
-from lightning.tests.test_bookkeeper import test_bookkeeper_custom_notifs as _test_bookkeeper_custom_notifs
+test_bookkeeper_custom_notifs = pytest.mark.skip("Not yet configured for testing")(_test_module.test_bookkeeper_custom_notifs)
 
-test_bookkeeper_custom_notifs = pytest.mark.skip("Not yet configured for testing")(_test_bookkeeper_custom_notifs)
+test_bookkeeper_lease_fee_dupe_migration = pytest.mark.skip("Not yet configured for testing")(_test_module.test_bookkeeper_lease_fee_dupe_migration)
 
-from lightning.tests.test_bookkeeper import test_bookkeeper_lease_fee_dupe_migration as _test_bookkeeper_lease_fee_dupe_migration
+test_bookkeeping_closing_subsat_htlcs = pytest.mark.skip("Not yet configured for testing")(_test_module.test_bookkeeping_closing_subsat_htlcs)
 
-test_bookkeeper_lease_fee_dupe_migration = pytest.mark.skip("Not yet configured for testing")(_test_bookkeeper_lease_fee_dupe_migration)
+test_bookkeeping_closing_trimmed_htlcs = pytest.mark.skip("Not yet configured for testing")(_test_module.test_bookkeeping_closing_trimmed_htlcs)
 
-from lightning.tests.test_bookkeeper import test_bookkeeping_closing_subsat_htlcs as _test_bookkeeping_closing_subsat_htlcs
+test_bookkeeping_descriptions = pytest.mark.skip("Not yet configured for testing")(_test_module.test_bookkeeping_descriptions)
 
-test_bookkeeping_closing_subsat_htlcs = pytest.mark.skip("Not yet configured for testing")(_test_bookkeeping_closing_subsat_htlcs)
+test_bookkeeping_external_withdraw_missing = pytest.mark.skip("Not yet configured for testing")(_test_module.test_bookkeeping_external_withdraw_missing)
 
-from lightning.tests.test_bookkeeper import test_bookkeeping_closing_trimmed_htlcs as _test_bookkeeping_closing_trimmed_htlcs
+test_bookkeeping_external_withdraws = pytest.mark.skip("Not yet configured for testing")(_test_module.test_bookkeeping_external_withdraws)
 
-test_bookkeeping_closing_trimmed_htlcs = pytest.mark.skip("Not yet configured for testing")(_test_bookkeeping_closing_trimmed_htlcs)
+test_bookkeeping_inspect_mfc_dual_funded = pytest.mark.skip("Not yet configured for testing")(_test_module.test_bookkeeping_inspect_mfc_dual_funded)
 
-from lightning.tests.test_bookkeeper import test_bookkeeping_descriptions as _test_bookkeeping_descriptions
+test_bookkeeping_inspect_multifundchannel = pytest.mark.skip("Not yet configured for testing")(_test_module.test_bookkeeping_inspect_multifundchannel)
 
-test_bookkeeping_descriptions = pytest.mark.skip("Not yet configured for testing")(_test_bookkeeping_descriptions)
+test_bookkeeping_missed_chans_leases = pytest.mark.skip("Not yet configured for testing")(_test_module.test_bookkeeping_missed_chans_leases)
 
-from lightning.tests.test_bookkeeper import test_bookkeeping_external_withdraw_missing as _test_bookkeeping_external_withdraw_missing
+test_bookkeeping_missed_chans_pay_after = pytest.mark.skip("Not yet configured for testing")(_test_module.test_bookkeeping_missed_chans_pay_after)
 
-test_bookkeeping_external_withdraw_missing = pytest.mark.skip("Not yet configured for testing")(_test_bookkeeping_external_withdraw_missing)
+test_bookkeeping_missed_chans_pushed = pytest.mark.skip("Not yet configured for testing")(_test_module.test_bookkeeping_missed_chans_pushed)
 
-from lightning.tests.test_bookkeeper import test_bookkeeping_external_withdraws as _test_bookkeeping_external_withdraws
+test_bookkeeping_onchaind_txs = pytest.mark.skip("Not yet configured for testing")(_test_module.test_bookkeeping_onchaind_txs)
 
-test_bookkeeping_external_withdraws = pytest.mark.skip("Not yet configured for testing")(_test_bookkeeping_external_withdraws)
+test_bookkeeping_rbf_withdraw = pytest.mark.skip("Not yet configured for testing")(_test_module.test_bookkeeping_rbf_withdraw)
 
-from lightning.tests.test_bookkeeper import test_bookkeeping_inspect_mfc_dual_funded as _test_bookkeeping_inspect_mfc_dual_funded
+test_empty_node = pytest.mark.skip("Not yet configured for testing")(_test_module.test_empty_node)
 
-test_bookkeeping_inspect_mfc_dual_funded = pytest.mark.skip("Not yet configured for testing")(_test_bookkeeping_inspect_mfc_dual_funded)
-
-from lightning.tests.test_bookkeeper import test_bookkeeping_inspect_multifundchannel as _test_bookkeeping_inspect_multifundchannel
-
-test_bookkeeping_inspect_multifundchannel = pytest.mark.skip("Not yet configured for testing")(_test_bookkeeping_inspect_multifundchannel)
-
-from lightning.tests.test_bookkeeper import test_bookkeeping_missed_chans_leases as _test_bookkeeping_missed_chans_leases
-
-test_bookkeeping_missed_chans_leases = pytest.mark.skip("Not yet configured for testing")(_test_bookkeeping_missed_chans_leases)
-
-from lightning.tests.test_bookkeeper import test_bookkeeping_missed_chans_pay_after as _test_bookkeeping_missed_chans_pay_after
-
-test_bookkeeping_missed_chans_pay_after = pytest.mark.skip("Not yet configured for testing")(_test_bookkeeping_missed_chans_pay_after)
-
-from lightning.tests.test_bookkeeper import test_bookkeeping_missed_chans_pushed as _test_bookkeeping_missed_chans_pushed
-
-test_bookkeeping_missed_chans_pushed = pytest.mark.skip("Not yet configured for testing")(_test_bookkeeping_missed_chans_pushed)
-
-from lightning.tests.test_bookkeeper import test_bookkeeping_onchaind_txs as _test_bookkeeping_onchaind_txs
-
-test_bookkeeping_onchaind_txs = pytest.mark.skip("Not yet configured for testing")(_test_bookkeeping_onchaind_txs)
-
-from lightning.tests.test_bookkeeper import test_bookkeeping_rbf_withdraw as _test_bookkeeping_rbf_withdraw
-
-test_bookkeeping_rbf_withdraw = pytest.mark.skip("Not yet configured for testing")(_test_bookkeeping_rbf_withdraw)
-
-from lightning.tests.test_bookkeeper import test_empty_node as _test_empty_node
-
-test_empty_node = pytest.mark.skip("Not yet configured for testing")(_test_empty_node)
-
-from lightning.tests.test_bookkeeper import test_rebalance_tracking as _test_rebalance_tracking
-
-test_rebalance_tracking = pytest.mark.skip("Not yet configured for testing")(_test_rebalance_tracking)
+test_rebalance_tracking = pytest.mark.skip("Not yet configured for testing")(_test_module.test_rebalance_tracking)

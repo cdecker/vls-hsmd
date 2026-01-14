@@ -9,68 +9,39 @@
 
 # --- Preamble from config: Start ---
 import pytest
+from fixtures import *  # noqa: F401,F403
 # --- Preamble from config: End ---
 
-from lightning.tests.test_runes import test_badrune as _test_badrune
+from lightning.tests import test_runes as _test_module
 
-test_badrune = pytest.mark.skip("Not yet configured for testing")(_test_badrune)
+test_badrune = pytest.mark.skip("Not yet configured for testing")(_test_module.test_badrune)
 
-from lightning.tests.test_runes import test_blacklistrune as _test_blacklistrune
+test_blacklistrune = pytest.mark.skip("Not yet configured for testing")(_test_module.test_blacklistrune)
 
-test_blacklistrune = pytest.mark.skip("Not yet configured for testing")(_test_blacklistrune)
+test_checkrune = pytest.mark.skip("Not yet configured for testing")(_test_module.test_checkrune)
 
-from lightning.tests.test_runes import test_checkrune as _test_checkrune
+test_createrune = pytest.mark.skip("Not yet configured for testing")(_test_module.test_createrune)
 
-test_checkrune = pytest.mark.skip("Not yet configured for testing")(_test_checkrune)
+test_createrune_per_restriction = pytest.mark.skip("Not yet configured for testing")(_test_module.test_createrune_per_restriction)
 
-from lightning.tests.test_runes import test_createrune as _test_createrune
+test_id_migration = pytest.mark.skip("Not yet configured for testing")(_test_module.test_id_migration)
 
-test_createrune = pytest.mark.skip("Not yet configured for testing")(_test_createrune)
+test_invalid_restrictions = pytest.mark.skip("Not yet configured for testing")(_test_module.test_invalid_restrictions)
 
-from lightning.tests.test_runes import test_createrune_per_restriction as _test_createrune_per_restriction
+test_missing_method_or_nodeid = pytest.mark.skip("Not yet configured for testing")(_test_module.test_missing_method_or_nodeid)
 
-test_createrune_per_restriction = pytest.mark.skip("Not yet configured for testing")(_test_createrune_per_restriction)
+test_nonnumeric_uniqueid = pytest.mark.skip("Not yet configured for testing")(_test_module.test_nonnumeric_uniqueid)
 
-from lightning.tests.test_runes import test_id_migration as _test_id_migration
+test_rune_bolt11_parse = pytest.mark.skip("Not yet configured for testing")(_test_module.test_rune_bolt11_parse)
 
-test_id_migration = pytest.mark.skip("Not yet configured for testing")(_test_id_migration)
+test_rune_bolt12_parse = pytest.mark.skip("Not yet configured for testing")(_test_module.test_rune_bolt12_parse)
 
-from lightning.tests.test_runes import test_invalid_restrictions as _test_invalid_restrictions
+test_rune_error_messages = pytest.mark.skip("Not yet configured for testing")(_test_module.test_rune_error_messages)
 
-test_invalid_restrictions = pytest.mark.skip("Not yet configured for testing")(_test_invalid_restrictions)
+test_rune_method_missing = pytest.mark.skip("Not yet configured for testing")(_test_module.test_rune_method_missing)
 
-from lightning.tests.test_runes import test_missing_method_or_nodeid as _test_missing_method_or_nodeid
+test_rune_pay_amount = pytest.mark.skip("Not yet configured for testing")(_test_module.test_rune_pay_amount)
 
-test_missing_method_or_nodeid = pytest.mark.skip("Not yet configured for testing")(_test_missing_method_or_nodeid)
+test_showrune_id = pytest.mark.skip("Not yet configured for testing")(_test_module.test_showrune_id)
 
-from lightning.tests.test_runes import test_nonnumeric_uniqueid as _test_nonnumeric_uniqueid
-
-test_nonnumeric_uniqueid = pytest.mark.skip("Not yet configured for testing")(_test_nonnumeric_uniqueid)
-
-from lightning.tests.test_runes import test_rune_bolt11_parse as _test_rune_bolt11_parse
-
-test_rune_bolt11_parse = pytest.mark.skip("Not yet configured for testing")(_test_rune_bolt11_parse)
-
-from lightning.tests.test_runes import test_rune_bolt12_parse as _test_rune_bolt12_parse
-
-test_rune_bolt12_parse = pytest.mark.skip("Not yet configured for testing")(_test_rune_bolt12_parse)
-
-from lightning.tests.test_runes import test_rune_error_messages as _test_rune_error_messages
-
-test_rune_error_messages = pytest.mark.skip("Not yet configured for testing")(_test_rune_error_messages)
-
-from lightning.tests.test_runes import test_rune_method_missing as _test_rune_method_missing
-
-test_rune_method_missing = pytest.mark.skip("Not yet configured for testing")(_test_rune_method_missing)
-
-from lightning.tests.test_runes import test_rune_pay_amount as _test_rune_pay_amount
-
-test_rune_pay_amount = pytest.mark.skip("Not yet configured for testing")(_test_rune_pay_amount)
-
-from lightning.tests.test_runes import test_showrune_id as _test_showrune_id
-
-test_showrune_id = pytest.mark.skip("Not yet configured for testing")(_test_showrune_id)
-
-from lightning.tests.test_runes import test_showrunes as _test_showrunes
-
-test_showrunes = pytest.mark.skip("Not yet configured for testing")(_test_showrunes)
+test_showrunes = pytest.mark.skip("Not yet configured for testing")(_test_module.test_showrunes)
